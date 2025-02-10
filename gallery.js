@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const galleryContainer = document.getElementById("gallery");
-    const totalImages = 16; // Antal bilder (ändra vid behov)
+    const totalImages = 16; // Number of images
 
     for (let i = 1; i <= totalImages; i++) {
         let img = document.createElement("img");
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
         galleryContainer.appendChild(img);
     }
 
-    // Modal-funktioner
+    // Modal functions
     const modal = document.getElementById("imageModal");
     const modalImg = document.getElementById("modal-img");
     const closeModal = document.querySelector(".close");

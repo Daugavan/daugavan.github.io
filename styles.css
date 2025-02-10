@@ -7,6 +7,7 @@ html, body {
     overflow: hidden;
     font-family: 'Poppins', sans-serif;
     background-image: linear-gradient(to top, #d16ba5, #c65fad, #b555b7, #9d4fc3, #7b4dd0, #5e55cf, #3d5acb, #005ec5, #0060a7, #005776, #004944, #043922);
+    color: white; /* Ensure all text is white */
 }
 
 /* Logo Styling */
@@ -19,6 +20,7 @@ html, body {
     height: auto;
     border-radius: 50%; /* Optional: Makes the logo circular */
     transition: transform 0.3s ease;
+    cursor: pointer; /* Make it clickable */
 }
 
 .logo:hover {
@@ -143,6 +145,7 @@ nav ul li a.active::after {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     z-index: 1002;
     animation: bubblePop 0.5s ease-out;
+    color: black; /* Text color inside the bubble */
 }
 
 .thought-bubble::before {
@@ -177,16 +180,15 @@ nav ul li a.active::after {
     z-index: 1001;
 }
 
-/* Gallery Page - Fixar att bilderna hamnar rätt */
+/* Gallery Page - Modern and Responsive */
 .gallery-container {
     padding: 5rem 2rem;
     text-align: center;
 }
 
-/* Flyttar ner bilderna så de inte påverkas av blurreffekten */
 .image-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
     gap: 15px;
     max-width: 90%;
     margin: auto;
@@ -219,8 +221,8 @@ nav ul li a.active::after {
 }
 
 .modal-content {
-    max-width: 80%;
-    max-height: 80vh;
+    max-width: 90%;
+    max-height: 90vh;
     border-radius: 10px;
 }
 
@@ -244,13 +246,16 @@ nav ul li a.active::after {
 }
 .content h1 {
     font-size: 3rem;
-    color: #ffffff;
     margin: 0;
 }
 .content p {
     font-size: 1.2rem;
-    color: #ffffff;
     margin-top: 10px;
+}
+
+/* Add spacing between sections */
+.content h1 + p {
+    margin-top: 20px; /* Add space between heading and paragraph */
 }
 
 /* Animation for the Hero Text on index.html */
@@ -321,5 +326,37 @@ body::before {
     }
     100% {
         transform: translateY(-100%);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav ul {
+        gap: 1rem; /* Reduce gap between menu items on smaller screens */
+    }
+
+    .hero h1 {
+        font-size: 2rem; /* Smaller font size for mobile */
+    }
+
+    .hero p {
+        font-size: 1rem; /* Smaller font size for mobile */
+    }
+
+    .hero-image {
+        width: 150px; /* Smaller image for mobile */
+    }
+
+    .thought-bubble {
+        top: 80px; /* Adjust position for mobile */
+        padding: 15px; /* Smaller padding for mobile */
+    }
+
+    .gallery-container {
+        padding: 3rem 1rem; /* Adjust padding for mobile */
+    }
+
+    .image-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjust grid for mobile */
     }
 }
