@@ -1,39 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery</title>
-    <link rel="stylesheet" href="styles.css">
-    <script defer src="gallery.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Responsive adjustments for mobile devices */
+    @media (max-width: 768px) {
+      .logo {
+        width: 80px;
+        height: auto;
+      }
+      .gallery-container {
+        padding: 10px;
+      }
+      .image-grid {
+        padding-top: 80px; /* Maintain space for navigation */
+      }
+    }
+  </style>
 </head>
 <body>
+  <!-- Logo -->
+  <a href="index.html">
+    <img src="images/2.jpg" alt="Logo" class="logo">
+  </a>
 
-    <!-- Logo -->
-    <a href="index.html">
-        <img src="images/2.jpg" alt="Logo" class="logo">
-    </a>
+  <div class="gallery-container">
+    <!-- Navigation -->
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="gallery.html" class="active">Gallery</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
 
-    <div class="gallery-container">
-        <!-- Navigation -->
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="gallery.html" class="active">Gallery</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
+    <!-- Gallery content -->
+    <div id="gallery" class="image-grid"></div>
 
-        <!-- Gallery Grid -->
-        <div class="image-grid" id="gallery"></div>
-    </div>
-
-    <!-- Modal for clicked images -->
+    <!-- Modal for enlarged images -->
     <div id="imageModal" class="modal">
+      <div class="modal-content">
         <span class="close">&times;</span>
-        <img class="modal-content" id="modal-img">
+        <img id="modal-img" src="" alt="Enlarged Image">
+      </div>
     </div>
+  </div>
 
+  <script src="gallery.js"></script>
 </body>
 </html>

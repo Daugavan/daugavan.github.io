@@ -326,7 +326,7 @@ body::before {
 
 /* Responsiv Design */
 @media (max-width: 768px) {
-    /* Justeringar för mobil */
+    /* Adjustments for mobile devices */
     nav ul {
         gap: 1rem; /* Mindre mellanrum mellan menyalternativ */
     }
@@ -354,5 +354,15 @@ body::before {
 
     .image-grid {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Mindre grid-storlek för mobil */
+    }
+
+    /* Fix for the logo overlapping nav on mobile */
+    .logo {
+        left: 10px;
+        width: 40px;
+    }
+    nav {
+        padding-left: 70px;
+        box-sizing: border-box;
     }
 }
