@@ -356,9 +356,9 @@ body::before {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Mindre grid-storlek för mobil */
     }
 
-    /* Fix for the logo overlapping nav on mobile */
+    /* Further fix for the logo overlapping nav on mobile */
     .logo {
-        left: 10px;
+        left: 0;  /* Move logo further left */
         width: 40px;
     }
     nav {
