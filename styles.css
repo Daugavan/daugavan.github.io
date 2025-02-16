@@ -7,24 +7,25 @@ html, body {
     overflow-x: hidden;
     font-family: 'Poppins', sans-serif;
     background-image: linear-gradient(to top, #d16ba5, #c65fad, #b555b7, #9d4fc3, #7b4dd0, #5e55cf, #3d5acb, #005ec5, #0060a7, #005776, #004944, #043922);
-    color: white; /* All text är vit */
+    color: white;
 }
 
 /* Logo Styling */
 .logo {
     position: fixed;
-    top: 10px;
-    left: 20px;
-    z-index: 1001; /* Loggan är ovanför navigationen */
-    width: 50px; /* Storlek på loggan */
+    top: 50%;  /* Centers the logo vertically inside the nav bar */
+    left: 0;
+    width: 40px;
     height: auto;
-    border-radius: 50%; /* Gör loggan rund */
+    border-radius: 50%;
     transition: transform 0.3s ease;
-    cursor: pointer; /* Gör den klickbar */
+    cursor: pointer;
+    transform: translateY(-50%);  /* Perfect vertical alignment with menu */
+    z-index: 1001;
 }
 
 .logo:hover {
-    transform: scale(1.1); /* Hover-effekt */
+    transform: translateY(-50%) scale(1.1); /* Keeps hover effect aligned */
 }
 
 /* Navigation Bar - Centrerad och responsiv */
@@ -33,14 +34,14 @@ nav {
     top: 0;
     left: 0;
     width: 100%;
-    height: 60px; /* Fast höjd */
+    height: 60px;
     padding: 1rem 0;
     text-align: center;
-    background: transparent; /* Genomskinlig bakgrund */
-    backdrop-filter: blur(10px); /* Suddig effekt för bättre synlighet */
-    z-index: 1000; /* Menyn är ovanför annat innehåll */
+    background: transparent;
+    backdrop-filter: blur(10px);
+    z-index: 1000;
     display: flex;
-    justify-content: center; /* Centrerar menyn horisontellt */
+    justify-content: center;
     align-items: center;
 }
 
@@ -49,7 +50,7 @@ nav ul {
     padding: 0;
     margin: 0;
     display: flex;
-    gap: 2rem; /* Mellanrum mellan menyalternativ */
+    gap: 2rem;
 }
 
 nav a {
@@ -60,12 +61,12 @@ nav a {
 }
 
 nav a:hover {
-    color: #a8eb12; /* Hover-effekt */
+    color: #a8eb12;
 }
 
 /* Highlight för aktivt menyalternativ */
 nav ul li a.active {
-    color: #a8eb12; /* Färg för aktivt alternativ */
+    color: #a8eb12;
     position: relative;
 }
 
@@ -77,25 +78,21 @@ nav ul li a.active::after {
     bottom: -5px;
     width: 100%;
     height: 2px;
-    background-color: #a8eb12; /* Färg på understrykningen */
+    background-color: #a8eb12;
     animation: underlineSlide 0.3s ease-out;
 }
 
 @keyframes underlineSlide {
-    0% {
-        transform: scaleX(0);
-    }
-    100% {
-        transform: scaleX(1);
-    }
+    0% { transform: scaleX(0); }
+    100% { transform: scaleX(1); }
 }
 
-/* Ser till att inget innehåll hamnar under navigationen */
+/* Ger utrymme för menyn */
 .main-container, .page-container, .gallery-container {
-    padding-top: 80px; /* Ger utrymme för menyn */
+    padding-top: 80px;
 }
 
-/* Hero Section (Centrerad text på index.html) */
+/* Hero Section */
 .main-container {
     display: flex;
     flex-direction: column;
@@ -113,7 +110,7 @@ nav ul li a.active::after {
     margin-top: 10px;
 }
 
-/* Hypervisual Image på Index Page */
+/* Hypervisual Image */
 .hero-image {
     width: 200px;
     height: auto;
@@ -124,19 +121,15 @@ nav ul li a.active::after {
 }
 
 @keyframes float {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-20px);
-    }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
 }
 
 /* Thought Bubble Styling */
 .thought-bubble {
     display: none;
     position: fixed;
-    top: 100px; /* Justerad för att visas under menyn */
+    top: 100px;
     left: 50%;
     transform: translateX(-50%);
     background-color: white;
@@ -145,7 +138,7 @@ nav ul li a.active::after {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     z-index: 1002;
     animation: bubblePop 0.5s ease-out;
-    color: black; /* Textfärg inuti bubblan */
+    color: black;
 }
 
 .thought-bubble::before {
@@ -160,15 +153,11 @@ nav ul li a.active::after {
 }
 
 @keyframes bubblePop {
-    0% {
-        transform: translateX(-50%) scale(0);
-    }
-    100% {
-        transform: translateX(-50%) scale(1);
-    }
+    0% { transform: translateX(-50%) scale(0); }
+    100% { transform: translateX(-50%) scale(1); }
 }
 
-/* Overlay för thought bubble */
+/* Overlay for thought bubble */
 .overlay {
     display: none;
     position: fixed;
@@ -180,7 +169,7 @@ nav ul li a.active::after {
     z-index: 1001;
 }
 
-/* Gallery Page - Modern och responsiv */
+/* Gallery Page */
 .gallery-container {
     padding: 5rem 2rem;
     text-align: center;
@@ -188,11 +177,11 @@ nav ul li a.active::after {
 
 .image-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsiv grid */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 15px;
     max-width: 90%;
     margin: auto;
-    padding-top: 80px; /* Ger utrymme för menyn */
+    padding-top: 80px;
 }
 
 .gallery-item {
@@ -235,13 +224,13 @@ nav ul li a.active::after {
     cursor: pointer;
 }
 
-/* Fix för att centrera texten på About & Contact */
+/* Fix for centering text on About & Contact */
 .page-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Fyller hela skärmen */
+    height: 100vh;
     text-align: center;
 }
 .content h1 {
@@ -253,116 +242,38 @@ nav ul li a.active::after {
     margin-top: 10px;
 }
 
-/* Animation for the Hero Text on index.html */
-.animated-text {
-    animation: slideInFromLeft 1.5s ease-out forwards;
-}
-
-@keyframes slideInFromLeft {
-    0% {
-        transform: translateX(-100%);
-        opacity: 0;
-    }
-    100% {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-/* Animation for the About Page Text (Top to Center) */
-.about-text {
-    animation: slideInFromTop 1.5s ease-out forwards;
-}
-
-@keyframes slideInFromTop {
-    0% {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-/* Animation for the Contact Page Text (Right to Center) */
-.contact-text {
-    animation: slideInFromRight 1.5s ease-out forwards;
-}
-
-@keyframes slideInFromRight {
-    0% {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    100% {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-/* Hypervisual Background Animation */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 10%, transparent 10.01%);
-    background-size: 20px 20px;
-    z-index: -1;
-    animation: moveBackground 10s linear infinite;
-}
-
-@keyframes moveBackground {
-    0% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: translateY(-100%);
-    }
-}
-
 /* Responsiv Design */
 @media (max-width: 768px) {
-    /* Adjustments for mobile devices */
-    nav ul {
-        gap: 1rem; /* Mindre mellanrum mellan menyalternativ */
-    }
-
-    .hero h1 {
-        font-size: 2rem; /* Mindre textstorlek för mobil */
-    }
-
-    .hero p {
-        font-size: 1rem; /* Mindre textstorlek för mobil */
-    }
-
-    .hero-image {
-        width: 150px; /* Mindre bildstorlek för mobil */
-    }
-
-    .thought-bubble {
-        top: 80px; /* Justerad position för mobil */
-        padding: 15px; /* Mindre padding för mobil */
-    }
-
-    .gallery-container {
-        padding: 3rem 1rem; /* Mindre padding för mobil */
-    }
-
-    .image-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Mindre grid-storlek för mobil */
-    }
-
-    /* Further fix for the logo overlapping nav on mobile */
     .logo {
-        left: 0;  /* Move logo further left */
-        width: 40px;
+        left: 10px;
     }
     nav {
         padding-left: 70px;
         box-sizing: border-box;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .hero-image {
+        width: 150px;
+    }
+
+    .thought-bubble {
+        top: 80px;
+        padding: 15px;
+    }
+
+    .gallery-container {
+        padding: 3rem 1rem;
+    }
+
+    .image-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     }
 }
