@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 document.addEventListener("DOMContentLoaded", function () {
     const images = document.querySelectorAll(".gallery-item");
 
@@ -24,3 +25,31 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+=======
+document.addEventListener("DOMContentLoaded", function () {
+    const images = document.querySelectorAll(".gallery-item");
+
+    images.forEach(img => {
+        img.addEventListener("click", function () {
+            const modal = document.createElement("div");
+            modal.classList.add("modal");
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <img src="${img.src}" alt="Enlarged Image">
+                </div>
+            `;
+            document.body.appendChild(modal);
+
+            // Close Modal
+            modal.querySelector(".close").addEventListener("click", () => {
+                modal.remove();
+            });
+
+            modal.addEventListener("click", (e) => {
+                if (e.target === modal) modal.remove();
+            });
+        });
+    });
+});
+>>>>>>> 6d3a44fc077b5969da43359f30bd7d993d3a0d7e

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,3 +63,69 @@
     <script src="script.js"></script>
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcus Pettersson Photography</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+
+    <!-- Logo -->
+    <a href="index.html">
+        <img src="images/2.jpg" alt="Logo" class="logo">
+    </a>
+
+    <div class="main-container">
+        <!-- Navigation -->
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+
+        <!-- Hero Section -->
+        <header class="hero">
+            <h1 class="animated-text">Marcus Pettersson</h1>
+            <p class="animated-text">Explore a visually stunning collection of images</p>
+            <!-- Hypervisual Image -->
+            <img src="images/logo2.jpg" alt="Hypervisual Image" class="hero-image" id="logo2">
+        </header>
+    </div>
+
+    <!-- Thought Bubble -->
+    <div class="overlay" id="overlay"></div>
+    <div class="thought-bubble" id="thoughtBubble">
+        https://github.com/Daugavan/
+    </div>
+
+    <script>
+        // JavaScript to handle the thought bubble
+        const logo2 = document.getElementById('logo2');
+        const thoughtBubble = document.getElementById('thoughtBubble');
+        const overlay = document.getElementById('overlay');
+
+        logo2.addEventListener('click', () => {
+            thoughtBubble.style.display = 'block';
+            overlay.style.display = 'block';
+        });
+
+        overlay.addEventListener('click', () => {
+            thoughtBubble.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>
+>>>>>>> 6d3a44fc077b5969da43359f30bd7d993d3a0d7e
