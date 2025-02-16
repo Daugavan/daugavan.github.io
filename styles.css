@@ -3,8 +3,8 @@ html, body {
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
+    overflow-x: hidden;
     font-family: 'Poppins', sans-serif;
     background-image: linear-gradient(to top, #d16ba5, #c65fad, #b555b7, #9d4fc3, #7b4dd0, #5e55cf, #3d5acb, #005ec5, #0060a7, #005776, #004944, #043922);
     color: white; /* All text är vit */
@@ -326,18 +326,13 @@ body::before {
 
 /* Responsiv Design */
 @media (max-width: 768px) {
-    /* Justera navigationen för mobil */
+    /* Justeringar för mobil */
     nav ul {
         gap: 1rem; /* Mindre mellanrum mellan menyalternativ */
     }
 
-    nav a {
-        font-size: 1rem; /* Mindre textstorlek för mobil */
-    }
-
-    /* Justera Hero Section för mobil */
     .hero h1 {
-        font-size: 2rem; /* Mindre rubrik för mobil */
+        font-size: 2rem; /* Mindre textstorlek för mobil */
     }
 
     .hero p {
@@ -345,34 +340,19 @@ body::before {
     }
 
     .hero-image {
-        width: 150px; /* Mindre bild för mobil */
+        width: 150px; /* Mindre bildstorlek för mobil */
     }
 
-    /* Justera Thought Bubble för mobil */
     .thought-bubble {
-        top: 80px; /* Justera position för mobil */
+        top: 80px; /* Justerad position för mobil */
         padding: 15px; /* Mindre padding för mobil */
-        font-size: 0.9rem; /* Mindre textstorlek för mobil */
     }
 
-    /* Justera Gallery för mobil */
     .gallery-container {
         padding: 3rem 1rem; /* Mindre padding för mobil */
     }
 
     .image-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Mindre bilder för mobil */
-    }
-
-    /* Justera Modal för mobil */
-    .modal-content {
-        max-width: 90%; /* Mer utrymme för mobil */
-        max-height: 90vh;
-    }
-
-    .close {
-        top: 10px; /* Justera stängknappen för mobil */
-        right: 20px;
-        font-size: 24px;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Mindre grid-storlek för mobil */
     }
 }
