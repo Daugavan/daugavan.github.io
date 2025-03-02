@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interaktiv Terminalsimulator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="terminal">
+        <div id="output"></div>
+        <div class="input-line">
+            <span class="prompt">$</span>
+            <input type="text" id="commandInput" autofocus>
+        </div>
+    </div>
+
+    <script>
+        const outputElement = document.getElementById('output');
+        const commandInput = document.getElementById('commandInput');
+
+        const commands = {
+            'help': 'Tillgängliga kommandon: help, scan, hack, clear',
+            'scan': 'Skannar nätverket... Inga sårbarheter hittades.',
+            'hack': 'Åtkomst nekad. Behörighet krävs för att utföra detta kommando.',
+            'clear': ''
+        };
+
+        commandInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                const input = commandInput.value.trim();
+                if (input) {
+                    appendOutput(`$ ${input}`);
+                    if (commands.hasOwnProperty(input)) {
+                        if (input === 'clear') {
+                            clearOutput();
+                        } else {
+                            appendOutput(commands[input]);
+                        }
+                    } else {
+                        appendOutput(`Okänt kommando: ${input}`);
+                    }
+                    commandInput.value = '';
+                }
+            }
+        });
+
+        function appendOutput(text) {
+            const line = document.createElement('div');
+            line.textContent = text;
+            outputElement.appendChild(line);
+            outputElement.scrollTop = outputElement.scrollHeight;
+        }
+
+        function clearOutput() {
+            outputElement.innerHTML = '';
+        }
+    </script>
+</body>
+</html>

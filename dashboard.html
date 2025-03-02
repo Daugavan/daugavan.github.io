@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcus Pettersson - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <img src="images/logo.jpg" class="logo" alt="Main Logo">
+        <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="nav-decoration"></div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1 class="animated-text">Marcus Pettersson</h1>
+            <p class="animated-text">Creative Developer & Visual Storyteller</p>
+        </div>
+
+        <!-- Integrated Dashboard -->
+        <div class="integrated-dashboard">
+            <!-- Graphs Section -->
+            <div class="graph-container">
+                <div class="graph">
+                    <img src="images/graph1.svg" alt="Performance Metrics">
+                </div>
+                <div class="graph">
+                    <img src="images/graph2.svg" alt="Engagement Analytics">
+                </div>
+            </div>
+
+            <!-- KPI Dashboard -->
+            <div class="kpi-dashboard">
+                <div class="kpi-card">
+                    <h3>Photos Published</h3>
+                    <div class="kpi-value">36</div>
+                    <div class="trend up">↑ New additions</div>
+                </div>
+                <div class="kpi-card">
+                    <h3>GitHub Repos</h3>
+                    <div class="kpi-value">12</div>
+                    <div class="trend up">↑ Active projects</div>
+                </div>
+                <div class="kpi-card">
+                    <h3>Followers</h3>
+                    <div class="kpi-value">250</div>
+                    <div class="trend up">↑ Growing community</div>
+                </div>
+            </div>
+
+            <!-- Portfolio Grid -->
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <img src="https://via.placeholder.com/400x300/4361ee/ffffff?text=Photography+1" alt="Nature Photography">
+                    <div class="item-info">
+                        <div class="item-type photo">Photography</div>
+                        <p>Mountain landscape collection</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://via.placeholder.com/400x300/f72585/ffffff?text=Web+Project" alt="Web Project">
+                    <div class="item-info">
+                        <div class="item-type github">GitHub</div>
+                        <p>Interactive dashboard system</p>
+                        <div class="commit-timeline">
+                            <div class="commit-bar" style="height: 70%"></div>
+                            <div class="commit-bar" style="height: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://via.placeholder.com/400x300/4361ee/ffffff?text=Urban+Photo" alt="Urban Photography">
+                    <div class="item-info">
+                        <div class="item-type photo">Photography</div>
+                        <p>City architecture series</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Secondary Logo - Only Instance -->
+        <img src="images/logo2.jpg" class="dashboard-logo" alt="Secondary Logo">
+    </div>
+</body>
+</html>

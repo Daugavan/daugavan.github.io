@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gallery</title>
+  <title>Gallery - Marcus Pettersson</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     /* Responsive adjustments for mobile devices */
@@ -16,7 +16,7 @@
         padding: 10px;
       }
       .image-grid {
-        padding-top: 80px; /* Maintain space for navigation */
+        padding-top: 80px;
       }
     }
   </style>
@@ -24,21 +24,24 @@
 <body>
   <!-- Logo -->
   <a href="index.html">
-    <img src="images/2.jpg" alt="Logo" class="logo">
+    <img src="images/logo.jpg" alt="Logo" class="logo">
   </a>
 
-  <div class="gallery-container">
-    <!-- Navigation -->
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="gallery.html" class="active">Gallery</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
+  <!-- Navigation -->
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="gallery.html" class="active">Gallery</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+  <!-- New green line below -->
+  <div class="nav-decoration"></div>
 
-    <!-- Gallery content -->
+  <!-- Gallery Content -->
+  <div class="gallery-container">
     <div id="gallery" class="image-grid"></div>
 
     <!-- Modal for enlarged images -->

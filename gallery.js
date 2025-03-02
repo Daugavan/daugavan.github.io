@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const galleryContainer = document.getElementById("gallery");
-    const totalImages = 16; // Number of images
+    const totalImages = 18; // Number of images
 
     for (let i = 1; i <= totalImages; i++) {
         let img = document.createElement("img");

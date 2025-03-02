@@ -6,44 +6,52 @@
   <title>Contact</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* Responsive adjustments for mobile devices */
     @media (max-width: 768px) {
-      .logo {
-        width: 80px;
-        height: auto;
-      }
-      .page-container {
-        padding: 10px;
-      }
-      .content {
-        text-align: center;
-      }
+      .logo { width: 80px; }
+      .page-container { padding: 10px; }
+      .content { text-align: center; }
     }
   </style>
 </head>
 <body>
-
-  <!-- Logo -->
   <a href="index.html">
-    <img src="images/2.jpg" alt="Logo" class="logo">
+    <img src="images/logo.jpg" alt="Logo" class="logo">
   </a>
 
   <div class="page-container">
-    <!-- Navigation -->
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
         <li><a href="gallery.html">Gallery</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html" class="active">Contact</a></li>
       </ul>
     </nav>
+    <!-- Green line -->
+    <div class="nav-decoration"></div>
 
     <section class="content">
       <h1 class="contact-text">Contact</h1>
-      <p class="contact-text">Get in touch with me via email at <strong>hej@marcusp.se</strong></p>
+      <!-- Nu är det G i "riGht" som är klickbar -->
+      <p class="contact-text">
+        Get in touch with me via email at 
+        <strong>BE RI<span id="secretG">G</span>HT BACK</strong>
+      </p>
     </section>
   </div>
 
+  <!-- Script för dold klickfunktion -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const secretG = document.getElementById('secretG');
+      if (secretG) {
+        secretG.addEventListener('click', function() {
+          // Navigera till admin.html
+          window.location.href = 'admin.html';
+        });
+      }
+    });
+  </script>
 </body>
 </html>

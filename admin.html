@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    @media (max-width: 768px) {
+      .logo { width: 80px; }
+      .page-container { padding: 10px; }
+      .content { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html">
+    <img src="images/logo.jpg" alt="Logo" class="logo">
+  </a>
+
+  <div class="page-container">
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-decoration"></div>
+
+    <!-- Vi lägger in "easter.html"-innehållet här, ovanför texten -->
+    <section class="content" style="text-align:center; margin-bottom: 2rem;">
+      <div class="easter-wrap">
+        <div class="terminal">
+          <div id="output"></div>
+          <div class="input-line">
+              <span class="prompt">$</span>
+              <input type="text" id="commandInput" autofocus>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content">
+      <h1 class="contact-text">Contact</h1>
+      <p class="contact-text">Get in touch with me via email at <strong>BE RIGHT BACK</strong></p>
+    </section>
+  </div>
+
+  <!-- Script från easter.html flyttas in här -->
+  <script>
+      const outputElement = document.getElementById('output');
+      const commandInput = document.getElementById('commandInput');
+
+      const commands = {
+          'help': 'Tillgängliga kommandon: help, scan, hack, clear',
+          'scan': 'Skannar nätverket... Inga sårbarheter hittades.',
+          'hack': 'Åtkomst nekad. Behörighet krävs för att utföra detta kommando.',
+          'clear': ''
+      };
+
+      commandInput.addEventListener('keydown', function(event) {
+          if (event.key === 'Enter') {
+              const input = commandInput.value.trim();
+              if (input) {
+                  appendOutput(`$ ${input}`);
+                  if (commands.hasOwnProperty(input)) {
+                      if (input === 'clear') {
+                          clearOutput();
+                      } else {
+                          appendOutput(commands[input]);
+                      }
+                  } else {
+                      appendOutput(`Okänt kommando: ${input}`);
+                  }
+                  commandInput.value = '';
+              }
+          }
+      });
+
+      function appendOutput(text) {
+          const line = document.createElement('div');
+          line.textContent = text;
+          outputElement.appendChild(line);
+          outputElement.scrollTop = outputElement.scrollHeight;
+      }
+
+      function clearOutput() {
+          outputElement.innerHTML = '';
+      }
+  </script>
+</body>
+</html>

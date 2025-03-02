@@ -1,4 +1,4 @@
-/* Grundläggande reset */
+/* =============== BASE STYLES =============== */
 html, body {
     margin: 0;
     padding: 0;
@@ -7,40 +7,22 @@ html, body {
     overflow-x: hidden;
     font-family: 'Poppins', sans-serif;
     background-image: linear-gradient(to top, #d16ba5, #c65fad, #b555b7, #9d4fc3, #7b4dd0, #5e55cf, #3d5acb, #005ec5, #0060a7, #005776, #004944, #043922);
-    color: white; /* All text är vit */
+    color: white;
 }
 
-/* Logo Styling */
-.logo {
-    position: fixed;
-    top: 10px;
-    left: 20px;
-    z-index: 1001; /* Loggan är ovanför navigationen */
-    width: 50px; /* Storlek på loggan */
-    height: auto;
-    border-radius: 50%; /* Gör loggan rund */
-    transition: transform 0.3s ease;
-    cursor: pointer; /* Gör den klickbar */
-}
-
-.logo:hover {
-    transform: scale(1.1); /* Hover-effekt */
-}
-
-/* Navigation Bar - Centrerad och responsiv */
+/* =============== NAVIGATION =============== */
 nav {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 60px; /* Fast höjd */
+    height: 60px;
     padding: 1rem 0;
-    text-align: center;
-    background: transparent; /* Genomskinlig bakgrund */
-    backdrop-filter: blur(10px); /* Suddig effekt för bättre synlighet */
-    z-index: 1000; /* Menyn är ovanför annat innehåll */
+    background: transparent;
+    backdrop-filter: blur(10px);
+    z-index: 1000;
     display: flex;
-    justify-content: center; /* Centrerar menyn horisontellt */
+    justify-content: center;
     align-items: center;
 }
 
@@ -49,138 +31,202 @@ nav ul {
     padding: 0;
     margin: 0;
     display: flex;
-    gap: 2rem; /* Mellanrum mellan menyalternativ */
+    gap: 2rem;
 }
 
 nav a {
     text-decoration: none;
     color: #ffffff;
     font-size: 1.2rem;
-    transition: color 0.3s;
+    transition: all 0.3s;
 }
 
 nav a:hover {
-    color: #a8eb12; /* Hover-effekt */
+    color: #a8eb12;
+    transform: translateY(-2px);
 }
 
-/* Highlight för aktivt menyalternativ */
-nav ul li a.active {
-    color: #a8eb12; /* Färg för aktivt alternativ */
-    position: relative;
-}
-
-/* Understrykning för aktivt menyalternativ */
-nav ul li a.active::after {
-    content: '';
-    position: absolute;
+.nav-decoration {
+    position: fixed;
+    top: 60px;
     left: 0;
-    bottom: -5px;
     width: 100%;
     height: 2px;
-    background-color: #a8eb12; /* Färg på understrykningen */
-    animation: underlineSlide 0.3s ease-out;
+    background: linear-gradient(90deg, transparent, #a8eb12 50%, transparent);
+    z-index: 1000;
+    animation: navGlow 3s infinite;
 }
 
-@keyframes underlineSlide {
-    0% {
-        transform: scaleX(0);
-    }
-    100% {
-        transform: scaleX(1);
-    }
+@keyframes navGlow {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
 }
 
-/* Ser till att inget innehåll hamnar under navigationen */
-.main-container, .page-container, .gallery-container {
-    padding-top: 80px; /* Ger utrymme för menyn */
+/* =============== LOGOS =============== */
+.logo {
+    position: fixed;
+    top: 10px;
+    left: 20px;
+    z-index: 1001;
+    width: 50px;
+    height: auto;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    cursor: pointer;
 }
 
-/* Hero Section (Centrerad text på index.html) */
+.logo:hover {
+    transform: scale(1.1);
+}
+
+.dashboard-logo {
+    width: 100px;
+    margin: 3rem auto;
+    display: block;
+    border-radius: 50%;
+    animation: float 3s ease-in-out infinite;
+}
+
+/* =============== HOMEPAGE =============== */
 .main-container {
+    padding-top: 80px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
-}
-.hero h1 {
-    font-size: 3rem;
-    margin: 0;
-}
-.hero p {
-    font-size: 1.2rem;
-    margin-top: 10px;
+    min-height: 100vh;
 }
 
-/* Hypervisual Image på Index Page */
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+}
+
 .hero-image {
     width: 200px;
     height: auto;
     border-radius: 50%;
-    margin-top: 20px;
+    margin: 20px 0;
     animation: float 3s ease-in-out infinite;
     cursor: pointer;
 }
 
 @keyframes float {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-20px);
-    }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
 }
 
-/* Thought Bubble Styling */
-.thought-bubble {
-    display: none;
-    position: fixed;
-    top: 100px; /* Justerad för att visas under menyn */
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: white;
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    z-index: 1002;
-    animation: bubblePop 0.5s ease-out;
-    color: black; /* Textfärg inuti bubblan */
+/* =============== DASHBOARD STYLES =============== */
+.dashboard-page {
+    padding-top: 80px;
+    min-height: 100vh;
 }
 
-.thought-bubble::before {
-    content: '';
-    position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 10px;
-    border-style: solid;
-    border-color: white transparent transparent transparent;
+.integrated-dashboard {
+    width: 90%;
+    margin: 0 auto;
+    padding: 2rem 0;
 }
 
-@keyframes bubblePop {
-    0% {
-        transform: translateX(-50%) scale(0);
-    }
-    100% {
-        transform: translateX(-50%) scale(1);
-    }
+.graph-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin: 2rem 0;
 }
 
-/* Overlay för thought bubble */
-.overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1001;
+.graph {
+    background: rgba(255,255,255,0.1);
+    padding: 1.5rem;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
 }
 
-/* Gallery Page - Modern och responsiv */
+/* =============== KPI DASHBOARD =============== */
+.kpi-dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.kpi-card {
+    background: rgba(255,255,255,0.15);
+    padding: 1.2rem;
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.25);
+    transition: transform 0.3s ease;
+    min-height: 150px;
+}
+
+.kpi-card:hover {
+    transform: translateY(-5px);
+}
+
+.kpi-value {
+    font-size: 2.2rem;
+    color: #a8eb12;
+    margin: 0.5rem 0;
+    font-weight: 700;
+}
+
+.trend {
+    font-size: 0.9rem;
+}
+.trend.up { color: #a8eb12; }
+.trend.down { color: #ff6b6b; }
+
+/* =============== PORTFOLIO GRID =============== */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.portfolio-item {
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.portfolio-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+.item-type {
+    font-size: 0.8em;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+}
+.item-type.photo { color: #a8eb12; }
+.item-type.github { color: #d16ba5; }
+
+.commit-timeline {
+    height: 100px;
+    display: flex;
+    align-items: flex-end;
+    margin-top: 1rem;
+}
+
+.commit-bar {
+    flex: 1;
+    background-color: #d16ba5;
+    margin-right: 2px;
+    opacity: 0.7;
+    transition: all 0.3s;
+}
+
+.commit-bar:hover {
+    opacity: 1;
+}
+
+/* =============== GALLERY =============== */
 .gallery-container {
     padding: 5rem 2rem;
     text-align: center;
@@ -188,11 +234,10 @@ nav ul li a.active::after {
 
 .image-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsiv grid */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 15px;
     max-width: 90%;
     margin: auto;
-    padding-top: 80px; /* Ger utrymme för menyn */
 }
 
 .gallery-item {
@@ -202,167 +247,161 @@ nav ul li a.active::after {
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
 }
+
 .gallery-item:hover {
     transform: scale(1.05);
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
 }
 
-/* Modal Styling */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    max-width: 80%;
-    max-height: 80vh;
-    border-radius: 10px;
-}
-
-.close {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    font-size: 30px;
-    color: white;
-    cursor: pointer;
-}
-
-/* Fix för att centrera texten på About & Contact */
+/* =============== ABOUT & CONTACT =============== */
 .page-container {
+    padding-top: 80px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Fyller hela skärmen */
+    min-height: 100vh;
     text-align: center;
 }
-.content h1 {
-    font-size: 3rem;
-    margin: 0;
-}
-.content p {
-    font-size: 1.2rem;
-    margin-top: 10px;
+
+.content {
+    max-width: 800px;
+    padding: 2rem;
 }
 
-/* Animation for the Hero Text on index.html */
-.animated-text {
-    animation: slideInFromLeft 1.5s ease-out forwards;
-}
+/* =============== ANIMATIONS =============== */
+.animated-text { animation: slideInFromLeft 1.5s ease-out; }
+.about-text { animation: slideInFromTop 1.5s ease-out; }
+.contact-text { animation: slideInFromRight 1.5s ease-out; }
 
 @keyframes slideInFromLeft {
-    0% {
-        transform: translateX(-100%);
-        opacity: 0;
-    }
-    100% {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-/* Animation for the About Page Text (Top to Center) */
-.about-text {
-    animation: slideInFromTop 1.5s ease-out forwards;
+    0% { transform: translateX(-100%); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
 }
 
 @keyframes slideInFromTop {
-    0% {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-/* Animation for the Contact Page Text (Right to Center) */
-.contact-text {
-    animation: slideInFromRight 1.5s ease-out forwards;
+    0% { transform: translateY(-100%); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
 }
 
 @keyframes slideInFromRight {
-    0% {
-        transform: translateX(100%);
-        opacity: 0;
+    0% { transform: translateX(100%); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+/* =============== RESPONSIVE DESIGN =============== */
+@media (max-width: 768px) {
+    nav ul { gap: 1rem; }
+    .logo { left: 10px; width: 40px; }
+    .hero-image { width: 150px; }
+
+    .graph-container {
+        grid-template-columns: 1fr;
     }
-    100% {
-        transform: translateX(0);
-        opacity: 1;
+
+    .kpi-dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-logo {
+        width: 80px;
+    }
+
+    .integrated-dashboard {
+        width: 95%;
+        padding: 1.5rem;
     }
 }
 
-/* Hypervisual Background Animation */
-body::before {
-    content: '';
+/* =============== GALLERY MODAL FIX =============== */
+.modal {
+    display: none;
     position: fixed;
-    top: 0;
+    z-index: 9999; /* ensure it’s on top */
     left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 10%, transparent 10.01%);
-    background-size: 20px 20px;
-    z-index: -1;
-    animation: moveBackground 10s linear infinite;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
-@keyframes moveBackground {
-    0% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: translateY(-100%);
-    }
+.modal-content {
+    position: relative;
+    margin: 1rem;
+    max-width: 90%;
+    max-height: 80%;
 }
 
-/* Responsiv Design */
-@media (max-width: 768px) {
-    /* Adjustments for mobile devices */
-    nav ul {
-        gap: 1rem; /* Mindre mellanrum mellan menyalternativ */
-    }
+.modal-content img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
 
-    .hero h1 {
-        font-size: 2rem; /* Mindre textstorlek för mobil */
-    }
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-    .hero p {
-        font-size: 1rem; /* Mindre textstorlek för mobil */
-    }
+/* =============== DARKEN GRAPHS =============== */
+.graph img {
+    filter: brightness(0.8) contrast(1.2);
+}
 
-    .hero-image {
-        width: 150px; /* Mindre bildstorlek för mobil */
-    }
+/* =============== EASTER TERMINAL =============== *
+   (från styles_admin.css, men omskrivet för att
+    inte tvinga hela sajtens <body> till svart
+    bakgrund. Nu ligger det i .easter-wrap.) */
+.easter-wrap {
+    background-color: #000;
+    color: #00ff00;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
+    border-radius: 5px; /* valfritt om du vill rundade kanter runt blocket */
+}
 
-    .thought-bubble {
-        top: 80px; /* Justerad position för mobil */
-        padding: 15px; /* Mindre padding för mobil */
-    }
+.terminal {
+    background-color: #111;
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 800px;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
 
-    .gallery-container {
-        padding: 3rem 1rem; /* Mindre padding för mobil */
-    }
+#output {
+    height: 300px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
 
-    .image-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Mindre grid-storlek för mobil */
-    }
+.input-line {
+    display: flex;
+}
 
-    /* Further fix for the logo overlapping nav on mobile */
-    .logo {
-        left: 0;  /* Move logo further left */
-        width: 40px;
-    }
-    nav {
-        padding-left: 70px;
-        box-sizing: border-box;
-    }
+.prompt {
+    margin-right: 10px;
+}
+
+#commandInput {
+    background-color: #000;
+    color: #00ff00;
+    border: none;
+    outline: none;
+    width: 100%;
 }

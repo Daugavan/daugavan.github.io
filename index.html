@@ -3,68 +3,112 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modern Interactive Gallery</title>
+  <title>Marcus Pettersson - Portfolio</title>
   <link rel="stylesheet" href="styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <style>
-    /* Responsive adjustments for mobile devices */
-    @media (max-width: 768px) {
-      .logo {
-        width: 80px;
-        height: auto;
-      }
-      .hero {
-        text-align: center;
-        padding: 20px;
-      }
-      .hero-image {
-        max-width: 90%;
-        height: auto;
-      }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Navigation -->
+  <nav>
+    <img src="images/logo.jpg" class="logo" alt="Main Logo">
+    <ul>
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+  <div class="nav-decoration"></div>
 
-  <!-- Logo -->
-  <a href="index.html">
-    <img src="images/2.jpg" alt="Logo" class="logo">
-  </a>
-
+  <!-- Main Content -->
   <div class="main-container">
-    <!-- Navigation -->
-    <nav>
-      <ul>
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-
     <!-- Hero Section -->
-    <header class="hero">
-      <h1 class="animated-text">Marcus Pettersson</h1>
-      <p class="animated-text">Explore a visually stunning collection of images</p>
-      <!-- Hypervisual Image -->
-      <img src="images/logo2.jpg" alt="Hypervisual Image" class="hero-image" id="logo2">
-    </header>
-  </div>
+    <div class="hero">
+      <div class="hero-header" style="display: flex; align-items: center; justify-content: center; gap: 20px;">
+        <img src="images/logo2.jpg" class="dashboard-logo" alt="Secondary Logo" style="width: 200px; border-radius: 50%; animation: float 3s ease-in-out infinite;">
+        <div class="hero-text" style="text-align: left;">
+          <h1 class="animated-text">Marcus Pettersson</h1>
+          <p class="animated-text">Creative Developer & Visual Storyteller</p>
+        </div>
+      </div>
+    </div>
 
-  <!-- Thought Bubble -->
-  <div class="overlay" id="overlay"></div>
-  <div class="thought-bubble" id="thoughtBubble">
-    https://github.com/Daugavan/
+    <!-- Integrated Dashboard -->
+    <div class="integrated-dashboard">
+      <!-- Graphs Section -->
+      <div class="graph-container">
+        <div class="graph">
+          <img src="images/graph1.svg" alt="Performance Metrics">
+        </div>
+        <div class="graph">
+          <img src="images/graph2.svg" alt="Engagement Analytics">
+        </div>
+      </div>
+
+      <!-- KPI Dashboard -->
+      <div class="kpi-dashboard">
+        <div class="kpi-card">
+          <h3>Photos Published</h3>
+          <div class="kpi-value">36</div>
+          <div class="trend up">↑ New additions</div>
+        </div>
+        <div class="kpi-card">
+          <h3>GitHub Repos</h3>
+          <div class="kpi-value">12</div>
+          <div class="trend up">↑ Active projects</div>
+        </div>
+        <div class="kpi-card">
+          <h3>Followers</h3>
+          <div class="kpi-value">250</div>
+          <div class="trend up">↑ Growing community</div>
+        </div>
+      </div>
+
+      <!-- Portfolio Grid -->
+      <div class="portfolio-grid">
+        <div class="portfolio-item">
+          <img src="https://via.placeholder.com/400x300/4361ee/ffffff?text=Photography+1" alt="Nature Photography">
+          <div class="item-info">
+            <div class="item-type photo">Photography</div>
+            <p>Mountain landscape collection</p>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <img src="https://via.placeholder.com/400x300/f72585/ffffff?text=Web+Project" alt="Web Project">
+          <div class="item-info">
+            <div class="item-type github">GitHub</div>
+            <p>Interactive dashboard system</p>
+            <div class="commit-timeline">
+              <div class="commit-bar" style="height: 70%"></div>
+              <div class="commit-bar" style="height: 85%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <img src="https://via.placeholder.com/400x300/4361ee/ffffff?text=Urban+Photo" alt="Urban Photography">
+          <div class="item-info">
+            <div class="item-type photo">Photography</div>
+            <p>City architecture series</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Thought Bubble -->
+    <div class="thought-bubble" id="thoughtBubble">
+      https://github.com/Daugavan/
+    </div>
+    <div class="overlay" id="overlay"></div>
   </div>
 
   <script>
-    // JavaScript to handle the thought bubble
-    const logo2 = document.getElementById('logo2');
+    // Updated Thought Bubble Interaction
     const thoughtBubble = document.getElementById('thoughtBubble');
     const overlay = document.getElementById('overlay');
 
-    logo2.addEventListener('click', () => {
+    // Activate on dashboard-logo click
+    document.querySelector('.dashboard-logo').addEventListener('click', () => {
       thoughtBubble.style.display = 'block';
       overlay.style.display = 'block';
     });
@@ -74,7 +118,5 @@
       overlay.style.display = 'none';
     });
   </script>
-
-  <script src="script.js"></script>
 </body>
 </html>
