@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin Terminal</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav>
+    <a href="index.html"><img src="images/2.jpg" class="logo" alt="Marcus Pettersson Logotyp"></a>
+    <ul>
+      <li><a href="index.html">Hem</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="gallery.html">Galleri</a></li>
+      <li><a href="about.html">Om Mig</a></li>
+      <li><a href="contact.html">Kontakt</a></li>
+    </ul>
+  </nav>
+  <div class="nav-decoration"></div>
+
+  <div class="page-container">
+    <section class="content" style="width:100%; max-width: 900px; margin-bottom: 2rem;">
+      <div class="easter-wrap">
+        <div class="terminal">
+          <div id="output"></div>
+          <div class="input-line">
+              <span class="prompt">$</span>
+              <input type="text" id="commandInput" autofocus>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+      const outputElement = document.getElementById('output');
+      const commandInput = document.getElementById('commandInput');
+
+      const commands = {
+          'help': 'Tillgängliga kommandon: help, scan, hack, email, clear, sudo hack site',
+          'scan': 'Skannar nätverket... Inga sårbarheter hittades.',
+          'hack': 'Åtkomst nekad. Behörighet krävs för att utföra detta kommando.',
+          'email': 'Du kan nå mig på daugavan@protonmail.com',
+          'clear': '',
+          'sudo hack site': 'Accessing backend... Redirecting...'
+      };
+
+      commandInput.addEventListener('keydown', function(event) {
+          if (event.key === 'Enter') {
+              const input = commandInput.value.trim().toLowerCase();
+              if (input) {
+                  appendOutput(`$ ${input}`);
+                  if (input === 'clear') {
+                      clearOutput();
+                  } else if (input === 'sudo hack site') {
+                      appendOutput(commands[input]);
+                      setTimeout(() => {
+                          window.location.href = 'backend.html'; // Redirect to new backend page
+                      }, 1500); // Simulate a short delay for "accessing backend"
+                  } else if (commands.hasOwnProperty(input)) {
+                      appendOutput(commands[input]);
+                  } else {
+                      appendOutput(`Okänt kommando: ${input}`);
+                  }
+                  commandInput.value = '';
+              }
+          }
+      });
+
+      function appendOutput(text) {
+          const line = document.createElement('div');
+          line.textContent = text;
+          outputElement.appendChild(line);
+          outputElement.scrollTop = outputElement.scrollHeight;
+      }
+
+      function clearOutput() {
+          outputElement.innerHTML = '';
+      }
+
+       // Välkomstmeddelande
+       appendOutput('Welcome to the secret terminal. Type "help" for a list of commands.');
+  </script>
+</body>
+</html>

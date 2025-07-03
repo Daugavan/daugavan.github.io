@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Access Granted - Admin Panel</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav>
+    <a href="index.html"><img src="images/2.jpg" class="logo" alt="Marcus Pettersson Logotyp"></a>
+    <ul>
+      <li><a href="index.html">Hem</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="gallery.html">Galleri</a></li>
+      <li><a href="about.html">Om Mig</a></li>
+      <li><a href="contact.html">Kontakt</a></li>
+    </ul>
+  </nav>
+  <div class="nav-decoration"></div>
+
+  <div class="admin-panel-container">
+    <div class="sidebar">
+      <div class="sidebar-item active">
+        <img src="images/icon-dashboard.png" alt="Dashboard Icon">
+        <span>Dashboard</span>
+      </div>
+      <div class="sidebar-item">
+        <img src="images/icon-alert.png" alt="Alerts Icon">
+        <span>Alerts</span>
+      </div>
+      <div class="sidebar-item">
+        <img src="images/icon-requests.png" alt="Requests Icon">
+        <span>All Requests</span>
+      </div>
+      <div class="sidebar-item">
+        <img src="images/icon-apps.png" alt="Applications Icon">
+        <span>Applications</span>
+      </div>
+      <div class="sidebar-item">
+        <img src="images/icon-auth.png" alt="Authentication Icon">
+        <span>Authentication Status</span>
+      </div>
+      <div class="sidebar-item">
+        <img src="images/icon-cluster.png" alt="Cluster Icon">
+        <span>Cluster Status</span>
+      </div>
+      <div class="sidebar-item">
+        <img src="images/icon-device.png" alt="Device Category Icon">
+        <span>Device Category</span>
+      </div>
+      <div class="sidebar-item">
+        <img src="images/icon-device.png" alt="Device Family Icon">
+        <span>Device Family</span>
+      </div>
+      <div class="sidebar-item">
+        <img src="images/icon-profile.png" alt="Endpoint Profile Icon">
+        <span>Endpoint Profiler Summary</span>
+      </div>
+      <div class="sidebar-item">
+        <img src="images/icon-failed.png" alt="Failed Authentications Icon">
+        <span>Failed Authentications</span>
+      </div>
+      <div class="sidebar-item">
+        <img src="images/icon-health.png" alt="Health Status Icon">
+        <span>Health Status</span>
+      </div>
+      <div class="sidebar-item">
+        <img src="images/icon-auth.png" alt="Latest Authentications Icon">
+        <span>Latest Authentications</span>
+      </div>
+      <div class="sidebar-item">
+        <img src="images/icon-monitor.png" alt="Monitoring Icon">
+        <span>Monitoring</span>
+      </div>
+      <div class="sidebar-item">
+        <img src="images/icon-config.png" alt="Configuration Icon">
+        <span>Configuration</span>
+      </div>
+      <div class="sidebar-item">
+        <img src="images/icon-admin.png" alt="Administration Icon">
+        <span>Administration</span>
+      </div>
+    </div>
+
+    <div class="main-content-area-backend">
+      <div class="top-status-bar">
+        <div class="status-item">
+          <span class="label">Status</span>
+          <span class="value status-ok">OK</span>
+        </div>
+        <div class="status-item">
+          <span class="label">Host Name</span>
+          <span class="value">GBC (192.168.50.85)</span>
+        </div>
+        <div class="status-item">
+          <span class="label">Zone</span>
+          <span class="value">default</span>
+        </div>
+        <div class="status-item">
+          <span class="label">Server Role</span>
+          <span class="value">Publisher</span>
+        </div>
+        <div class="status-item">
+          <span class="label">Last Replication</span>
+          <span class="value">-</span>
+        </div>
+        <div class="status-item">
+          <span class="label">Status</span>
+          <span class="value status-ok">OK</span>
+        </div>
+      </div>
+
+      <div class="dashboard-grid-backend">
+        <div class="panel cpu-utilization">
+          <div class="panel-header">System CPU Utilization</div>
+          <div class="graph-placeholder">
+            <div class="graph-line red" style="height: 50%;"></div>
+            <div class="graph-line blue" style="height: 30%;"></div>
+            <div class="graph-line green" style="height: 10%;"></div>
+            <div class="graph-labels">
+              <span>09:35</span><span>09:40</span><span>09:45</span><span>09:50</span><span>09:55</span><span>10:00</span>
+            </div>
+          </div>
+          <div class="graph-legend">
+            <span class="legend-item blue">System</span>
+            <span class="legend-item red">User</span>
+            <span class="legend-item green">IO Wait</span>
+          </div>
+        </div>
+
+        <div class="panel request-processing-time">
+          <div class="panel-header">Request Processing Time</div>
+          <div class="graph-placeholder">
+            <div class="graph-line blue" style="height: 40%;"></div>
+            <div class="graph-labels">
+              <span>09:30</span><span>09:35</span><span>09:40</span><span>09:45</span><span>09:50</span><span>09:55</span>
+            </div>
+          </div>
+          <div class="graph-legend">
+            <span class="legend-item blue">RADIUS</span>
+          </div>
+        </div>
+
+        <div class="panel quick-links">
+          <div class="panel-header">Quick Links</div>
+          <ul>
+            <li><a href="#">Start Configuring Policies</a></li>
+            <li><a href="#">Manage Services</a></li>
+            <li><a href="#">Access Tracker</a></li>
+            <li><a href="#">Analysis and Trending</a></li>
+            <li><a href="#">Network Devices</a></li>
+            <li><a href="#">Server Manager</a></li>
+            <li><a href="#">ClearPass Guest</a></li>
+            <li><a href="#">ClearPass Onboard</a></li>
+            <li><a href="#">ClearPass Insight</a></li>
+            <li><a href="#">ClearPass Extensions</a></li>
+          </ul>
+        </div>
+
+        <div class="panel all-requests">
+          <div class="panel-header">All Requests</div>
+          <div class="graph-placeholder">
+            <div class="graph-line blue" style="height: 20%;"></div>
+            <div class="graph-labels">
+              <span>28. Nov</span><span>30. Nov</span><span>2. Dec</span><span>4. Dec</span><span>6. Dec</span><span>8. Dec</span>
+            </div>
+          </div>
+          <div class="graph-legend">
+            <span class="legend-item blue">All Requests</span>
+          </div>
+        </div>
+      </div>
+      <div class="backend-footer">
+        <p>Copyright 2024 Marcus Pettersson. All rights reserved.</p>
+        <a href="index.html" class="logout-button">Logout</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
