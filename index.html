@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>GitHub Landing Daugavan</title>
+  <title>Retrofuturistic Jungle — GitHub Landing (Daugavan)</title>
   <meta name="description" content="Retrofuturistic jungle themed GitHub landing page for @Daugavan — static HTML/CSS/JS" />
   <meta name="theme-color" content="#0a0e1a">
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -63,7 +63,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: clamp(1.5rem, 5vw, 2.5rem);
+      padding: clamp(1.5rem, 4vw, 2rem);
     }
 
     .max {
@@ -74,18 +74,18 @@
     main.content {
       display: flex;
       flex-direction: column;
-      gap: clamp(1.5rem, 4vw, 2.5rem);
+      gap: clamp(1.5rem, 3vw, 2rem);
     }
 
     .grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: clamp(1.5rem, 4vw, 2.5rem);
+      gap: clamp(1.5rem, 3vw, 2rem);
     }
 
     @media (min-width: 1024px) {
       .grid {
-        grid-template-columns: 320px 1fr;
+        grid-template-columns: 300px 1fr;
       }
     }
     
@@ -138,7 +138,7 @@
       background: var(--card-bg);
       border: 1px solid var(--glass);
       border-radius: 18px;
-      padding: clamp(1rem, 4vw, 1.5rem);
+      padding: clamp(1rem, 3vw, 1.5rem);
       box-shadow: 0 8px 30px rgba(0,0,0,0.3);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
@@ -150,27 +150,27 @@
     }
     
     .avatar {
-      width: clamp(100px, 20vw, 128px);
-      height: clamp(100px, 20vw, 128px);
-      border-radius: 24px;
-      border: 4px solid var(--jungle-accent);
-      box-shadow: 0 10px 40px rgba(0,255,192,0.1), 0 0 0 8px rgba(139,91,255,0.05);
+      width: clamp(90px, 18vw, 110px);
+      height: clamp(90px, 18vw, 110px);
+      border-radius: 20px;
+      border: 3px solid var(--jungle-accent);
+      box-shadow: 0 8px 30px rgba(0,255,192,0.1), 0 0 0 6px rgba(139,91,255,0.05);
       flex-shrink: 0;
       transition: all 0.3s ease-in-out;
       overflow: hidden;
     }
     .avatar:hover {
       transform: translateY(-4px) scale(1.02);
-      box-shadow: 0 15px 50px rgba(0,255,192,0.15), 0 0 0 10px rgba(139,91,255,0.08);
+      box-shadow: 0 12px 40px rgba(0,255,192,0.15), 0 0 0 8px rgba(139,91,255,0.08);
     }
     .avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }
     
-    h1 { font-size: clamp(1.8rem, 5vw, 2.25rem); line-height: 1.2; margin-bottom: 0.5rem; }
-    .meta { font-size: 0.95rem; opacity: .88; color: var(--jungle-teal); }
-    .bio { font-size: 1rem; color: var(--muted); line-height: 1.6; margin-top: 1rem; max-width: 65ch; }
+    h1 { font-size: clamp(1.6rem, 4.5vw, 2rem); line-height: 1.2; margin-bottom: 0.25rem; }
+    .meta { font-size: 0.9rem; opacity: .88; color: var(--jungle-teal); }
+    .bio { font-size: 0.95rem; color: var(--muted); line-height: 1.5; margin-top: 0.75rem; max-width: 65ch; }
     
     .actions {
-      margin-top: 1.25rem;
+      margin-top: 1rem;
       display: flex;
       flex-wrap: wrap;
       gap: 0.75rem;
@@ -182,8 +182,8 @@
     }
 
     .btn {
-      padding: 12px 20px;
-      font-size: 14px;
+      padding: 10px 18px;
+      font-size: 13px;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -206,36 +206,97 @@
     }
 
     .stats .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; text-align: center; }
-    .stats .num { font-weight: 800; font-size: 28px; color: var(--jungle-neon); margin-bottom: 4px; }
+    .stats .num { font-weight: 800; font-size: 26px; color: var(--jungle-neon); margin-bottom: 4px; }
     
-    .progress { margin-top: 20px; height: 10px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; }
+    .progress { margin-top: 1rem; height: 10px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; }
     .progress .fill { height: 100%; background: linear-gradient(90deg, var(--jungle-neon), var(--jungle-accent)); width: 0; transition: width 1s cubic-bezier(.2,.9,.2,1); }
     
-    h3 { font-size: 24px; margin-bottom: 1rem; }
+    h3 { font-size: 22px; margin-bottom: 1rem; }
     
     .repos-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.75rem;
     }
     
     .repo {
-      padding: 18px; border-radius: 16px; background: var(--card-bg); border: 1px solid var(--glass);
-      display: flex; flex-direction: column; justify-content: space-between;
-      text-decoration: none; color: inherit; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      padding: 14px;
+      border-radius: 14px;
+      background: var(--card-bg);
+      border: 1px solid var(--glass);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
       transition: all 0.3s ease-in-out;
     }
-    .repo:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,255,192,0.1), 0 0 0 4px rgba(139,91,255,0.05); }
-    .repo .title { font-weight: 700; font-size: clamp(1rem, 2vw, 1.125rem); color: var(--jungle-neon); margin-bottom: 6px; }
-    .repo .desc { font-size: 14px; opacity: .85; line-height: 1.5; margin-bottom: 1rem; }
-    .repo .meta-row { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; font-size: 12px; opacity: .8; color: var(--muted); }
-    .repo .topics-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 8px; }
-    .topic { padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,0.06); font-size: 11px; color: var(--jungle-teal); border: 1px solid rgba(255,255,255,0.1); display: inline-flex; align-items: center; }
-    .topic .lang-color { width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
-    .glow-acc { height: 4px; border-radius: 4px; margin-top: 12px; background: linear-gradient(90deg, var(--jungle-neon), var(--jungle-accent)); opacity: 0; transition: opacity .25s ease-out; }
-    .repo:hover .glow-acc { opacity: 1; }
+    .repo:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,255,192,0.1), 0 0 0 4px rgba(139,91,255,0.05);
+    }
+    .repo .title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--jungle-neon);
+      margin-bottom: 0.25rem;
+    }
+    .repo .desc {
+      font-size: 12px;
+      opacity: .80;
+      line-height: 1.4;
+      margin-bottom: 0.75rem;
+    }
+    .repo .meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.75rem;
+      font-size: 11px;
+      opacity: .8;
+      color: var(--muted);
+    }
+    .repo .topics-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      margin-top: 8px;
+    }
+    .topic {
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      font-size: 10px;
+      color: var(--jungle-teal);
+      border: 1px solid rgba(255,255,255,0.1);
+      display: inline-flex;
+      align-items: center;
+    }
+    .topic .lang-color {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+    .glow-acc {
+      height: 3px;
+      border-radius: 3px;
+      margin-top: 10px;
+      background: linear-gradient(90deg, var(--jungle-neon), var(--jungle-accent));
+      opacity: 0;
+      transition: opacity .25s ease-out;
+    }
+    .repo:hover .glow-acc {
+      opacity: 1;
+    }
     
-    .smallmuted { font-size: 12px; opacity: .75; color: var(--muted); }
+    .smallmuted {
+      font-size: 12px;
+      opacity: .75;
+      color: var(--muted);
+    }
   </style>
 </head>
 <body>
