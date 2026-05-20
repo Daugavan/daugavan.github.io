@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Daugavan.github.io</title>
-  <meta name="description" content="@Daugavan — GitHub and Lovable profile" />
+  <title>Daugavan@github.io)</title>
+  <meta name="description" content="@Daugavan" />
   <meta name="theme-color" content="#0a0e1a">
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
@@ -15,21 +15,16 @@
       --jungle-neon: #00ffc0;
       --jungle-teal: #36ffdc;
       --jungle-accent: #8b5bff;
-      --lovable-pink: #ff6fd8;
-      --lovable-violet: #8d6bff;
       --glass: rgba(255, 255, 255, 0.08);
       --muted: rgba(255, 255, 255, 0.75);
       --card-bg: linear-gradient(145deg, rgba(12, 34, 28, 0.7), rgba(0, 20, 15, 0.5));
-      --card-bg-strong: linear-gradient(160deg, rgba(12, 26, 34, 0.88), rgba(8, 15, 29, 0.75));
       --mono: 'Space Mono', monospace, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
       --text-color: #e0e6f0;
       --link-color: var(--jungle-neon);
     }
-
     *, *::before, *::after {
       box-sizing: border-box;
     }
-
     html, body {
       margin: 0;
       background: var(--bg-900);
@@ -38,205 +33,89 @@
       -webkit-font-smoothing: antialiased;
       scroll-behavior: smooth;
     }
-
-    body {
-      min-height: 100vh;
-    }
-
     a {
       color: var(--link-color);
       text-decoration: none;
-      transition: color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+      transition: color 0.3s ease;
       border-radius: 4px;
     }
-
     a:hover {
       color: var(--jungle-teal);
     }
-
-    a:focus-visible,
-    button:focus-visible {
+    a:focus-visible {
       outline: 2px solid var(--jungle-accent);
       outline-offset: 2px;
     }
-
-    button {
-      font: inherit;
-    }
-
     h1, h3 {
       margin: 0;
       font-weight: 700;
       color: var(--text-color);
     }
-
-    .skip-link {
-      position: absolute;
-      left: 1rem;
-      top: -48px;
-      z-index: 100;
-      padding: 0.75rem 1rem;
-      border-radius: 999px;
-      background: var(--jungle-neon);
-      color: #05130f;
-      font-size: 0.8rem;
-      font-weight: 700;
-    }
-
-    .skip-link:focus {
-      top: 1rem;
-    }
-
     .wrap {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: clamp(1.5rem, 4vw, 2rem);
-      opacity: 0;
-      animation: zoom-in-fade 1.5s 0.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
     }
-
     .max {
-      width: 1280px;
+      width: 1200px;
       max-width: 100%;
     }
-
     main.content {
       display: flex;
       flex-direction: column;
-      gap: clamp(1.25rem, 3vw, 2rem);
+      gap: clamp(1.5rem, 3vw, 2rem);
     }
-
-    .hero-layout {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: clamp(1rem, 2vw, 1.5rem);
-      align-items: stretch;
-    }
-
-    @media (min-width: 1100px) {
-      .hero-layout {
-        grid-template-columns: auto minmax(0, 1fr) minmax(360px, 420px);
-      }
-    }
-
-    .avatar-shell {
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-    }
-
-    @media (min-width: 1100px) {
-      .avatar-shell {
-        justify-content: flex-start;
-      }
-    }
-
-    .identity {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      min-width: 0;
-      text-align: center;
-    }
-
-    @media (min-width: 768px) {
-      .identity {
-        text-align: left;
-      }
-    }
-
     .grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: clamp(1.25rem, 2.5vw, 1.75rem);
+      gap: clamp(1.5rem, 3vw, 2rem);
     }
-
     @media (min-width: 1024px) {
       .grid {
         grid-template-columns: 300px 1fr;
       }
     }
-
+    .header {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      align-items: center;
+      text-align: center;
+    }
+    @media (min-width: 768px) {
+      .header {
+        flex-direction: row;
+        text-align: left;
+      }
+    }
     .bg-svg, .bg-radial {
       position: fixed;
       inset: 0;
       z-index: -30;
       pointer-events: none;
     }
-
     .bg-radial {
       z-index: -31;
       animation: bgShift 18s ease-in-out infinite alternate;
     }
-
+    .wrap {
+      opacity: 0;
+      animation: zoom-in-fade 1.5s 0.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    }
     @keyframes bgShift {
-      0% {
-        background: radial-gradient(circle at 15% 15%, rgba(0,255,192,0.06) 0%, rgba(10,14,26,0.92) 30%, rgba(10,14,26,0.98) 70%);
-      }
-      50% {
-        background: radial-gradient(circle at 85% 25%, rgba(139,91,255,0.08) 0%, rgba(10,14,26,0.92) 30%, rgba(10,14,26,0.98) 70%);
-      }
-      100% {
-        background: radial-gradient(circle at 25% 85%, rgba(0,255,192,0.06) 0%, rgba(10,14,26,0.92) 30%, rgba(10,14,26,0.98) 70%);
-      }
+      0% { background: radial-gradient(circle at 15% 15%, rgba(0,255,192,0.06) 0%, rgba(10,14,26,0.92) 30%, rgba(10,14,26,0.98) 70%); }
+      50% { background: radial-gradient(circle at 85% 25%, rgba(139,91,255,0.08) 0%, rgba(10,14,26,0.92) 30%, rgba(10,14,26,0.98) 70%); }
+      100% { background: radial-gradient(circle at 25% 85%, rgba(0,255,192,0.06) 0%, rgba(10,14,26,0.92) 30%, rgba(10,14,26,0.98) 70%); }
     }
-
     @keyframes zoom-in-fade {
-      from {
-        opacity: 0;
-        transform: scale(0.95);
-        filter: blur(8px);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-        filter: blur(0px);
-      }
+      from { opacity: 0; transform: scale(0.95); filter: blur(8px); }
+      to { opacity: 1; transform: scale(1); filter: blur(0px); }
     }
-
-    @keyframes pulseGlow {
-      0%, 100% {
-        opacity: 0.45;
-        transform: scale(1);
-      }
-      50% {
-        opacity: 0.9;
-        transform: scale(1.06);
-      }
-    }
-
-    @keyframes skylineFloat {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-5px);
-      }
-    }
-
-    @keyframes fadeInOut {
-      0%, 100% {
-        opacity: 0;
-        transform: translateY(5px);
-      }
-      20%, 80% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
     @media (prefers-reduced-motion: reduce) {
-      .wrap,
-      .bg-radial,
-      .lovable-grid-glow,
-      .lovable-cityline {
-        animation: none !important;
-        opacity: 1 !important;
-      }
+      .wrap, .bg-radial { animation: none !important; opacity: 1 !important; }
     }
-
     .card {
       background: var(--card-bg);
       border: 1px solid var(--glass);
@@ -247,12 +126,10 @@
       -webkit-backdrop-filter: blur(8px);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-
     .card:hover {
       transform: translateY(-4px);
       box-shadow: 0 12px 40px rgba(0,0,0,0.4);
     }
-
     .avatar {
       width: clamp(90px, 18vw, 110px);
       height: clamp(90px, 18vw, 110px);
@@ -262,43 +139,16 @@
       flex-shrink: 0;
       transition: all 0.3s ease-in-out;
       overflow: hidden;
-      background: rgba(255,255,255,0.03);
     }
-
     .avatar:hover {
       transform: translateY(-4px) scale(1.02);
       box-shadow: 0 12px 40px rgba(0,255,192,0.15), 0 0 0 8px rgba(139,91,255,0.08);
     }
-
-    .avatar img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    h1 {
-      font-size: clamp(1.6rem, 4.5vw, 2rem);
-      line-height: 1.2;
-      margin-bottom: 0.25rem;
-    }
-
-    .meta {
-      font-size: 0.9rem;
-      opacity: .88;
-      color: var(--jungle-teal);
-    }
-
-    .bio {
-      font-size: 0.95rem;
-      color: var(--muted);
-      line-height: 1.5;
-      margin-top: 0.75rem;
-      max-width: 65ch;
-    }
-
-    .actions,
-    .lovable-actions {
+    .avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    h1 { font-size: clamp(1.6rem, 4.5vw, 2rem); line-height: 1.2; margin-bottom: 0.25rem; }
+    .meta { font-size: 0.9rem; opacity: .88; color: var(--jungle-teal); }
+    .bio { font-size: 0.95rem; color: var(--muted); line-height: 1.5; margin-top: 0.75rem; max-width: 65ch; }
+    .actions {
       margin-top: 1rem;
       display: flex;
       flex-wrap: wrap;
@@ -306,14 +156,9 @@
       align-items: center;
       justify-content: center;
     }
-
     @media (min-width: 768px) {
-      .actions,
-      .lovable-actions {
-        justify-content: flex-start;
-      }
+      .actions { justify-content: flex-start; }
     }
-
     .btn {
       padding: 10px 18px;
       font-size: 13px;
@@ -324,231 +169,28 @@
       border: none;
       cursor: pointer;
       transition: all 0.3s ease-in-out;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 44px;
     }
-
-    .btn.view {
-      background: linear-gradient(90deg, var(--jungle-neon), var(--jungle-teal));
-      color: var(--jungle-dark);
-      box-shadow: 0 4px 15px rgba(0,255,192,0.3);
-    }
-
-    .btn.view:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0,255,192,0.4);
-      filter: brightness(1.1);
-    }
-
-    .btn.copy {
-      background: var(--glass);
-      border: 1px solid var(--glass);
-      color: var(--text-color);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-
-    .btn.copy:hover {
-      transform: translateY(-2px);
-      background: rgba(255,255,255,0.1);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-
-    .btn.lovable {
-      color: #fff;
-      background: linear-gradient(90deg, var(--lovable-pink), var(--lovable-violet));
-      box-shadow: 0 8px 24px rgba(141,107,255,0.22);
-    }
-
-    .btn.lovable:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.08);
-      color: #fff;
-    }
-
-    .btn.lovable-outline {
-      color: var(--text-color);
-      background: rgba(141, 107, 255, 0.12);
-      border: 1px solid rgba(141, 107, 255, 0.28);
-      box-shadow: 0 8px 24px rgba(141,107,255,0.12);
-    }
-
-    .btn.lovable-outline:hover {
-      transform: translateY(-2px);
-      background: rgba(141, 107, 255, 0.18);
-      color: #fff;
-    }
-
+    .btn.view { background: linear-gradient(90deg, var(--jungle-neon), var(--jungle-teal)); color: var(--jungle-dark); box-shadow: 0 4px 15px rgba(0,255,192,0.3); }
+    .btn.view:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,255,192,0.4); filter: brightness(1.1); }
+    .btn.copy { background: var(--glass); border: 1px solid var(--glass); color: var(--text-color); box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+    .btn.copy:hover { transform: translateY(-2px); background: rgba(255,255,255,0.1); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
     .copy-status {
-      font-size: 12px;
-      opacity: 0;
-      color: var(--jungle-neon);
-      animation: fadeInOut 2s forwards;
-      margin-left: 12px;
+      font-size: 12px; opacity: 0; color: var(--jungle-neon); animation: fadeInOut 2s forwards; margin-left: 12px;
     }
-
-    .lovable-card {
-      padding: 0;
-      overflow: hidden;
-      background: var(--card-bg-strong);
-      position: relative;
-      min-height: 100%;
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0; transform: translateY(5px); }
+      20%, 80% { opacity: 1; transform: translateY(0); }
     }
-
-    .lovable-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at top left, rgba(255,111,216,0.16), transparent 40%),
-        radial-gradient(circle at bottom right, rgba(54,255,220,0.12), transparent 40%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .lovable-visual,
-    .lovable-copy {
-      position: relative;
-      z-index: 1;
-    }
-
-    .lovable-visual {
-      position: relative;
-      min-height: 250px;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255,111,216,0.24), transparent 38%),
-        radial-gradient(circle at 80% 10%, rgba(54,255,220,0.16), transparent 30%),
-        linear-gradient(180deg, rgba(16,18,38,0.2), rgba(5,10,20,0.85));
-      isolation: isolate;
-    }
-
-    .lovable-grid-glow {
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
-      background-size: 40px 40px;
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.75), transparent 90%);
-      opacity: 0.6;
-      animation: pulseGlow 8s ease-in-out infinite;
-    }
-
-    .lovable-cityline {
-      position: absolute;
-      inset: auto 0 0 0;
-      height: 62%;
-      background:
-        linear-gradient(180deg, transparent 0%, rgba(6,10,18,0.16) 25%, rgba(6,10,18,0.88) 100%),
-        linear-gradient(to top, rgba(0, 255, 192, 0.08), transparent 50%),
-        linear-gradient(90deg,
-          transparent 0 4%,
-          rgba(8,18,30,0.96) 4% 11%,
-          transparent 11% 14%,
-          rgba(12,20,40,0.96) 14% 22%,
-          transparent 22% 24%,
-          rgba(9,17,33,0.92) 24% 31%,
-          transparent 31% 35%,
-          rgba(18,24,43,0.92) 35% 43%,
-          transparent 43% 46%,
-          rgba(11,19,36,0.94) 46% 55%,
-          transparent 55% 58%,
-          rgba(9,18,32,0.9) 58% 64%,
-          transparent 64% 68%,
-          rgba(17,26,49,0.96) 68% 76%,
-          transparent 76% 80%,
-          rgba(12,20,34,0.94) 80% 89%,
-          transparent 89% 92%,
-          rgba(9,15,28,0.95) 92% 100%);
-      box-shadow: inset 0 14px 40px rgba(0,0,0,0.35);
-      animation: skylineFloat 10s ease-in-out infinite;
-    }
-
-    .lovable-cityline::before {
-      content: '';
-      position: absolute;
-      inset: 16% 0 auto 0;
-      height: 22%;
-      background:
-        radial-gradient(circle at 8% 50%, rgba(255,214,102,0.85) 0 1px, transparent 2px),
-        radial-gradient(circle at 14% 42%, rgba(255,214,102,0.7) 0 1px, transparent 2px),
-        radial-gradient(circle at 20% 48%, rgba(0,255,192,0.65) 0 1px, transparent 2px),
-        radial-gradient(circle at 29% 32%, rgba(255,214,102,0.7) 0 1px, transparent 2px),
-        radial-gradient(circle at 41% 45%, rgba(255,214,102,0.7) 0 1px, transparent 2px),
-        radial-gradient(circle at 52% 38%, rgba(0,255,192,0.75) 0 1px, transparent 2px),
-        radial-gradient(circle at 61% 40%, rgba(255,214,102,0.7) 0 1px, transparent 2px),
-        radial-gradient(circle at 72% 35%, rgba(255,214,102,0.75) 0 1px, transparent 2px),
-        radial-gradient(circle at 84% 48%, rgba(0,255,192,0.75) 0 1px, transparent 2px),
-        radial-gradient(circle at 92% 30%, rgba(255,214,102,0.75) 0 1px, transparent 2px);
-      opacity: 0.9;
-    }
-
-    .lovable-iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-      opacity: 0.8;
-      filter: saturate(1.05) contrast(1.04);
-      background: transparent;
-    }
-
-    .lovable-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(6,9,18,0.06), rgba(6,9,18,0.02) 45%, rgba(6,9,18,0.45));
-      pointer-events: none;
-    }
-
-    .lovable-copy {
-      padding: 0.9rem 1rem 1rem;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      background: linear-gradient(180deg, rgba(9, 16, 28, 0.72), rgba(6, 10, 18, 0.92));
-    }
-
-    .stats .row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      text-align: center;
-    }
-
-    .stats .num {
-      font-weight: 800;
-      font-size: 26px;
-      color: var(--jungle-neon);
-      margin-bottom: 4px;
-    }
-
-    .progress {
-      margin-top: 1rem;
-      height: 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.08);
-      overflow: hidden;
-    }
-
-    .progress .fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--jungle-neon), var(--jungle-accent));
-      width: 0;
-      transition: width 1s cubic-bezier(.2,.9,.2,1);
-    }
-
-    h3 {
-      font-size: 22px;
-      margin-bottom: 1rem;
-    }
-
+    .stats .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; text-align: center; }
+    .stats .num { font-weight: 800; font-size: 26px; color: var(--jungle-neon); margin-bottom: 4px; }
+    .progress { margin-top: 1rem; height: 10px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; }
+    .progress .fill { height: 100%; background: linear-gradient(90deg, var(--jungle-neon), var(--jungle-accent)); width: 0; transition: width 1s cubic-bezier(.2,.9,.2,1); }
+    h3 { font-size: 22px; margin-bottom: 1rem; }
     .repos-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 0.75rem;
     }
-
     .repo {
       padding: 14px;
       border-radius: 14px;
@@ -561,28 +203,23 @@
       color: inherit;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
       transition: all 0.3s ease-in-out;
-      min-height: 178px;
     }
-
     .repo:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 25px rgba(0,255,192,0.1), 0 0 0 4px rgba(139,91,255,0.05);
     }
-
     .repo .title {
       font-weight: 700;
       font-size: 1rem;
       color: var(--jungle-neon);
       margin-bottom: 0.25rem;
     }
-
     .repo .desc {
       font-size: 12px;
       opacity: .80;
       line-height: 1.4;
       margin-bottom: 0.75rem;
     }
-
     .repo .meta-row {
       display: flex;
       justify-content: space-between;
@@ -591,9 +228,7 @@
       font-size: 11px;
       opacity: .8;
       color: var(--muted);
-      gap: 0.75rem;
     }
-
     .repo .topics-row {
       display: flex;
       flex-wrap: wrap;
@@ -601,7 +236,6 @@
       align-items: center;
       margin-top: 8px;
     }
-
     .topic {
       padding: 3px 8px;
       border-radius: 999px;
@@ -612,14 +246,12 @@
       display: inline-flex;
       align-items: center;
     }
-
     .topic .lang-color {
       width: 7px;
       height: 7px;
       border-radius: 50%;
       margin-right: 5px;
     }
-
     .glow-acc {
       height: 3px;
       border-radius: 3px;
@@ -628,98 +260,40 @@
       opacity: 0;
       transition: opacity .25s ease-out;
     }
-
     .repo:hover .glow-acc {
       opacity: 1;
     }
-
     .smallmuted {
       font-size: 12px;
       opacity: .75;
       color: var(--muted);
     }
-
-    .error-box {
-      padding: 12px;
-      background: rgba(255,0,0,0.08);
-      border-radius: 10px;
-      color: #ff6666;
-      border: 1px solid rgba(255,0,0,0.2);
-    }
   </style>
 </head>
 <body>
-  <a class="skip-link" href="#mainContent">Skip to content</a>
-
   <div class="bg-radial"></div>
-
   <svg class="bg-svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <defs>
-      <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="var(--jungle-neon)" stop-opacity="0.1"></stop>
-        <stop offset="50%" stop-color="var(--jungle-teal)" stop-opacity="0.08"></stop>
-        <stop offset="100%" stop-color="var(--jungle-accent)" stop-opacity="0.05"></stop>
-      </linearGradient>
-      <filter id="glo">
-        <feGaussianBlur stdDeviation="15" result="b"/>
-        <feMerge>
-          <feMergeNode in="b"/>
-          <feMergeNode in="SourceGraphic"/>
-        </feMerge>
-      </filter>
+      <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="var(--jungle-neon)" stop-opacity="0.1"></stop><stop offset="50%" stop-color="var(--jungle-teal)" stop-opacity="0.08"></stop><stop offset="100%" stop-color="var(--jungle-accent)" stop-opacity="0.05"></stop></linearGradient>
+      <filter id="glo"><feGaussianBlur stdDeviation="15" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
     </defs>
     <g filter="url(#glo)">
-      <path d="M0,300 C500,100 900,500 1400,280 1700,160 1920,400" stroke="url(#lg)" stroke-width="2.5" fill="none" stroke-opacity="0.18">
-        <animate attributeName="stroke-opacity" values="0.08;0.18;0.08" dur="12s" repeatCount="indefinite" />
-        <animate attributeName="d" values="M0,300 C500,100 900,500 1400,280 1700,160 1920,400; M0,320 C480,120 920,480 1420,300 1720,180 1920,420; M0,300 C500,100 900,500 1400,280 1700,160 1920,400" dur="20s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"/>
-      </path>
-      <path d="M0,800 C400,600 700,900 1300,700 1650,600 1920,820" stroke="var(--jungle-neon)" stroke-width="1.8" fill="none" stroke-opacity="0.12">
-        <animate attributeName="stroke-opacity" values="0.05;0.12;0.05" dur="14s" repeatCount="indefinite" />
-        <animate attributeName="d" values="M0,800 C400,600 700,900 1300,700 1650,600 1920,820; M0,780 C420,620 680,880 1320,720 1670,620 1920,800; M0,800 C400,600 700,900 1300,700 1650,600 1920,820" dur="24s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"/>
-      </path>
+      <path d="M0,300 C500,100 900,500 1400,280 1700,160 1920,400" stroke="url(#lg)" stroke-width="2.5" fill="none" stroke-opacity="0.18"><animate attributeName="stroke-opacity" values="0.08;0.18;0.08" dur="12s" repeatCount="indefinite" /><animate attributeName="d" values="M0,300 C500,100 900,500 1400,280 1700,160 1920,400; M0,320 C480,120 920,480 1420,300 1720,180 1920,420; M0,300 C500,100 900,500 1400,280 1700,160 1920,400" dur="20s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"/></path>
+      <path d="M0,800 C400,600 700,900 1300,700 1650,600 1920,820" stroke="var(--jungle-neon)" stroke-width="1.8" fill="none" stroke-opacity="0.12"><animate attributeName="stroke-opacity" values="0.05;0.12;0.05" dur="14s" repeatCount="indefinite" /><animate attributeName="d" values="M0,800 C400,600 700,900 1300,700 1650,600 1920,820; M0,780 C420,620 680,880 1320,720 1670,620 1920,800; M0,800 C400,600 700,900 1300,700 1650,600 1920,820" dur="24s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"/></path>
     </g>
   </svg>
-
   <div class="wrap">
     <div class="max">
       <main id="mainContent" class="content" aria-live="polite" aria-busy="true">
-        <header class="hero-layout">
-          <div class="avatar-shell">
-            <div class="avatar">
-              <img id="avatar" alt="avatar" src="" />
-            </div>
-          </div>
-
-          <div class="identity">
+        <header class="header">
+          <div class="avatar"><img id="avatar" alt="avatar" src="" /></div>
+          <div>
             <h1 id="name">Loading…</h1>
             <div class="meta" id="loginLine"></div>
             <p class="bio" id="bio"></p>
             <div class="actions" id="actions"></div>
           </div>
-
-          <aside class="card lovable-card" aria-label="Lovable Profile">
-            <div class="lovable-visual">
-              <div class="lovable-grid-glow" aria-hidden="true"></div>
-              <div class="lovable-cityline" aria-hidden="true"></div>
-              <iframe
-                class="lovable-iframe"
-                src="https://lovable.dev/@daugavan"
-                title="Lovable profile preview for @daugavan"
-                loading="lazy"
-                referrerpolicy="strict-origin-when-cross-origin">
-              </iframe>
-              <div class="lovable-overlay" aria-hidden="true"></div>
-            </div>
-
-            <div class="lovable-copy">
-              <div class="lovable-actions">
-                <a class="btn lovable" href="https://lovable.dev/@daugavan" target="_blank" rel="noopener noreferrer">Open Lovable</a>
-                <button class="btn copy" type="button" data-copy-text="https://lovable.dev/@daugavan">Copy Lovable Link</button>
-              </div>
-            </div>
-          </aside>
         </header>
-
         <div class="grid">
           <aside class="card stats">
             <h3 style="margin-top:0;">GitHub Stats</h3>
@@ -730,9 +304,8 @@
             </div>
             <div class="progress" aria-hidden="true"><div id="progressFill" class="fill"></div></div>
           </aside>
-
           <section class="card">
-            <div style="display:flex; align-items:center; justify-content:space-between; gap: 1rem; flex-wrap: wrap;">
+            <div style="display:flex; align-items:center; justify-content:space-between;">
               <h3 style="margin-top:0;">Repositories</h3>
               <div class="smallmuted" id="repoCount">Loading…</div>
             </div>
@@ -742,31 +315,13 @@
       </main>
     </div>
   </div>
-
   <script>
     (function(){
       const GITHUB_USER = 'Daugavan';
-      const LOVABLE_URL = 'https://lovable.dev/@daugavan';
       const MAX_REPOS = 6;
       const API_BASE_URL = 'https://api.github.com/users/';
-      const LANGUAGE_COLORS = {
-        JavaScript:'#f1e05a',
-        TypeScript:'#2b7489',
-        Python:'#3572A5',
-        CSS:'#563d7c',
-        HTML:'#e34c26',
-        Java:'#b07219',
-        Shell:'#89e051',
-        Go:'#00ADD8',
-        Rust:'#dea584',
-        C:'#555555',
-        'C++':'#f34b7d',
-        Ruby:'#701516',
-        Vue:'rgb(65, 184, 131)'
-      };
-
+      const LANGUAGE_COLORS = { JavaScript:'#f1e05a', TypeScript:'#2b7489', Python:'#3572A5', CSS:'#563d7c', HTML:'#e34c26', Java:'#b07219', Shell:'#89e051', Go:'#00ADD8', Rust:'#dea584', C:'#555555','C++':'#f34b7d', Ruby:'#701516', Vue:'rgb(65, 184, 131)' };
       const mainContent = document.getElementById('mainContent');
-
       const elements = {
         avatar: document.getElementById('avatar'),
         name: document.getElementById('name'),
@@ -780,13 +335,8 @@
         repoCount: document.getElementById('repoCount'),
         progressFill: document.getElementById('progressFill'),
       };
-
-      const escapeHtml = (s) => s
-        ? s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-        : '';
-
+      const escapeHtml = (s) => s ? s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';
       const getLanguageColor = (lang) => LANGUAGE_COLORS[lang] || 'var(--jungle-accent)';
-
       function showCopyStatus(message) {
         let el = document.getElementById('copyStatus');
         if (!el) {
@@ -801,7 +351,6 @@
         void el.offsetWidth;
         el.style.animation = 'fadeInOut 2s forwards';
       }
-
       async function copyToClipboard(text) {
         if (!text) return;
         try {
@@ -811,7 +360,6 @@
           showCopyStatus('Copy failed.');
         }
       }
-
       function updateProfileUI(profile) {
         elements.avatar.src = profile.avatar_url || '';
         elements.avatar.alt = `${profile.login || 'user'} avatar`;
@@ -821,56 +369,33 @@
         elements.reposN.textContent = profile.public_repos ?? 0;
         elements.followersN.textContent = profile.followers ?? 0;
         elements.followingN.textContent = profile.following ?? 0;
-
         const repoCount = profile.public_repos || 0;
         const progressPercentage = Math.min(100, (repoCount / 100) * 100);
-
         setTimeout(() => {
           elements.progressFill.style.width = `${progressPercentage}%`;
         }, 300);
-
         elements.actions.innerHTML = '';
-
         const viewBtn = document.createElement('a');
         viewBtn.className = 'btn view';
-        viewBtn.textContent = 'View GitHub';
+        viewBtn.textContent = 'View Profile';
         viewBtn.href = profile.html_url;
         viewBtn.target = '_blank';
         viewBtn.rel = 'noopener noreferrer';
         elements.actions.appendChild(viewBtn);
-
-        const lovableBtn = document.createElement('a');
-        lovableBtn.className = 'btn lovable-outline';
-        lovableBtn.textContent = 'Lovable';
-        lovableBtn.href = LOVABLE_URL;
-        lovableBtn.target = '_blank';
-        lovableBtn.rel = 'noopener noreferrer';
-        elements.actions.appendChild(lovableBtn);
-
         const copyBtn = document.createElement('button');
         copyBtn.className = 'btn copy';
-        copyBtn.type = 'button';
-        copyBtn.textContent = 'Copy GitHub Link';
+        copyBtn.textContent = 'Copy Link';
         copyBtn.addEventListener('click', () => copyToClipboard(profile.html_url));
         elements.actions.appendChild(copyBtn);
       }
-
       function createRepoElement(repo) {
         const repoLink = document.createElement('a');
         repoLink.className = 'repo';
         repoLink.href = repo.html_url;
         repoLink.target = '_blank';
         repoLink.rel = 'noopener noreferrer';
-
-        const languageTopic = repo.language
-          ? `<div class="topic"><span class="lang-color" style="background:${getLanguageColor(repo.language)}"></span>${escapeHtml(repo.language)}</div>`
-          : '';
-
-        const otherTopics = (repo.topics || [])
-          .slice(0, 2)
-          .map(t => `<div class="topic">${escapeHtml(t)}</div>`)
-          .join('');
-
+        const languageTopic = repo.language ? `<div class="topic"><span class="lang-color" style="background:${getLanguageColor(repo.language)}"></span>${escapeHtml(repo.language)}</div>` : '';
+        const otherTopics = (repo.topics || []).slice(0, 2).map(t => `<div class="topic">${escapeHtml(t)}</div>`).join('');
         repoLink.innerHTML = `
           <div>
             <div class="title">${escapeHtml(repo.name)}</div>
@@ -886,54 +411,35 @@
           </div>`;
         return repoLink;
       }
-
       function displayError(message) {
         elements.name.textContent = 'Error';
         elements.bio.textContent = message;
-        elements.reposWrap.innerHTML = `<div class="error-box">${message}</div>`;
+        elements.reposWrap.innerHTML = `<div style='padding:12px;background:rgba(255,0,0,0.08);border-radius:10px;color:#ff6666;border:1px solid rgba(255,0,0,0.2)'>${message}</div>`;
         elements.repoCount.textContent = '—';
       }
-
-      document.addEventListener('click', (event) => {
-        const copyTrigger = event.target.closest('[data-copy-text]');
-        if (!copyTrigger) return;
-        copyToClipboard(copyTrigger.getAttribute('data-copy-text'));
-      });
-
       async function main() {
         mainContent.setAttribute('aria-busy', 'true');
-
         try {
-          const headers = {
-            Accept: 'application/vnd.github.v3+json'
-          };
-
+          const headers = { Accept: 'application/vnd.github.v3+json' };
           const [profileRes, reposRes] = await Promise.all([
             fetch(`${API_BASE_URL}${GITHUB_USER}`, { headers }),
             fetch(`${API_BASE_URL}${GITHUB_USER}/repos?per_page=100&sort=updated`, { headers })
           ]);
-
           if (!profileRes.ok) {
             throw new Error(`User '${GITHUB_USER}' not found (Status: ${profileRes.status}).`);
           }
-
           const profile = await profileRes.json();
           let repos = reposRes.ok ? await reposRes.json() : [];
-
           updateProfileUI(profile);
-
           repos = (repos || [])
             .sort((a, b) => b.stargazers_count - a.stargazers_count)
             .slice(0, MAX_REPOS);
-
           elements.reposWrap.innerHTML = '';
-
           if (repos.length > 0) {
-            repos.forEach(repo => elements.reposWrap.appendChild(createRepoElement(repo)));
+              repos.forEach(repo => elements.reposWrap.appendChild(createRepoElement(repo)));
           } else {
-            elements.reposWrap.innerHTML = '<div>No public repositories found.</div>';
+              elements.reposWrap.innerHTML = '<div>No public repositories found.</div>';
           }
-
           elements.repoCount.textContent = `${repos.length} of ${profile.public_repos} shown`;
         } catch (err) {
           console.error('Failed to fetch GitHub data:', err);
@@ -942,7 +448,6 @@
           mainContent.setAttribute('aria-busy', 'false');
         }
       }
-
       main();
     })();
   </script>
