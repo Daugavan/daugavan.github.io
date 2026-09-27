@@ -92,15 +92,6 @@
       openLovable: "Open Lovable profile (opens in new tab)",
       openPF: "Open PromptFlower (opens in new tab)",
       pfSubtitle: "Private prompt studio",
-      consoleUptime: "up since this page loaded…",
-      consoleNow: "shipping PromptFlower v0.5 · polishing agent skills · reading",
-      consoleIntro: "Marcus, building PromptFlower and a few honest tools from Sweden.",
-      consoleTry: "try /help",
-      consoleUnknown: "command not found",
-      consoleUsage: "usage: /lang en | sv",
-      consoleLanguage: "language set to",
-      consolePrivacy: "GitHub data is read anonymously and cached locally to reduce requests.",
-      consoleHelp: "commands",
       noScriptStats: "Enable JavaScript for GitHub statistics.",
       retryLater: "GitHub request limit reached · please retry later",
       sourceCachedCommit: "Repository data loaded · cached commit count",
@@ -126,7 +117,6 @@
       galleryTitle: 'Gallery',
       previous: 'Previous',
       next: 'Next',
-      run: 'run',
       noRepos: 'No public repositories found.',
       noDesc: 'No description.',
       ofShown: (n, total) => `${n} of ${total} shown`,
@@ -144,11 +134,6 @@
       copyLink: 'Copy Link',
       copied: 'Copied!',
       copyFailed: 'Copy failed.',
-      consoleTitle: '~/daugavan — try <span class="console-help">/help</span>',
-      consoleTitlePrefix: '~/daugavan — try',
-      consolePlaceholder: 'type a command…',
-      consoleForm: 'Run a console command',
-      consoleCommand: 'Console command',
       footerTagline: 'Hand-crafted, no framework.',
       errorRate: 'GitHub API rate limit reached. Showing cached data where possible.',
       errorLoad: 'Could not load GitHub repositories. The rest of the page remains available.'
@@ -157,15 +142,6 @@
       openLovable: "Öppna Lovable-profilen (öppnas i ny flik)",
       openPF: "Öppna PromptFlower (öppnas i ny flik)",
       pfSubtitle: "Privat promptstudio",
-      consoleUptime: "igång sedan sidan laddades…",
-      consoleNow: "utvecklar PromptFlower v0.5 · förfinar agentfärdigheter · läser",
-      consoleIntro: "Marcus, utvecklar PromptFlower och några användbara verktyg i Sverige.",
-      consoleTry: "prova /help",
-      consoleUnknown: "okänt kommando",
-      consoleUsage: "användning: /lang en | sv",
-      consoleLanguage: "språket är nu",
-      consolePrivacy: "GitHub-data hämtas anonymt och cachas lokalt för att minska anrop.",
-      consoleHelp: "kommandon",
       noScriptStats: "Aktivera JavaScript för GitHub-statistik.",
       retryLater: "GitHubs anropsgräns nådd · försök igen senare",
       sourceCachedCommit: "Repodata hämtad · cachat antal commits",
@@ -191,7 +167,6 @@
       galleryTitle: 'Galleri',
       previous: 'Föregående',
       next: 'Nästa',
-      run: 'kör',
       noRepos: 'Inga offentliga repon hittades.',
       noDesc: 'Ingen beskrivning.',
       ofShown: (n, total) => `${n} av ${total} visade`,
@@ -209,11 +184,6 @@
       copyLink: 'Kopiera länk',
       copied: 'Kopierat!',
       copyFailed: 'Kopiering misslyckades.',
-      consoleTitle: '~/daugavan — försök <span class="console-help">/help</span>',
-      consoleTitlePrefix: '~/daugavan — försök',
-      consolePlaceholder: 'skriv ett kommando…',
-      consoleForm: 'Kör ett konsolkommando',
-      consoleCommand: 'Konsolkommando',
       footerTagline: 'Handgjord, utan ramverk.',
       errorRate: 'GitHub API-rate limit nådd. Visar tillgänglig cachad data där det går.',
       errorLoad: 'Kunde inte läsa GitHub-repon. Resten av sidan är fortfarande tillgänglig.'
@@ -570,17 +540,11 @@
       element.textContent = t(element.getAttribute('data-i18n'));
     });
 
-    document.querySelectorAll('[data-i18n-placeholder]').forEach((element) => {
-      element.placeholder = t(element.getAttribute('data-i18n-placeholder'));
-    });
 
     document.querySelectorAll('[data-i18n-aria]').forEach((element) => {
       element.setAttribute('aria-label', t(element.getAttribute('data-i18n-aria')));
     });
 
-    document.querySelectorAll('[data-i18n-html]').forEach((element) => {
-      element.innerHTML = t(element.getAttribute('data-i18n-html'));
-    });
 
     if (cachedRepos) {
       renderRepos(cachedRepos, cachedRepos.length);
@@ -592,8 +556,6 @@
     const hadRetry = !!document.getElementById('retryGitHub');
     setStatsSource(sourceKey, sourceError);
     if (hadRetry) renderRetryButton();
-    document.getElementById('consoleForm')?.setAttribute('aria-label', t('consoleForm'));
-    document.getElementById('consoleCmd')?.setAttribute('aria-label', t('consoleCommand'));
     document.dispatchEvent(new Event('languagechange'));
 
     if (langSwitch) {
@@ -635,94 +597,6 @@
 
     langSwitch?.addEventListener('click', () => {
       setLanguage(currentLang === 'sv' ? 'en' : 'sv');
-    });
-  }
-
-  function initConsole() {
-    const form = document.getElementById('consoleForm');
-    const input = document.getElementById('consoleCmd');
-    const out = document.getElementById('consoleOut');
-
-    if (!form || !input || !out) return;
-    form.hidden = false;
-
-    const history = [];
-    let historyIndex = -1;
-
-    const print = (html, cls = 'out') => {
-      const line = document.createElement('span');
-      line.className = `console-line ${cls}`;
-      line.innerHTML = html;
-      out.appendChild(line);
-      while (out.children.length > 200) out.firstElementChild.remove();
-      out.scrollTop = out.scrollHeight;
-    };
-
-    const commands = {
-      '/help': () => {
-        print(
-          `  → ${esc(t('consoleHelp'))}: <span class="ok">/help</span> · <span class="ok">/lang en|sv</span> · <span class="ok">clear</span>`
-        );
-        print(
-          `  → ${esc(t('consolePrivacy'))}`,
-          'dim'
-        );
-      },
-      help: () => commands['/help'](),
-      '/lang': (arg) => {
-        if (arg === 'en' || arg === 'sv') {
-          setLanguage(arg);
-          print(`  → ${esc(t('consoleLanguage'))} ${esc(arg)}`, 'ok');
-        } else {
-          print(`  → ${esc(t('consoleUsage'))}`, 'warn');
-        }
-      },
-      clear: () => out.replaceChildren(),
-      cls: () => commands.clear()
-    };
-
-    out.addEventListener('click', () => input.focus());
-
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-
-      const raw = input.value.trim().slice(0, 512);
-      input.value = '';
-
-      if (!raw) return;
-
-      history.push(raw);
-      if (history.length > 100) history.shift();
-      historyIndex = history.length;
-
-      const [command, ...args] = raw.split(/\s+/);
-      print(
-        `<span class="prompt">guest@daugavan</span>:<span class="warn">~</span>$ <span class="cmd">${esc(raw)}</span>`
-      );
-
-      const handler = Object.prototype.hasOwnProperty.call(commands, command) ? commands[command] : null;
-      if (handler) handler(args.join(' ').trim());
-      else {
-        print(
-          `  → ${esc(t('consoleUnknown'))}: ${esc(command)} — ${esc(t('consoleTry'))}`,
-          'err'
-        );
-      }
-    });
-
-    input.addEventListener('keydown', (event) => {
-      if (event.key === 'ArrowUp') {
-        event.preventDefault();
-        if (historyIndex > 0) input.value = history[--historyIndex];
-      } else if (event.key === 'ArrowDown') {
-        event.preventDefault();
-        if (historyIndex < history.length - 1) {
-          input.value = history[++historyIndex];
-        } else {
-          historyIndex = history.length;
-          input.value = '';
-        }
-      }
     });
   }
 
@@ -768,7 +642,6 @@
     if (langSwitch) langSwitch.hidden = false;
     initLanguage();
     renderStaticProfile();
-    initConsole();
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const background = document.querySelector('.bg-svg');
     const syncMotion = () => {

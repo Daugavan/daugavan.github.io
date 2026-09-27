@@ -13,7 +13,7 @@ and no analytics. The page is hand-crafted HTML + CSS + vanilla JS.
 
 ## Pages
 - [Home](https://daugavan.github.io/): profile, live stats, top repositories,
-  PromptFlower showcase, and a small interactive console.
+  PromptFlower showcase and photo gallery.
 - [404](https://daugavan.github.io/404.html): on-brand not-found page.
 
 ## Projects
