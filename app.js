@@ -643,12 +643,14 @@
     initLanguage();
     renderStaticProfile();
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const touchScreen = window.matchMedia('(hover: none), (pointer: coarse), (max-width: 640px)');
     const background = document.querySelector('.bg-svg');
     const syncMotion = () => {
-      if (document.hidden || motion.matches) background?.pauseAnimations?.();
+      if (document.hidden || motion.matches || touchScreen.matches) background?.pauseAnimations?.();
       else background?.unpauseAnimations?.();
     };
     motion.addEventListener?.('change', syncMotion);
+    touchScreen.addEventListener?.('change', syncMotion);
     document.addEventListener('visibilitychange', syncMotion);
     syncMotion();
 
@@ -785,6 +787,7 @@
       if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) move(dx < 0 ? 1 : -1);
       touchStart = null;
     }, { passive: true });
+    dialog.addEventListener('touchcancel', () => { touchStart = null; }, { passive: true });
     dialog.addEventListener('close', () => {
       renderVersion++;
       dialog.remove();
