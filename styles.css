@@ -241,9 +241,7 @@
       min-height: clamp(18rem, 30vw, 24rem);
       padding: clamp(1.25rem, 2.6vw, 1.85rem);
       border-radius: var(--r-xl);
-      background: linear-gradient(rgba(0,0,0,0.42), rgba(0,0,0,0.42)), url("images/lovable-profile-clean.webp") center bottom/calc(100% + 4rem) auto no-repeat;
-      backdrop-filter: blur(var(--glass-blur)) saturate(160%);
-      -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+      background: url("images/lovable-profile-clean.webp") center bottom/cover no-repeat;
       border: 1px solid var(--line-1);
       box-shadow: var(--shadow-1);
       position: relative;
@@ -708,6 +706,14 @@
       margin: 0 !important;
       position: relative;
     }
+    .lovable-frame::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: rgba(0,0,0,.42);
+      pointer-events: none;
+    }
     .lovable-chrome {
       display: none;
     }
@@ -1003,10 +1009,10 @@
 
     /* ── New Spread Gallery ───────── */
     .title {
-      font:1.3em/1 monospace;
+      font:clamp(2.6rem, 5vw, 3.25rem)/1.15 monospace;
       font-variant:small-caps;
-      letter-spacing:0.5em;
-      margin:4em;
+      letter-spacing:0.18em;
+      margin:0;
       text-align: center;
       color: var(--ink-1);
     }
@@ -1099,7 +1105,7 @@
     }
 
     .gallery-wrapper .title {
-      margin: 2em 0 1em 0;
+      margin: 2.6rem 0 1.3rem;
     }
 
     .gallery-wrapper .gallery-spread {
@@ -1382,3 +1388,14 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--neon); outl
   .g-lightbox-prev:hover, .g-lightbox-next:hover { transform: none; }
 }
 @media (prefers-reduced-motion: reduce) { .bg-svg { display: none; } }
+
+.apps-title { margin-top: 2.6rem; }
+@media (max-width: 400px) { .title { letter-spacing: .1em; } }
+
+@media (max-width: 640px) {
+  .identity {
+    background-size: 100% auto;
+    background-position: center top;
+    background-color: var(--bg-0);
+  }
+}
