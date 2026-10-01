@@ -72,7 +72,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20261001-presentation" />
+  <link rel="stylesheet" href="styles.css?v=20261001-heart-link" />
 
   <!-- Preconnects + fonts (display swap; system stack primary) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -142,7 +142,9 @@
 
         <!-- ───────── Identity ───────── -->
         <header class="identity" aria-labelledby="name">
-          <img class="lovable-heart" src="images/lovable-heart-clean.png" alt="" aria-hidden="true" width="150" height="150" loading="eager" decoding="async" />
+          <a class="lovable-heart" href="https://lovable.dev/@daugavan" target="_blank" rel="noopener noreferrer" data-i18n-aria="openLovable" aria-label="Open Lovable profile (opens in new tab)">
+            <img src="images/lovable-heart-clean.png" alt="" aria-hidden="true" width="150" height="150" loading="eager" decoding="async" />
+          </a>
           <div class="avatar">
             <img id="avatar" alt="Daugavan — Marcus, builder behind PromptFlower" src="images/profile-avatar.webp" width="110" height="110" decoding="async" loading="lazy" />
           </div>
@@ -340,28 +342,6 @@
                 <a class="btn ghost" href="https://promptflower.app/privacy" target="_blank" rel="noopener noreferrer"><span data-i18n="privacy">Privacy</span> <span class="arrow" aria-hidden="true">↗</span></a>
               </div>
             </div>
-          </div>
-        </section>
-
-        <!-- ───────── Lovable showcase ───────── -->
-        <section class="card lovable-card" aria-label="Lovable profile">
-          <div class="project-card project-card--flush">
-            <div class="lovable-head">
-              <div class="project-kicker"><span class="pip" aria-hidden="true"></span><span data-i18n="lovableKicker">Featured · Profile</span></div>
-              <h2 id="lovableTitle" class="lovable-title project-title" data-i18n="lovableTitle">Lovable profile</h2>
-            </div>
-            <a class="lovable-frame" href="https://lovable.dev/@daugavan" target="_blank" rel="noopener noreferrer" data-i18n-aria="openLovable" aria-label="Open Lovable profile (opens in new tab)">
-              <div class="lovable-chrome">
-                <span class="dot r" aria-hidden="true"></span>
-                <span class="dot y" aria-hidden="true"></span>
-                <span class="dot g" aria-hidden="true"></span>
-                <span class="lovable-url">lovable.dev / @daugavan</span>
-              </div>
-              <picture>
-                <source srcset="images/lovable-profile-clean.webp" type="image/webp" />
-                <img class="lovable-img" alt="Lovable profile page for daugavan" src="images/lovable-profile-clean.png" width="1982" height="650" loading="lazy" decoding="async" />
-              </picture>
-            </a>
           </div>
         </section>
 

@@ -746,8 +746,9 @@
       left: clamp(.65rem, 1.8vw, 1rem);
       width: clamp(2.25rem, 4vw, 3.5rem);
       height: auto;
-      pointer-events: none;
+      pointer-events: auto;
     }
+    .lovable-heart img { width: 100%; height: auto; }
     .lovable-frame:hover .lovable-img {
       transform: scale(1.015);
       filter: brightness(1.05);
