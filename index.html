@@ -73,6 +73,8 @@
   </script>
 
   <link rel="stylesheet" href="styles.css?v=20260927-mobile" />
+  <link rel="stylesheet" href="moments-gallery/styles.css?v=20261001" />
+  <link rel="stylesheet" href="moments-gallery/integration.css?v=20261001" />
 
   <!-- Preconnects + fonts (display swap; system stack primary) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -193,94 +195,36 @@
           </section>
         </div>
 
-<!-- ───────── Spread Gallery ───────── -->
-        <div class="gallery-wrapper">
-          <h2 class="title" data-i18n="galleryTitle">Gallery</h2>
-          <div class="gallery-nav">
-            <button class="nav-btn prev" type="button" hidden data-i18n-aria="previous" aria-label="Previous">←</button>
-            <button class="nav-btn next" type="button" hidden data-i18n-aria="next" aria-label="Next">→</button>
-          </div>
-          <div class="gallery">
-            <!-- Each spread has one keyboard target; the nine planes are decorative. -->
-            <div class="gallery-spread">
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-            </div>
-            <!-- ul 2 -->
-            <div class="gallery-spread">
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-            </div>
-            <!-- ul 3 -->
-            <div class="gallery-spread">
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-            </div>
-            <!-- ul 4 -->
-            <div class="gallery-spread">
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-            </div>
-            <!-- ul 5 -->
-            <div class="gallery-spread">
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-            </div>
-            <!-- ul 6 -->
-            <div class="gallery-spread">
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-              <span class="gallery-plane"></span>
-            </div>
-          </div>
-        </div>
+<!-- ───────── Gallery ───────── -->
+        <section class="gallery-wrapper" aria-labelledby="portfolio-gallery-heading">
+          <h2 class="title" id="portfolio-gallery-heading" data-i18n="galleryTitle">Gallery</h2>
+<section id="moments-gallery" class="mg-gallery" data-gallery data-theme="dark" aria-labelledby="gallery-title">
+<a class="mg-skip" href="#gallery-grid">Skip to photographs</a>
+<header class="mg-topbar">
+<a class="mg-brand" href="#gallery-title" aria-label="Moments, back to gallery start"><span aria-hidden="true">◉</span> Moments</a>
+<div class="mg-top-actions"><span class="mg-edition">A PHOTOGRAPHIC COLLECTION</span><button class="mg-icon mg-theme" type="button" aria-label="Switch to light theme" title="Switch theme" hidden>◐</button></div>
+</header>
+<div class="mg-viewport" tabindex="0" aria-label="Photo gallery. Scroll for more photographs.">
+<section class="mg-wall" id="gallery-grid" aria-label="Photographs"><figure class="mg-tile" data-photo="photo-01"><a class="mg-photo" href="images/Portfolio%20(1).jpg" aria-label="Open Photograph 01"><picture><source type="image/webp" srcset="images/Portfolio%20(1)-sm.webp 800w, images/Portfolio%20(1).webp 1600w" sizes="(max-width: 680px) 44vw, 160px"><img src="images/Portfolio%20(1)-sm.jpg" srcset="images/Portfolio%20(1)-sm.jpg 800w, images/Portfolio%20(1).jpg 1600w" sizes="(max-width: 680px) 44vw, 160px" width="1600" height="1067" alt="An open pocket watch beside playing cards." loading="lazy" decoding="async"></picture><span class="mg-hover-caption" aria-hidden="true">Photograph 01</span><span class="mg-image-error" hidden>Image unavailable</span></a><figcaption class="mg-sr">Photograph 01</figcaption></figure>
+<figure class="mg-tile" data-photo="photo-02"><a class="mg-photo" href="images/Portfolio%20(2).jpg" aria-label="Open Photograph 02"><picture><source type="image/webp" srcset="images/Portfolio%20(2)-sm.webp 800w, images/Portfolio%20(2).webp 1600w" sizes="(max-width: 680px) 44vw, 160px"><img src="images/Portfolio%20(2)-sm.jpg" srcset="images/Portfolio%20(2)-sm.jpg 800w, images/Portfolio%20(2).jpg 1600w" sizes="(max-width: 680px) 44vw, 160px" width="1600" height="900" alt="City lights at dusk, framed by trees." loading="lazy" decoding="async"></picture><span class="mg-hover-caption" aria-hidden="true">Photograph 02</span><span class="mg-image-error" hidden>Image unavailable</span></a><figcaption class="mg-sr">Photograph 02</figcaption></figure>
+<figure class="mg-tile" data-photo="photo-03"><a class="mg-photo" href="images/Portfolio%20(3).jpg" aria-label="Open Photograph 03"><picture><source type="image/webp" srcset="images/Portfolio%20(3)-sm.webp 800w, images/Portfolio%20(3).webp 1600w" sizes="(max-width: 680px) 44vw, 160px"><img src="images/Portfolio%20(3)-sm.jpg" srcset="images/Portfolio%20(3)-sm.jpg 800w, images/Portfolio%20(3).jpg 1600w" sizes="(max-width: 680px) 44vw, 160px" width="1600" height="1067" alt="The setting sun reflected in a lake." loading="lazy" decoding="async"></picture><span class="mg-hover-caption" aria-hidden="true">Photograph 03</span><span class="mg-image-error" hidden>Image unavailable</span></a><figcaption class="mg-sr">Photograph 03</figcaption></figure>
+<figure class="mg-tile" data-photo="photo-04"><a class="mg-photo" href="images/Portfolio%20(4).jpg" aria-label="Open Photograph 04"><picture><source type="image/webp" srcset="images/Portfolio%20(4)-sm.webp 800w, images/Portfolio%20(4).webp 1600w" sizes="(max-width: 680px) 44vw, 160px"><img src="images/Portfolio%20(4)-sm.jpg" srcset="images/Portfolio%20(4)-sm.jpg 800w, images/Portfolio%20(4).jpg 1600w" sizes="(max-width: 680px) 44vw, 160px" width="1600" height="900" alt="A forest-lined lake beneath a cloudy sky." loading="lazy" decoding="async"></picture><span class="mg-hover-caption" aria-hidden="true">Photograph 04</span><span class="mg-image-error" hidden>Image unavailable</span></a><figcaption class="mg-sr">Photograph 04</figcaption></figure>
+<figure class="mg-tile" data-photo="photo-05"><a class="mg-photo" href="images/Portfolio%20(5).jpg" aria-label="Open Photograph 05"><picture><source type="image/webp" srcset="images/Portfolio%20(5)-sm.webp 800w, images/Portfolio%20(5).webp 1600w" sizes="(max-width: 680px) 44vw, 160px"><img src="images/Portfolio%20(5)-sm.jpg" srcset="images/Portfolio%20(5)-sm.jpg 800w, images/Portfolio%20(5).jpg 1600w" sizes="(max-width: 680px) 44vw, 160px" width="1600" height="1067" alt="Black-and-white photograph of hands shuffling playing cards." loading="lazy" decoding="async"></picture><span class="mg-hover-caption" aria-hidden="true">Photograph 05</span><span class="mg-image-error" hidden>Image unavailable</span></a><figcaption class="mg-sr">Photograph 05</figcaption></figure>
+<figure class="mg-tile" data-photo="photo-06"><a class="mg-photo" href="images/Portfolio%20(6).jpg" aria-label="Open Photograph 06"><picture><source type="image/webp" srcset="images/Portfolio%20(6)-sm.webp 800w, images/Portfolio%20(6).webp 1600w" sizes="(max-width: 680px) 44vw, 160px"><img src="images/Portfolio%20(6)-sm.jpg" srcset="images/Portfolio%20(6)-sm.jpg 800w, images/Portfolio%20(6).jpg 1600w" sizes="(max-width: 680px) 44vw, 160px" width="1600" height="900" alt="Black-and-white night scene with buildings and a bright streetlight." loading="lazy" decoding="async"></picture><span class="mg-hover-caption" aria-hidden="true">Photograph 06</span><span class="mg-image-error" hidden>Image unavailable</span></a><figcaption class="mg-sr">Photograph 06</figcaption></figure></section>
+</div>
+<footer class="mg-intro"><p class="mg-eyebrow"><span></span> A WALL OF STORIES</p><h2 id="gallery-title">Moments<span>.</span></h2><p class="mg-hint">Follow your curiosity. Open a moment.</p></footer>
+<div class="mg-bottom"><span class="mg-total">06 PHOTOGRAPHS</span><button class="mg-layout" type="button" aria-pressed="false" hidden>Show grid <span aria-hidden="true">↗</span></button></div>
+<dialog class="mg-viewer" aria-labelledby="mg-title" aria-describedby="mg-description">
+<div class="mg-viewer-content">
+<div class="mg-viewer-tools"><div class="mg-nav"><button type="button" class="mg-icon" data-action="prev" aria-label="Previous photograph">←</button><span class="mg-counter" aria-live="polite" aria-atomic="true"></span><button type="button" class="mg-icon" data-action="next" aria-label="Next photograph">→</button></div><div class="mg-nav"><button class="mg-icon mg-theme" type="button" aria-label="Switch to light theme">◐</button><button type="button" class="mg-icon" data-action="close" aria-label="Close image viewer" autofocus>×</button></div></div>
+<p class="mg-eyebrow mg-category"></p><h2 id="mg-title"></h2>
+<figure class="mg-feature"><div class="mg-image-stage"><picture class="mg-feature-picture"><img class="mg-feature-image" alt="" decoding="async"></picture><p class="mg-viewer-error" hidden>The image could not be loaded. <button type="button" data-action="retry">Try again</button></p></div><figcaption><p class="mg-meta"></p><p id="mg-description"></p></figcaption></figure>
+<div class="mg-viewer-footer"><button type="button" class="mg-pill" data-action="share">Copy image link <span aria-hidden="true">↗</span></button><a class="mg-original" href="#" target="_blank" rel="noopener">Open image file ↗</a></div><p class="mg-status" role="status"></p>
+</div></dialog>
+<script type="application/json" class="mg-data">[{"id":"photo-01","title":"Photograph 01","titleSv":"Fotografi 01","alt":"An open pocket watch beside playing cards.","altSv":"Ett öppet fickur bredvid spelkort.","category":"Photography","description":"","width":1600,"height":1067,"variants":{"webp":[{"src":"images/Portfolio%20(1)-sm.webp","width":800},{"src":"images/Portfolio%20(1).webp","width":1600}],"jpg":[{"src":"images/Portfolio%20(1)-sm.jpg","width":800},{"src":"images/Portfolio%20(1).jpg","width":1600}]},"src":"images/Portfolio%20(1).jpg"},{"id":"photo-02","title":"Photograph 02","titleSv":"Fotografi 02","alt":"City lights at dusk, framed by trees.","altSv":"Stadsljus i skymningen, inramade av träd.","category":"Photography","description":"","width":1600,"height":900,"variants":{"webp":[{"src":"images/Portfolio%20(2)-sm.webp","width":800},{"src":"images/Portfolio%20(2).webp","width":1600}],"jpg":[{"src":"images/Portfolio%20(2)-sm.jpg","width":800},{"src":"images/Portfolio%20(2).jpg","width":1600}]},"src":"images/Portfolio%20(2).jpg"},{"id":"photo-03","title":"Photograph 03","titleSv":"Fotografi 03","alt":"The setting sun reflected in a lake.","altSv":"Den nedgående solen speglas i en sjö.","category":"Photography","description":"","width":1600,"height":1067,"variants":{"webp":[{"src":"images/Portfolio%20(3)-sm.webp","width":800},{"src":"images/Portfolio%20(3).webp","width":1600}],"jpg":[{"src":"images/Portfolio%20(3)-sm.jpg","width":800},{"src":"images/Portfolio%20(3).jpg","width":1600}]},"src":"images/Portfolio%20(3).jpg"},{"id":"photo-04","title":"Photograph 04","titleSv":"Fotografi 04","alt":"A forest-lined lake beneath a cloudy sky.","altSv":"En sjö omgiven av skog under en molnig himmel.","category":"Photography","description":"","width":1600,"height":900,"variants":{"webp":[{"src":"images/Portfolio%20(4)-sm.webp","width":800},{"src":"images/Portfolio%20(4).webp","width":1600}],"jpg":[{"src":"images/Portfolio%20(4)-sm.jpg","width":800},{"src":"images/Portfolio%20(4).jpg","width":1600}]},"src":"images/Portfolio%20(4).jpg"},{"id":"photo-05","title":"Photograph 05","titleSv":"Fotografi 05","alt":"Black-and-white photograph of hands shuffling playing cards.","altSv":"Svartvitt fotografi av händer som blandar spelkort.","category":"Photography","description":"","width":1600,"height":1067,"variants":{"webp":[{"src":"images/Portfolio%20(5)-sm.webp","width":800},{"src":"images/Portfolio%20(5).webp","width":1600}],"jpg":[{"src":"images/Portfolio%20(5)-sm.jpg","width":800},{"src":"images/Portfolio%20(5).jpg","width":1600}]},"src":"images/Portfolio%20(5).jpg"},{"id":"photo-06","title":"Photograph 06","titleSv":"Fotografi 06","alt":"Black-and-white night scene with buildings and a bright streetlight.","altSv":"Svartvit nattbild med byggnader och en stark gatlykta.","category":"Photography","description":"","width":1600,"height":900,"variants":{"webp":[{"src":"images/Portfolio%20(6)-sm.webp","width":800},{"src":"images/Portfolio%20(6).webp","width":1600}],"jpg":[{"src":"images/Portfolio%20(6)-sm.jpg","width":800},{"src":"images/Portfolio%20(6).jpg","width":1600}]},"src":"images/Portfolio%20(6).jpg"}]</script>
+</section>
+        </section>
 
-        <noscript><p>Gallery:
-          <a href="images/Portfolio%20(1).webp">1</a> · <a href="images/Portfolio%20(2).webp">2</a> ·
-          <a href="images/Portfolio%20(3).webp">3</a> · <a href="images/Portfolio%20(4).webp">4</a> ·
-          <a href="images/Portfolio%20(5).webp">5</a> · <a href="images/Portfolio%20(6).webp">6</a>
-        </p></noscript>
         <!-- ───────── PromptFlower ───────── -->
         <section class="card project-card promptflower-card" aria-labelledby="promptflower-title">
           <div class="section-heading">
@@ -381,6 +325,7 @@
     </div>
   </div>
 
-  <script src="app.js?v=20260927-mobile" defer></script>
+  <script src="app.js?v=20261001-gallery" defer></script>
+  <script src="moments-gallery/gallery.js?v=20261001" defer></script>
 </body>
 </html>
