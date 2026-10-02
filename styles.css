@@ -316,11 +316,14 @@
       transform: translate(-50%, .45rem);
     }
     .identity-title {
-      grid-column: 1 / -1;
-      grid-row: 1;
+      position: absolute;
+      inset-inline: 0;
+      top: clamp(1.25rem, 2.6vw, 1.85rem);
+      grid-column: auto;
+      grid-row: auto;
       align-self: start;
       justify-self: center;
-      margin-top: clamp(4.1rem, 7.4vw, 6rem);
+      margin-top: clamp(2rem, 3.7vw, 3rem);
       text-align: center;
     }
     #name {
@@ -1371,7 +1374,7 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--neon); outl
 .repo-title, .repo-topics, .identity-title, .id-actions { min-width: 0; }
 @media (max-width: 1023px) {
   .identity { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto auto; }
-  .identity-title { grid-column: 1; }
+  .identity-title { grid-column: auto; }
   .id-meta { position: static; grid-column: 1; grid-row: 2; transform: none; text-align: center; }
   .id-actions { grid-column: 1; grid-row: 3; justify-self: center; justify-content: center; }
 }
