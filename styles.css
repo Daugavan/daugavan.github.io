@@ -1494,3 +1494,59 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--neon); outl
 @media (prefers-reduced-motion: reduce) {
   .streetlight-shade, .identity #name { transition: none; }
 }
+
+/* The portrait stays visually unchanged until its contact bubble is opened. */
+.portrait-contact {
+  position: absolute;
+  z-index: 2;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.portrait-contact[hidden], .contact-bubble[hidden] { display: none; }
+.portrait-contact:focus-visible { outline: 2px solid var(--gold); outline-offset: -5px; }
+.contact-bubble {
+  position: fixed;
+  z-index: 100;
+  box-sizing: border-box;
+  width: min(310px, calc(100vw - 32px));
+  margin: 0;
+  padding: 20px 24px;
+  border: 1px solid rgba(255, 255, 255, .8);
+  border-radius: 26px 26px 26px 8px;
+  background: #f4f7fa;
+  color: #152131;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, .4);
+  transform-origin: left 65%;
+  animation: contact-bubble-grow 750ms ease-out both;
+}
+.contact-bubble::before {
+  content: "";
+  position: absolute;
+  left: -13px;
+  top: 60%;
+  width: 24px;
+  height: 22px;
+  background: #f4f7fa;
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+.contact-bubble p { margin: 0 0 8px; color: inherit; font-weight: 700; }
+.contact-bubble a { color: #075e69; text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.contact-bubble a:focus-visible { outline: 2px solid #075e69; outline-offset: 4px; }
+.contact-bubble p, .contact-bubble a { animation: contact-bubble-text 250ms 550ms both; }
+@keyframes contact-bubble-grow {
+  0% { opacity: 0; transform: scale(.08); border-radius: 50%; }
+  18% { opacity: 1; transform: scale(.22); border-radius: 50%; }
+  38% { transform: scale(.45); border-radius: 44px; }
+  62% { transform: scale(.72); }
+  82% { transform: scale(1.04); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes contact-bubble-text { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .contact-bubble, .contact-bubble p, .contact-bubble a { animation: none; }
+}

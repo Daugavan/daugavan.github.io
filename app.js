@@ -889,3 +889,100 @@
     document.addEventListener('languagechange', labels);
   }).catch(() => { /* Keep the original illuminated header if an asset fails. */ });
 })();
+
+/* Contact bubble anchored to the portrait painted into the cover image. */
+(() => {
+  'use strict';
+  const header = document.querySelector('.identity');
+  const crop = document.querySelector('.identity-crop');
+  if (!header || !crop || typeof ResizeObserver === 'undefined') return;
+  const source = new Image();
+  source.src = 'images/identity-cover.webp';
+  source.decode().then(() => {
+    const trigger = document.createElement('button');
+    trigger.type = 'button';
+    trigger.className = 'portrait-contact';
+    trigger.setAttribute('aria-label', 'Visa kontaktuppgifter');
+    trigger.setAttribute('aria-expanded', 'false');
+    trigger.setAttribute('aria-controls', 'portrait-contact-bubble');
+    header.appendChild(trigger);
+
+    const bubble = document.createElement('div');
+    bubble.id = 'portrait-contact-bubble';
+    bubble.className = 'contact-bubble';
+    bubble.hidden = true;
+    bubble.setAttribute('role', 'region');
+    bubble.setAttribute('aria-label', 'Kontaktuppgifter');
+    const message = document.createElement('p');
+    message.textContent = 'Vill du kontakta mig?';
+    const email = document.createElement('a');
+    email.href = 'mailto:daugavan@pr0t0nmail.com';
+    email.textContent = 'daugavan@pr0t0nmail.com';
+    bubble.append(message, email);
+    document.body.appendChild(bubble);
+
+    function close() {
+      bubble.hidden = true;
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+    function positionBubble() {
+      const target = trigger.getBoundingClientRect();
+      const frame = crop.getBoundingClientRect();
+      const right = Math.min(target.right, frame.right);
+      const top = Math.max(target.top, frame.top);
+      const bottom = Math.min(target.bottom, frame.bottom);
+      const width = bubble.offsetWidth;
+      const height = bubble.offsetHeight;
+      const left = Math.max(16, Math.min(right - 12, innerWidth - width - 16));
+      const y = Math.max(16, Math.min(top + (bottom - top) * .35 - height / 2, innerHeight - height - 16));
+      bubble.style.left = left + 'px';
+      bubble.style.top = y + 'px';
+    }
+    function layout() {
+      const width = header.clientWidth;
+      const height = header.clientHeight;
+      const scale = Math.max(width / source.naturalWidth, height / source.naturalHeight);
+      const offsetX = (width - source.naturalWidth * scale) / 2;
+      const positionY = parseFloat(getComputedStyle(header).backgroundPositionY) / 100;
+      const offsetY = (height - source.naturalHeight * scale) * positionY;
+      const left = offsetX + 80 * scale;
+      const size = 352 * scale;
+      trigger.style.left = left + 'px';
+      trigger.style.top = (offsetY + 174 * scale) + 'px';
+      trigger.style.width = size + 'px';
+      trigger.style.height = size + 'px';
+      trigger.hidden = Math.min(left + size, width) - Math.max(left, 0) < 44;
+      if (trigger.hidden) close();
+      else if (!bubble.hidden) positionBubble();
+    }
+    trigger.addEventListener('click', () => {
+      if (!bubble.hidden) return close();
+      bubble.hidden = false;
+      positionBubble();
+      trigger.setAttribute('aria-expanded', 'true');
+    });
+    document.addEventListener('pointerdown', event => {
+      if (!bubble.hidden && !bubble.contains(event.target) && !trigger.contains(event.target)) close();
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && !bubble.hidden) {
+        close();
+        trigger.focus({ preventScroll: true });
+      }
+    });
+    document.addEventListener('focusin', event => {
+      if (!bubble.hidden && !bubble.contains(event.target) && event.target !== trigger) close();
+    });
+    // Keep the email next in keyboard navigation after opening the portrait.
+    trigger.addEventListener('keydown', event => {
+      if (event.key === 'Tab' && !event.shiftKey && !bubble.hidden) {
+        event.preventDefault();
+        email.focus({ preventScroll: true });
+      }
+    });
+    window.addEventListener('scroll', () => { if (!bubble.hidden) positionBubble(); }, { passive: true });
+    window.addEventListener('resize', layout, { passive: true });
+    new ResizeObserver(layout).observe(header);
+    layout();
+  }).catch(() => { /* Keep the original portrait if the cover cannot load. */ });
+})();
