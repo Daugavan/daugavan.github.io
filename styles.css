@@ -241,7 +241,7 @@
       min-height: clamp(18rem, 30vw, 24rem);
       padding: clamp(1.25rem, 2.6vw, 1.85rem);
       border-radius: var(--r-xl);
-      background: url("images/lovable-profile-clean.webp") center bottom/cover no-repeat;
+      background: url("images/identity-cover.webp") center bottom/cover no-repeat;
       border: 1px solid var(--line-1);
       box-shadow: var(--shadow-1);
       position: relative;
@@ -1408,8 +1408,11 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--neon); outl
   }
   .g-lightbox figure { max-width: 100%; min-width: 0; }
   .g-lightbox img { max-width: 100%; max-height: max(44px, calc(100dvh - 11rem - env(safe-area-inset-top) - env(safe-area-inset-bottom))); }
-  .g-lightbox-prev, .g-lightbox-next { top: auto; bottom: max(1rem, env(safe-area-inset-bottom)); transform: none; }
-  .g-lightbox-prev:hover, .g-lightbox-next:hover { transform: none; }
+  .g-lightbox-prev, .g-lightbox-next {
+    top: 50%; bottom: auto; transform: translateY(-50%);
+    background: rgba(5, 8, 16, .8);
+  }
+  .g-lightbox-prev:hover, .g-lightbox-next:hover { transform: translateY(-50%); }
 }
 @media (prefers-reduced-motion: reduce) { .bg-svg { display: none; } }
 
@@ -1418,7 +1421,7 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--neon); outl
 
 @media (max-width: 640px) {
   .identity {
-    background-size: 100% auto;
+    background-size: cover;
     background-position: center top;
     background-color: var(--bg-0);
   }
