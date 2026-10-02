@@ -1443,3 +1443,16 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--neon); outl
     background-color: var(--bg-0);
   }
 }
+
+/* Keep gallery arrows free of button backgrounds and focus boxes. */
+.nav-btn, .g-lightbox-prev, .g-lightbox-next {
+  background: transparent;
+  mix-blend-mode: screen;
+}
+.nav-btn:is(:hover, :focus-visible, :active),
+.g-lightbox-prev:is(:hover, :focus-visible, :active),
+.g-lightbox-next:is(:hover, :focus-visible, :active) {
+  background: transparent;
+  box-shadow: none;
+  outline: none;
+}
