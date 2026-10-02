@@ -230,6 +230,11 @@
     /* ─────────────────────────────────────────────────────────────
        Header — identity strip
        ───────────────────────────────────────────────────────────── */
+    /* Crop the existing header from the bottom, preserving its composition. */
+    .identity-crop {
+      height: calc(clamp(18rem, 30vw, 24rem) * .85);
+      overflow: clip;
+    }
     .identity {
       display: grid;
       grid-template-columns: auto minmax(0, 1fr);
