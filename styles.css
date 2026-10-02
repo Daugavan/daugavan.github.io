@@ -1456,3 +1456,41 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--neon); outl
   box-shadow: none;
   outline: none;
 }
+
+/* Streetlight switch: overlay only the two lamp heads and their glow. */
+.streetlight-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: url("images/identity-lamps-off.webp") center / cover no-repeat;
+  background-position: inherit;
+  --lamp-mask: radial-gradient(ellipse var(--lamp-mask-x) var(--lamp-mask-y) at var(--lamp-left-x) var(--lamp-mask-top), #000 60%, transparent 100%),
+               radial-gradient(ellipse var(--lamp-mask-x) var(--lamp-mask-y) at var(--lamp-right-x) var(--lamp-mask-top), #000 60%, transparent 100%);
+  -webkit-mask-image: var(--lamp-mask);
+  mask-image: var(--lamp-mask);
+  opacity: 0;
+  transition: opacity 450ms var(--ease-soft);
+}
+.identity.lamps-off .streetlight-shade { opacity: 1; }
+.identity .identity-title { z-index: 1; }
+.identity #name { transition: filter 450ms var(--ease-soft); }
+.identity.lamps-off #name { filter: brightness(.35) saturate(.35); }
+.streetlight-toggle {
+  position: absolute;
+  z-index: 2;
+  width: max(44px, var(--lamp-target));
+  height: max(44px, var(--lamp-target));
+  transform: translate(-50%, -50%);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.streetlight-toggle:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  .streetlight-shade, .identity #name { transition: none; }
+}

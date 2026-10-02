@@ -821,3 +821,71 @@
   if (previous) { previous.hidden = false; previous.addEventListener('click', () => open(current - 1, previous)); }
   if (next) { next.hidden = false; next.addEventListener('click', () => open(current + 1, next)); }
 })();
+
+/* Both streetlights share one switch, with targets mapped to the cover image. */
+(() => {
+  'use strict';
+  const header = document.querySelector('.identity');
+  if (!header || typeof ResizeObserver === 'undefined') return;
+  const source = new Image();
+  const unlit = new Image();
+  source.src = 'images/identity-cover.webp';
+  unlit.src = 'images/identity-lamps-off.webp';
+
+  Promise.all([source.decode(), unlit.decode()]).then(() => {
+    const shade = document.createElement('span');
+    shade.className = 'streetlight-shade';
+    shade.setAttribute('aria-hidden', 'true');
+    header.prepend(shade);
+    let on = true;
+    const buttons = [715, 886].map((x, index) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'streetlight-toggle';
+      button.addEventListener('click', () => {
+        on = !on;
+        header.classList.toggle('lamps-off', !on);
+        labels();
+      });
+      header.appendChild(button);
+      return { button, x, index };
+    });
+
+    function labels() {
+      const swedish = document.documentElement.lang.startsWith('sv');
+      const action = swedish
+        ? (on ? 'Släck båda gatlyktorna' : 'Tänd båda gatlyktorna')
+        : (on ? 'Turn both streetlights off' : 'Turn both streetlights on');
+      buttons.forEach(({ button, index }) => {
+        const side = swedish ? (index ? 'Höger lykta' : 'Vänster lykta')
+          : (index ? 'Right streetlight' : 'Left streetlight');
+        button.setAttribute('aria-label', side + ': ' + action);
+        button.setAttribute('aria-pressed', String(on));
+        button.title = action;
+      });
+    }
+
+    function layout() {
+      const width = header.clientWidth;
+      const height = header.clientHeight;
+      const scale = Math.max(width / source.naturalWidth, height / source.naturalHeight);
+      const offsetX = (width - source.naturalWidth * scale) / 2;
+      const positionY = parseFloat(getComputedStyle(header).backgroundPositionY) / 100;
+      const offsetY = (height - source.naturalHeight * scale) * positionY;
+      header.style.setProperty('--lamp-mask-x', (55 * scale) + 'px');
+      header.style.setProperty('--lamp-mask-y', (65 * scale) + 'px');
+      header.style.setProperty('--lamp-mask-top', (offsetY + 95 * scale) + 'px');
+      header.style.setProperty('--lamp-target', (44 * scale) + 'px');
+      buttons.forEach(({ button, x, index }) => {
+        const left = offsetX + x * scale;
+        header.style.setProperty(index ? '--lamp-right-x' : '--lamp-left-x', left + 'px');
+        button.style.left = left + 'px';
+        button.style.top = (offsetY + 72 * scale) + 'px';
+      });
+    }
+    labels();
+    layout();
+    new ResizeObserver(layout).observe(header);
+    document.addEventListener('languagechange', labels);
+  }).catch(() => { /* Keep the original illuminated header if an asset fails. */ });
+})();
