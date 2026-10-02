@@ -1516,13 +1516,23 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--neon); outl
   width: min(310px, calc(100vw - 32px));
   margin: 0;
   padding: 20px 24px;
-  border: 1px solid rgba(255, 255, 255, .8);
+  border: 1px solid transparent;
   border-radius: 26px 26px 26px 8px;
-  background: #f4f7fa;
   color: #152131;
+  pointer-events: none;
+}
+.contact-bubble.is-open { pointer-events: auto; }
+.contact-bubble-surface {
+  position: absolute;
+  z-index: -1;
+  inset: -1px;
+  border: 1px solid rgba(255, 255, 255, .8);
+  border-radius: inherit;
+  background: #f4f7fa;
   box-shadow: 0 12px 40px rgba(0, 0, 0, .4);
-  transform-origin: left 65%;
-  animation: contact-bubble-grow 750ms ease-out both;
+  transform-origin: 0 65%;
+  transform: scale(.72);
+  opacity: 0;
 }
 .contact-bubble::before {
   content: "";
@@ -1533,20 +1543,61 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--neon); outl
   height: 22px;
   background: #f4f7fa;
   clip-path: polygon(100% 0, 100% 100%, 0 100%);
+  z-index: -1;
+  transform-origin: left bottom;
+  transform: scale(.3);
+  opacity: 0;
 }
 .contact-bubble p { margin: 0 0 8px; color: inherit; font-weight: 700; }
 .contact-bubble a { color: #075e69; text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
 .contact-bubble a:focus-visible { outline: 2px solid #075e69; outline-offset: 4px; }
-.contact-bubble p, .contact-bubble a { animation: contact-bubble-text 250ms 550ms both; }
-@keyframes contact-bubble-grow {
-  0% { opacity: 0; transform: scale(.08); border-radius: 50%; }
-  18% { opacity: 1; transform: scale(.22); border-radius: 50%; }
-  38% { transform: scale(.45); border-radius: 44px; }
-  62% { transform: scale(.72); }
-  82% { transform: scale(1.04); }
-  100% { opacity: 1; transform: scale(1); }
+.contact-bubble p, .contact-bubble-email {
+  opacity: 0;
+  transform: translateY(4px);
 }
-@keyframes contact-bubble-text { from { opacity: 0; } to { opacity: 1; } }
+.contact-bubble::before, .contact-bubble-surface,
+.contact-bubble p, .contact-bubble-email {
+  transition: transform 150ms ease-out, opacity 150ms ease-out;
+}
+.contact-bubble.is-open::before {
+  opacity: 1;
+  transform: scale(1);
+  transition-duration: 100ms;
+}
+.contact-bubble.is-open .contact-bubble-surface {
+  opacity: 1;
+  transform: scale(1);
+  transition: transform 380ms 40ms cubic-bezier(.2, .9, .3, 1.2), opacity 180ms 40ms ease-out;
+}
+.contact-bubble.is-open p, .contact-bubble.is-open .contact-bubble-email {
+  opacity: 1;
+  transform: translateY(0);
+  transition-duration: 140ms;
+  transition-delay: 240ms;
+}
+.contact-bubble.is-open .contact-bubble-email {
+  transition-duration: 160ms;
+  transition-delay: 300ms;
+}
+.contact-bubble.is-closing .contact-bubble-surface {
+  transform: translateX(-4px) scale(.96);
+}
+.contact-bubble.is-closing::before { transform: scale(.6); }
+.contact-bubble.is-closing p, .contact-bubble.is-closing .contact-bubble-email {
+  transform: translateX(-4px);
+}
+/* Reversing a close should respond immediately instead of repeating the stagger. */
+.contact-bubble.is-open.is-resuming::before,
+.contact-bubble.is-open.is-resuming .contact-bubble-surface,
+.contact-bubble.is-open.is-resuming p,
+.contact-bubble.is-open.is-resuming .contact-bubble-email { transition-delay: 0ms; }
+.contact-bubble.is-open:focus-within::before,
+.contact-bubble.is-open:focus-within .contact-bubble-surface,
+.contact-bubble.is-open:focus-within p,
+.contact-bubble.is-open:focus-within .contact-bubble-email {
+  transition: none;
+}
 @media (prefers-reduced-motion: reduce) {
-  .contact-bubble, .contact-bubble p, .contact-bubble a { animation: none; }
+  .contact-bubble::before, .contact-bubble .contact-bubble-surface,
+  .contact-bubble p, .contact-bubble .contact-bubble-email { transition: none !important; }
 }

@@ -911,19 +911,67 @@
     bubble.id = 'portrait-contact-bubble';
     bubble.className = 'contact-bubble';
     bubble.hidden = true;
+    bubble.inert = true;
     bubble.setAttribute('role', 'region');
     bubble.setAttribute('aria-label', 'Kontaktuppgifter');
+    bubble.setAttribute('aria-hidden', 'true');
+    const surface = document.createElement('span');
+    surface.className = 'contact-bubble-surface';
+    surface.setAttribute('aria-hidden', 'true');
     const message = document.createElement('p');
     message.textContent = 'Vill du kontakta mig?';
     const email = document.createElement('a');
     email.href = 'mailto:daugavan@pr0t0nmail.com';
     email.textContent = 'daugavan@pr0t0nmail.com';
-    bubble.append(message, email);
+    const emailLine = document.createElement('div');
+    emailLine.className = 'contact-bubble-email';
+    emailLine.appendChild(email);
+    bubble.append(surface, message, emailLine);
     document.body.appendChild(bubble);
 
-    function close() {
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let isOpen = false;
+    let closeTimer;
+
+    function finishClose() {
+      if (isOpen) return;
+      clearTimeout(closeTimer);
       bubble.hidden = true;
+      bubble.classList.remove('is-closing');
+    }
+    function close() {
+      if (!isOpen) return;
+      isOpen = false;
       trigger.setAttribute('aria-expanded', 'false');
+      if (bubble.contains(document.activeElement)) {
+        if (trigger.hidden) email.blur();
+        else trigger.focus({ preventScroll: true });
+      }
+      bubble.inert = true;
+      bubble.setAttribute('aria-hidden', 'true');
+      bubble.classList.remove('is-open');
+      bubble.classList.add('is-closing');
+      if (motion.matches || trigger.hidden) return finishClose();
+      // Also finish an interrupted opening whose surface never became visible.
+      closeTimer = setTimeout(finishClose, 200);
+    }
+    function open() {
+      clearTimeout(closeTimer);
+      const wasHidden = bubble.hidden;
+      isOpen = true;
+      bubble.hidden = false;
+      bubble.inert = false;
+      bubble.removeAttribute('aria-hidden');
+      if (wasHidden) {
+        bubble.classList.remove('is-closing', 'is-resuming');
+        // Measure the resting layout before starting the first transition.
+        positionBubble();
+      } else {
+        bubble.classList.add('is-resuming');
+      }
+      bubble.classList.remove('is-closing');
+      bubble.classList.add('is-open');
+      trigger.setAttribute('aria-expanded', 'true');
     }
     function positionBubble() {
       const target = trigger.getBoundingClientRect();
@@ -956,29 +1004,34 @@
       else if (!bubble.hidden) positionBubble();
     }
     trigger.addEventListener('click', () => {
-      if (!bubble.hidden) return close();
-      bubble.hidden = false;
-      positionBubble();
-      trigger.setAttribute('aria-expanded', 'true');
+      if (isOpen) close();
+      else open();
     });
     document.addEventListener('pointerdown', event => {
-      if (!bubble.hidden && !bubble.contains(event.target) && !trigger.contains(event.target)) close();
+      if (isOpen && !bubble.contains(event.target) && !trigger.contains(event.target)) close();
     });
     document.addEventListener('keydown', event => {
-      if (event.key === 'Escape' && !bubble.hidden) {
+      if (event.key === 'Escape' && isOpen) {
         close();
         trigger.focus({ preventScroll: true });
       }
     });
     document.addEventListener('focusin', event => {
-      if (!bubble.hidden && !bubble.contains(event.target) && event.target !== trigger) close();
+      if (isOpen && !bubble.contains(event.target) && event.target !== trigger) close();
     });
     // Keep the email next in keyboard navigation after opening the portrait.
     trigger.addEventListener('keydown', event => {
-      if (event.key === 'Tab' && !event.shiftKey && !bubble.hidden) {
+      if (event.key === 'Tab' && !event.shiftKey && isOpen) {
         event.preventDefault();
         email.focus({ preventScroll: true });
       }
+    });
+    surface.addEventListener('transitionend', event => {
+      if (event.target === surface && event.propertyName === 'opacity' && !isOpen &&
+          getComputedStyle(surface).opacity === '0') finishClose();
+    });
+    motion.addEventListener('change', () => {
+      if (motion.matches && !isOpen) finishClose();
     });
     window.addEventListener('scroll', () => { if (!bubble.hidden) positionBubble(); }, { passive: true });
     window.addEventListener('resize', layout, { passive: true });
