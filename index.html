@@ -72,7 +72,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20261001-heart-link" />
+  <link rel="stylesheet" href="styles.css?v=20261002-gallery-arrows" />
 
   <!-- Preconnects + fonts (display swap; system stack primary) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -197,8 +197,8 @@
         <div class="gallery-wrapper">
           <h2 class="title" data-i18n="galleryTitle">Gallery</h2>
           <div class="gallery-nav">
-            <button class="nav-btn prev" type="button" hidden data-i18n-aria="previous" aria-label="Previous">←</button>
-            <button class="nav-btn next" type="button" hidden data-i18n-aria="next" aria-label="Next">→</button>
+            <button class="nav-btn prev" type="button" hidden data-i18n-aria="previous" aria-label="Previous"><span class="gallery-arrow gallery-arrow-prev" aria-hidden="true"></span></button>
+            <button class="nav-btn next" type="button" hidden data-i18n-aria="next" aria-label="Next"><span class="gallery-arrow gallery-arrow-next" aria-hidden="true"></span></button>
           </div>
           <div class="gallery">
             <!-- Each spread has one keyboard target; the nine planes are decorative. -->
@@ -357,6 +357,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=20261001-pf-copy" defer></script>
+  <script src="app.js?v=20261002-gallery-arrows" defer></script>
 </body>
 </html>

@@ -985,17 +985,32 @@
       padding: 0 1rem;
     }
     .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       background: none;
       border: none;
       color: var(--ink-1);
       cursor: pointer;
       font-size: 1.5rem;
-      padding: 0.5rem;
+      padding: 0;
       border-radius: var(--r-md);
       transition: background var(--dur-fast) var(--ease-soft), transform var(--dur-fast) var(--ease-spring);
-      min-width: 44px;
-      height: 44px;
+      width: clamp(76px, 7vw, 96px);
+      min-width: 76px;
+      height: 72px;
     }
+    /* Screen blending keeps the supplied white paint texture while hiding black. */
+    .gallery-arrow {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: center / contain no-repeat;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+    .gallery-arrow-prev { background-image: url("images/gallery-arrow-left.jpg"); }
+    .gallery-arrow-next { background-image: url("images/gallery-arrow-right.jpg"); }
     .nav-btn:hover {
       background: var(--bg-1);
       transform: scale(1.1);
@@ -1192,6 +1207,14 @@
     .g-lightbox-next { right: max(.75rem, env(safe-area-inset-right)); top: 50%; transform: translateY(-50%); }
     .g-lightbox-prev:hover { transform: translateY(-50%) translateY(-1px); }
     .g-lightbox-next:hover { transform: translateY(-50%) translateY(-1px); }
+    .g-lightbox-prev, .g-lightbox-next {
+      width: clamp(76px, 7vw, 96px);
+      height: 72px;
+      padding: 0;
+      border: none;
+      border-radius: var(--r-md);
+      background: none;
+    }
     @media (prefers-reduced-motion: reduce) {
       .g-lightbox { transition: none; }
     }

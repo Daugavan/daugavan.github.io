@@ -762,9 +762,9 @@
     dialog.className = 'g-lightbox is-open';
     dialog.innerHTML = `
       <button class="g-lightbox-btn g-lightbox-close" type="button" autofocus>✕</button>
-      <button class="g-lightbox-btn g-lightbox-prev" type="button">←</button>
+      <button class="g-lightbox-btn g-lightbox-prev" type="button"><span class="gallery-arrow gallery-arrow-prev" aria-hidden="true"></span></button>
       <figure><img class="g-lightbox-pic" alt="" decoding="async"><figcaption aria-live="polite"></figcaption></figure>
-      <button class="g-lightbox-btn g-lightbox-next" type="button">→</button>`;
+      <button class="g-lightbox-btn g-lightbox-next" type="button"><span class="gallery-arrow gallery-arrow-next" aria-hidden="true"></span></button>`;
     dialog.querySelector('.g-lightbox-close').addEventListener('click', close);
     dialog.querySelector('.g-lightbox-prev').addEventListener('click', () => move(-1));
     dialog.querySelector('.g-lightbox-next').addEventListener('click', () => move(1));
