@@ -235,6 +235,15 @@
       height: calc(clamp(18rem, 30vw, 24rem) * .85);
       overflow: clip;
     }
+    .identity-description {
+      display: flex;
+      justify-content: center;
+      padding-block: .35rem;
+    }
+    .identity-description .bio {
+      max-width: none;
+      text-align: center;
+    }
     .identity {
       display: grid;
       grid-template-columns: auto minmax(0, 1fr);
