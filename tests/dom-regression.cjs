@@ -37,7 +37,7 @@ setTimeout(() => {
     w.document.querySelector('.gallery-spread').click();
     assert.ok(w.document.querySelector('dialog[open]'));
     w.document.querySelector('.g-lightbox-next').click();
-    assert.ok(w.document.querySelector('figcaption').textContent.includes('2 / 6'));
+    assert.ok(w.document.querySelector('.g-lightbox figcaption').textContent.includes('2 / 6'));
     w.document.querySelector('.g-lightbox-close').click();
     assert.equal(w.document.querySelector('dialog'), null);
     w.document.querySelector('#langSwitch').click();

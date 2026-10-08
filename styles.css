@@ -1265,6 +1265,7 @@
 .activity-heading .title { margin: 0 0 .75rem; }
 .activity-card { min-width: 0; padding: .8rem 1.25rem; border-top: 2px solid #39794d; }
 .activity-card-lovable { border-top-color: #286fbb; }
+.activity-card-codex { border-top-color: #45b4a2; }
 .activity-card .card-head { flex-wrap: wrap; gap: .25rem 1rem; margin-bottom: .5rem; }
 .activity-card h3 { margin: 0; font-size: 1.1rem; font-weight: 600; }
 .activity-brand { display: flex; align-items: center; gap: .85rem; min-width: 0; }
