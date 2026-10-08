@@ -1274,6 +1274,7 @@
 .activity-card .mini-link { min-height: 44px; display: inline-flex; align-items: center; gap: .5rem; }
 .activity-figure { margin: 0; }
 .activity-total { margin: .2rem 0 0; color: var(--ink-3); font-size: .8rem; font-weight: 400; }
+.activity-summary { color: var(--ink-3); font-size: .8rem; line-height: 1.5; }
 .activity-scroll { overflow-x: auto; padding: .5rem .65rem; border: 1px solid var(--line-1); border-radius: var(--r-md); background: #0b1018; }
 .activity-scroll:focus-visible { outline: 2px solid var(--neon); outline-offset: 3px; }
 .activity-scroll img { display: block; width: 100%; min-width: 680px; height: auto; max-width: none; }

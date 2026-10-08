@@ -6,7 +6,7 @@ import { join } from 'node:path';
 
 const historyRoot = process.argv[2];
 if (!historyRoot) throw new Error('Pass the authorized local Codex history directory.');
-const today = '2026-10-08';
+const today = process.argv[3] || new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Stockholm', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
 const end = new Date(`${today}T00:00:00Z`);
 const start = new Date(end);
 start.setUTCDate(start.getUTCDate() - 364);

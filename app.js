@@ -76,11 +76,10 @@
 
   const T = {
     en: {
-      codexActivityTotal: '222 completed turns in saved local history',
-      codexActivityDate: 'Snapshot · October 8, 2026',
+      codexActivityTotal: '225 completed turns in the last year',
+      codexActivityDate: '8 active days · October 8, 2026',
       codexCalendar: 'Codex activity calendar; scroll horizontally to see all months',
-      codexActivityAlt: 'Codex activity calendar showing 222 completed turns across 8 active days in saved local history, through October 8, 2026.',
-      codexActivitySource: 'Saved local history · completed turns per day, Stockholm time. Subagents excluded; activity on other devices may be missing.',
+      codexActivityAlt: 'Codex activity calendar showing 225 completed turns across 8 active days in saved local history, through October 8, 2026.',
 
       activityTitle: 'Stats for nerds',
       activityJump: 'Explore my activity',
@@ -143,11 +142,10 @@
       errorLoad: 'Could not load GitHub repositories. The rest of the page remains available.'
     },
     sv: {
-      codexActivityTotal: '222 avslutade svar i sparad lokal historik',
-      codexActivityDate: 'Ögonblicksbild · 8 oktober 2026',
+      codexActivityTotal: '225 avslutade svar det senaste året',
+      codexActivityDate: '8 aktiva dagar · 8 oktober 2026',
       codexCalendar: 'Codex aktivitetskalender; skrolla i sidled för att se alla månader',
-      codexActivityAlt: 'Codex aktivitetskalender med 222 avslutade svar fördelade på 8 aktiva dagar i sparad lokal historik, till och med 8 oktober 2026.',
-      codexActivitySource: 'Sparad lokal historik · avslutade svar per dag, svensk tid. Subagenter räknas inte; aktivitet på andra enheter kan saknas.',
+      codexActivityAlt: 'Codex aktivitetskalender med 225 avslutade svar fördelade på 8 aktiva dagar i sparad lokal historik, till och med 8 oktober 2026.',
 
       activityTitle: 'Statistik för nördar',
       activityJump: 'Utforska min aktivitet',
