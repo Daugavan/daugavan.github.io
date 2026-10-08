@@ -1,0 +1,32 @@
+# llms.txt — https://daugavan.github.io/
+# A short, machine-readable index of this site for LLM crawlers.
+# Spec: https://llmstxt.org/
+
+# Daugavan
+> Personal site of Marcus ("Daugavan") — a Swedish builder of small, honest tools.
+> Primary project: PromptFlower (prompt.studio / superprompts). Background in
+> agent design, web frontend, and local-first AI tooling. Lives on a small
+> island of public repositories at github.com/Daugavan.
+
+The site is a single page that pulls cached public GitHub repository data (repos, stars, commits) from `https://api.github.com`. There is no backend, no build step,
+and no analytics. The page is hand-crafted HTML + CSS + vanilla JS.
+
+## Pages
+- [Home](https://daugavan.github.io/): profile, live stats, top repositories,
+  PromptFlower showcase and photo gallery.
+- [404](https://daugavan.github.io/404.html): on-brand not-found page.
+
+## Projects
+- [PromptFlower](https://promptflower.app/): private prompt studio.
+  Turns rough ideas into copy-ready superprompts. Local-first, Ollama-ready.
+
+## Profiles
+- GitHub: https://github.com/Daugavan
+- Lovable: https://lovable.dev/@daugavan
+- PromptFlower: https://promptflower.app/
+
+## Optional
+- [Sitemap](https://daugavan.github.io/sitemap.xml)
+- [robots.txt](https://daugavan.github.io/robots.txt)
+
+Repository data is cached for 30 minutes; commit search counts for six hours. Unknown or incomplete counts are explicitly identified.

@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'; frame-src 'none'; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self' 'sha256-j/0sIEGMVylaCmfYEbx+FIVhHBdvNQaacy7tHN0riZY='; connect-src https://api.github.com; upgrade-insecure-requests" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#070b14" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#0a0e1a" />
+
+  <title>Daugavan's portfolio</title>
+  <meta name="description" content="Daugavan (Marcus) — Swedish builder behind PromptFlower, agent skills and small AI tooling. GitHub projects, apps, and a garden of public experiments." />
+  <link rel="canonical" href="https://daugavan.github.io/" />
+  <meta name="author" content="Daugavan" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta name="generator" content="hand-crafted, no framework" />
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="alternate icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="preload" as="image" href="images/lovable-profile-clean.webp" fetchpriority="high" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="profile" />
+  <meta property="og:site_name" content="Daugavan" />
+  <meta property="og:title" content="Daugavan's portfolio" />
+  <meta property="og:description" content="Swedish builder behind PromptFlower and a garden of other public experiments." />
+  <meta property="og:url" content="https://daugavan.github.io/" />
+  <meta property="og:image" content="https://daugavan.github.io/og-cover.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1536" />
+  <meta property="og:image:height" content="806" />
+  <meta property="og:image:alt" content="Daugavan — PromptFlower and quiet tools" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="profile:username" content="daugavan" />
+  <meta property="profile:first_name" content="Marcus" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Daugavan's portfolio" />
+  <meta name="twitter:description" content="Swedish builder behind PromptFlower and a garden of other public experiments." />
+  <meta name="twitter:image" content="https://daugavan.github.io/og-cover.jpg" />
+
+  <!-- Security -->
+
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Marcus",
+      "alternateName": "Daugavan",
+      "url": "https://daugavan.github.io/",
+      "image": "https://daugavan.github.io/images/profile-avatar.webp",
+      "description": "Swedish builder behind PromptFlower and a garden of other public experiments.",
+      "knowsAbout": ["Prompt engineering", "Local LLM tooling", "Agent design", "Web interfaces"],
+      "sameAs": [
+        "https://github.com/Daugavan",
+        "https://lovable.dev/@daugavan",
+        "https://promptflower.app/"
+      ],
+      "worksFor": {
+        "@type": "Organization",
+        "name": "PromptFlower",
+        "url": "https://promptflower.app/"
+      }
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="styles.css?v=20261008-branding" />
+
+  <!-- GitHub connection; typography uses local system fonts. -->
+  <link rel="preconnect" href="https://api.github.com" crossorigin />
+</head>
+<body>
+  <a class="skip" data-i18n="skipContent" href="#mainContent">Skip to content</a>
+
+  <div class="bg-radial" aria-hidden="true"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-noise" aria-hidden="true"></div>
+
+  <svg class="bg-svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%"  stop-color="var(--neon)"  stop-opacity=".14"/>
+        <stop offset="50%" stop-color="var(--teal)"  stop-opacity=".10"/>
+        <stop offset="100%" stop-color="var(--violet)" stop-opacity=".06"/>
+      </linearGradient>
+      <filter id="glo" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="14" result="b"/>
+        <feMerge>
+          <feMergeNode in="b"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+    <g filter="url(#glo)" id="bgPaths">
+      <path d="M0,300 C500,100 900,500 1400,280 S1700,160 1920,400"
+            stroke="url(#lg)" stroke-width="2.4" fill="none" stroke-opacity=".18">
+        <animate attributeName="stroke-opacity" values=".08;.18;.08"
+                 dur="12s" repeatCount="indefinite"/>
+        <animate attributeName="d"
+                 values="M0,300 C500,100 900,500 1400,280 S1700,160 1920,400;
+                         M0,320 C480,120 920,480 1420,300 S1720,180 1920,420;
+                         M0,300 C500,100 900,500 1400,280 S1700,160 1920,400"
+                 dur="20s" repeatCount="indefinite"
+                 calcMode="spline" keyTimes="0;.5;1"
+                 keySplines=".4 0 .2 1; .4 0 .2 1"/>
+      </path>
+      <path d="M0,800 C400,600 700,900 1300,700 S1650,600 1920,820"
+            stroke="var(--neon)" stroke-width="1.8" fill="none" stroke-opacity=".12">
+        <animate attributeName="stroke-opacity" values=".05;.12;.05"
+                 dur="14s" repeatCount="indefinite"/>
+        <animate attributeName="d"
+                 values="M0,800 C400,600 700,900 1300,700 S1650,600 1920,820;
+                         M0,780 C420,620 680,880 1320,720 S1670,620 1920,800;
+                         M0,800 C400,600 700,900 1300,700 S1650,600 1920,820"
+                 dur="24s" repeatCount="indefinite"
+                 calcMode="spline" keyTimes="0;.5;1"
+                 keySplines=".4 0 .2 1; .4 0 .2 1"/>
+      </path>
+    </g>
+  </svg>
+
+  <div class="wrap">
+    <div class="max">
+      <main id="mainContent" class="content" aria-busy="false" tabindex="-1">
+          <noscript>
+            <div class="card noscript-note">
+              <strong>JavaScript &auml;r avst&auml;ngt.</strong>
+              <p>Live-GitHub-statistik beh&ouml;ver JavaScript &mdash; l&auml;nkarna nedan fungerar &auml;nd&aring;.</p>
+            </div>
+          </noscript>
+
+        <!-- ───────── Identity ───────── -->
+        <div class="identity-crop">
+        <header class="identity" aria-labelledby="name">
+          <div class="avatar">
+            <img id="avatar" alt="Daugavan — Marcus, builder behind PromptFlower" src="images/profile-avatar.webp" width="110" height="110" decoding="async" loading="lazy" />
+          </div>
+          <div class="identity-title">
+            <h1 id="name">Daugavan</h1>
+          </div>
+          <div class="id-actions" id="actions"><a class="btn view" href="https://github.com/Daugavan" target="_blank" rel="noopener noreferrer">View Profile</a></div>
+          <button class="lang-switch" id="langSwitch" type="button" hidden aria-label="Switch language">
+            <span class="flag flag-se" id="flag-sv" title="Svenska" aria-label="Svenska" aria-hidden="true"></span>
+            <span class="flag flag-us" id="flag-us" title="English" aria-label="English" aria-hidden="true" hidden></span>
+          </button>
+        </header>
+        </div>
+
+        <div class="identity-description">
+          <p class="bio" id="bio">Creative technologist with a passion for cybersecurity, AI, coding, and photography.</p>
+        </div>
+
+        <!-- ───────── Stats + Repos ───────── -->
+        <div class="grid">
+          <aside class="card stats" aria-labelledby="statsTitle">
+            <div class="card-head">
+              <h2 id="statsTitle" data-i18n="statsTitle">GitHub Stats</h2>
+              <span class="repo-count" aria-hidden="true" data-i18n="live">public</span>
+            </div>
+            <div class="row" role="list">
+              <div class="stat" role="listitem">
+                <div class="num" id="starsN">—</div>
+                <div class="label" id="stat-label-stars" data-i18n="stars">Stars</div>
+              </div>
+              <div class="stat" role="listitem">
+                <div class="num" id="reposN">—</div>
+                <div class="label" id="stat-label-repos" data-i18n="repos">Repos</div>
+              </div>
+              <div class="stat" role="listitem">
+                <div class="num" id="commitsN">—</div>
+                <div class="label" id="stat-label-commits" data-i18n="commits">Commits</div>
+              </div>
+            </div>
+            <div class="progress" aria-hidden="true"><div id="progressFill" class="fill"></div></div>
+            <div class="stats-source" id="statsSource" role="status" aria-live="polite">Enable JavaScript for GitHub statistics.</div>
+          </aside>
+
+          <section class="card" aria-labelledby="reposTitle">
+            <div class="card-head">
+              <h2 id="reposTitle" data-i18n="reposTitle">Repositories</h2>
+              <span class="repo-count" id="repoCount">—</span>
+            </div>
+            <div class="repos" id="repos" aria-busy="false"><a class="repo" href="https://github.com/Daugavan?tab=repositories" target="_blank" rel="noopener noreferrer">View all repositories on GitHub ↗</a></div>
+          </section>
+        </div>
+
+        <!-- ───────── PromptFlower ───────── -->
+        <h2 class="title apps-title" data-i18n="pfKicker">My apps</h2>
+        <section class="card project-card promptflower-card" aria-labelledby="promptflower-title">
+          <div class="section-heading">
+            <div>
+              <h2 id="promptflower-title" class="project-title">PromptFlower</h2>
+              <div class="project-subtitle"><span data-i18n="pfSubtitle">Private prompt studio</span> · <span translate="no">v2.0</span></div>
+            </div>
+            <div class="section-aside">
+              <a class="mini-link" href="https://promptflower.app/" target="_blank" rel="noopener noreferrer">promptflower.app <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+          <div class="pf-layout">
+            <a class="pf-visual" href="https://promptflower.app/" target="_blank" rel="noopener noreferrer" data-i18n-aria="openPF" aria-label="Open PromptFlower (opens in new tab)">
+              <div class="pf-chrome">
+                <span class="dot r" aria-hidden="true"></span>
+                <span class="dot y" aria-hidden="true"></span>
+                <span class="dot g" aria-hidden="true"></span>
+                <span class="pf-url" data-i18n="pfUrl">promptflower.app / private prompt studio</span>
+              </div>
+              <div class="pf-stage">
+                <span class="pf-orbit one" aria-hidden="true"></span>
+                <span class="pf-orbit two" aria-hidden="true"></span>
+                <span class="pf-dot one" aria-hidden="true"></span>
+                <span class="pf-dot two" aria-hidden="true"></span>
+                <div class="pf-icon-card">
+                  <img class="pf-icon" alt="PromptFlower app icon" src="images/promptflower-icon.webp" width="647" height="760" loading="lazy" decoding="async" />
+                </div>
+                <div class="pf-brand">
+                  <div class="pf-wordmark-card">
+                    <img class="pf-wordmark" alt="PromptFlower wordmark" src="images/promptflower-wordmark.webp" width="698" height="260" loading="lazy" decoding="async" />
+                  </div>
+                  <div class="pf-product">
+                    <span class="kicker" data-i18n="pfStudio">Private prompt studio</span>
+                    <strong data-i18n="pfTitle">Turn a quick idea into a structured superprompt.</strong>
+                    <div class="pf-flow" aria-hidden="true"><span>Idea</span><span>Enhance</span><span>Copy</span></div>
+                  </div>
+                </div>
+              </div>
+            </a>
+            <div class="pf-copy">
+              <p class="pf-lede" data-i18n="pfLede">A private prompt studio — with support for online/offline and API/local workflows.</p>
+              <p class="pf-body" data-i18n="pfBody">PromptFlower turns your short idea or sentence into an excellent prompt that's ready for use with any AI of choice!</p>
+              <div class="feature-pills" aria-label="PromptFlower highlights">
+                <span>Superprompts</span>
+                <span>Prompt enhancer</span>
+                <span>Local-first mindset</span>
+                <span>Ollama-ready</span>
+              </div>
+              <div class="project-actions">
+                <a class="btn view" href="https://promptflower.app/" target="_blank" rel="noopener noreferrer">
+                  <span class="dot" aria-hidden="true"></span>
+                  <span data-i18n="openApp">Open App</span> <span class="arrow" aria-hidden="true">↗</span>
+                </a>
+                <a class="btn ghost" href="https://promptflower.app/privacy" target="_blank" rel="noopener noreferrer"><span data-i18n="privacy">Privacy</span> <span class="arrow" aria-hidden="true">↗</span></a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+<!-- ───────── Spread Gallery ───────── -->
+        <div class="gallery-wrapper">
+          <h2 class="title" data-i18n="galleryTitle">Gallery</h2>
+          <div class="gallery">
+            <!-- Each spread has one keyboard target; the nine planes are decorative. -->
+            <div class="gallery-spread">
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+            </div>
+            <!-- ul 2 -->
+            <div class="gallery-spread">
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+            </div>
+            <!-- ul 3 -->
+            <div class="gallery-spread">
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+            </div>
+            <!-- ul 4 -->
+            <div class="gallery-spread">
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+            </div>
+            <!-- ul 5 -->
+            <div class="gallery-spread">
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+            </div>
+            <!-- ul 6 -->
+            <div class="gallery-spread">
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+              <span class="gallery-plane"></span>
+            </div>
+          </div>
+          <div class="gallery-nav">
+            <button class="nav-btn prev" type="button" hidden data-i18n-aria="previous" aria-label="Previous"><span class="gallery-arrow gallery-arrow-prev" aria-hidden="true"></span></button>
+            <button class="nav-btn next" type="button" hidden data-i18n-aria="next" aria-label="Next"><span class="gallery-arrow gallery-arrow-next" aria-hidden="true"></span></button>
+          </div>
+        </div>
+
+        <noscript><p>Gallery:
+          <a href="images/Portfolio%20(1).webp">1</a> · <a href="images/Portfolio%20(2).webp">2</a> ·
+          <a href="images/Portfolio%20(3).webp">3</a> · <a href="images/Portfolio%20(4).webp">4</a> ·
+          <a href="images/Portfolio%20(5).webp">5</a> · <a href="images/Portfolio%20(6).webp">6</a>
+        </p></noscript>
+        <!-- ───────── Activity ───────── -->
+        <a class="activity-cue" href="#activity" data-i18n-aria="activityJump" aria-label="Explore my activity">
+          <svg viewBox="0 0 150 110" width="96" height="72" aria-hidden="true" focusable="false">
+            <path d="M66 13 C71 36 76 61 78 94 M14 40 C40 53 60 71 78 94 C96 69 116 52 141 40 M78 94 C77 73 81 58 87 43" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span data-i18n="activityJump">Explore my activity</span>
+        </a>
+        <section class="activity-section" id="activity" aria-labelledby="activityTitle">
+          <div class="activity-heading">
+            <h2 class="title" id="activityTitle" data-i18n="activityTitle">Stats for nerds</h2>
+          </div>
+          <article class="card activity-card activity-card-github" aria-labelledby="githubActivityTitle">
+            <div class="card-head">
+              <div class="activity-brand">
+                <img class="activity-brand-mark" src="images/github-mark.svg" width="36" height="36" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+                <div><h3 id="githubActivityTitle">GitHub</h3><p class="activity-total" data-i18n="githubActivityTotal">1,473 contributions in the last year</p></div>
+              </div>
+              <a class="mini-link" href="https://github.com/Daugavan?tab=overview" target="_blank" rel="noopener noreferrer"><span data-i18n="currentActivity">Current activity</span> <span aria-hidden="true">↗</span></a>
+            </div>
+            <figure class="activity-figure">
+              <div class="activity-scroll" tabindex="0" role="region" aria-label="GitHub activity calendar" data-i18n-aria="githubCalendar">
+                <img src="images/github-activity.svg" width="1000" height="130" alt="GitHub activity calendar showing 1,473 contributions in the last year, retrieved on October 8, 2026." loading="lazy" decoding="async" data-i18n-alt="githubActivityAlt" />
+              </div>
+              <figcaption data-i18n="githubActivitySource">From GitHub · October 8, 2026. Follow the profile for the latest activity.</figcaption>
+            </figure>
+          </article>
+          <article class="card activity-card activity-card-lovable" aria-labelledby="lovableActivityTitle">
+            <div class="card-head">
+              <div class="activity-brand">
+                <img class="activity-brand-mark" src="images/lovable-mark.svg" width="36" height="36" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+                <div><h3 id="lovableActivityTitle">Lovable</h3><p class="activity-total" data-i18n="lovableActivityTotal">430 edits in the displayed year</p></div>
+              </div>
+              <a class="mini-link" href="https://lovable.dev/@daugavan" target="_blank" rel="noopener noreferrer"><span data-i18n="currentActivity">Current activity</span> <span aria-hidden="true">↗</span></a>
+            </div>
+            <figure class="activity-figure">
+              <div class="activity-scroll" tabindex="0" role="region" aria-label="Lovable activity calendar" data-i18n-aria="lovableCalendar">
+                <img src="images/lovable-activity.svg" width="1000" height="130" alt="Saved Lovable activity calendar showing 430 edits in the displayed year." loading="lazy" decoding="async" data-i18n-alt="lovableActivityAlt" />
+              </div>
+              <figcaption data-i18n="lovableActivitySource">Saved activity · Lovable does not expose this calendar on the public profile.</figcaption>
+            </figure>
+          </article>
+        </section>
+
+        <!-- ───────── Footer ───────── -->
+        <footer class="foot" role="contentinfo">
+          <div>
+            <span class="footer-copy">© <span id="year">2026</span> <span translate="no">Marcus</span></span>
+          </div>
+          <div>
+            <a href="https://github.com/Daugavan" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <span aria-hidden="true"> · </span>
+            <a href="https://promptflower.app/" target="_blank" rel="noopener noreferrer">PromptFlower</a>
+            <span aria-hidden="true"> · </span>
+            <a href="privacy.html" data-i18n="sitePrivacy">Site privacy</a>
+          </div>
+        </footer>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="app.js?v=20261008-branding" defer></script>
+</body>
+</html>
+
