@@ -13,7 +13,7 @@ export const publicFiles = [
   'images/gallery-arrow-left.jpg', 'images/gallery-arrow-right.jpg',
   'images/github-activity.svg', 'images/lovable-activity.svg',
   'images/github-mark.svg', 'images/lovable-mark.svg',
-  'images/codex-activity.svg', 'images/codex-mark.svg',
+  'images/codex-activity.svg', 'images/codex-mark.png',
   ...Array.from({ length: 6 }, (_, i) => [
     `images/Portfolio (${i + 1}).webp`, `images/Portfolio (${i + 1}).jpg`,
     `images/Portfolio (${i + 1})-sm.webp`

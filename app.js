@@ -76,8 +76,18 @@
 
   const T = {
     en: {
-      codexActivityTotal: '225 completed turns in the last year',
-      codexActivityDate: '8 active days · October 8, 2026',
+      codexActivityTotal: 'Profile statistics',
+      codexActivityDate: 'October 8, 2026',
+      codexTokensTotal: 'Total tokens',
+      codexTokensTotalValue: '249M',
+      codexTokensDay: 'Most tokens in one day',
+      codexTokensDayValue: '125.9M',
+      codexLongestTask: 'Longest task',
+      codexLongestTaskValue: '1 hr 30 min',
+      codexLongestStreak: 'Longest streak',
+      codexLongestStreakValue: '4 days',
+      codexCurrentStreak: 'Current streak',
+      codexCurrentStreakValue: '1 day',
       codexCalendar: 'Codex activity calendar; scroll horizontally to see all months',
       codexActivityAlt: 'Codex activity calendar showing 225 completed turns across 8 active days in saved local history, through October 8, 2026.',
 
@@ -142,8 +152,18 @@
       errorLoad: 'Could not load GitHub repositories. The rest of the page remains available.'
     },
     sv: {
-      codexActivityTotal: '225 avslutade svar det senaste året',
-      codexActivityDate: '8 aktiva dagar · 8 oktober 2026',
+      codexActivityTotal: 'Profilstatistik',
+      codexActivityDate: '8 oktober 2026',
+      codexTokensTotal: 'Token totalt',
+      codexTokensTotalValue: '249 mn',
+      codexTokensDay: 'Flest token under en dag',
+      codexTokensDayValue: '125,9 mn',
+      codexLongestTask: 'Längsta uppgiften',
+      codexLongestTaskValue: '1 tim 30 min',
+      codexLongestStreak: 'Längsta svit',
+      codexLongestStreakValue: '4 dagar',
+      codexCurrentStreak: 'Nuvarande svit',
+      codexCurrentStreakValue: '1 dag',
       codexCalendar: 'Codex aktivitetskalender; skrolla i sidled för att se alla månader',
       codexActivityAlt: 'Codex aktivitetskalender med 225 avslutade svar fördelade på 8 aktiva dagar i sparad lokal historik, till och med 8 oktober 2026.',
 

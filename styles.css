@@ -1266,6 +1266,10 @@
 .activity-card { min-width: 0; padding: .8rem 1.25rem; border-top: 2px solid #39794d; }
 .activity-card-lovable { border-top-color: #286fbb; }
 .activity-card-codex { border-top-color: #45b4a2; }
+.codex-profile-stats { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .75rem; margin: .75rem 0 1rem; }
+.codex-profile-stats > div { display: flex; flex-direction: column; gap: .3rem; padding: .6rem; text-align: center; border: 1px solid var(--line-1); border-radius: var(--r-sm); }
+.codex-profile-stats dt { color: var(--ink-3); font-size: .75rem; line-height: 1.5; }
+.codex-profile-stats dd { order: -1; margin: 0; color: var(--ink-1); font-size: .95rem; font-weight: 600; }
 .activity-card .card-head { flex-wrap: wrap; gap: .25rem 1rem; margin-bottom: .5rem; }
 .activity-card h3 { margin: 0; font-size: 1.1rem; font-weight: 600; }
 .activity-brand { display: flex; align-items: center; gap: .85rem; min-width: 0; }
@@ -1281,6 +1285,8 @@
 .activity-figure figcaption { margin-top: .45rem; color: var(--ink-3); font-size: .75rem; line-height: 1.6; }
 @media (max-width: 640px) {
   .activity-cue { margin-top: 1.5rem; }
+  .codex-profile-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; }
+  .codex-profile-stats > div:last-child { grid-column: 1 / -1; }
   .activity-card { padding: .65rem .85rem; }
   .activity-heading .title { font-size: 1.15rem; letter-spacing: .08em; }
 }
