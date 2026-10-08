@@ -72,7 +72,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20261008-background" />
+  <link rel="stylesheet" href="styles.css?v=20261008-still-contours" />
 
   
   <link rel="preconnect" href="https://api.github.com" crossorigin />
@@ -87,16 +87,29 @@
   <svg class="bg-svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
     <defs>
       <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%"  stop-color="var(--neon)" />
-        <stop offset="50%" stop-color="var(--teal)" />
-        <stop offset="100%" stop-color="var(--violet)"/>
+        <stop offset="0%"  stop-color="var(--neon)"  stop-opacity=".22"/>
+        <stop offset="50%" stop-color="var(--teal)"  stop-opacity=".16"/>
+        <stop offset="100%" stop-color="var(--violet)" stop-opacity=".10"/>
       </linearGradient>
     </defs>
     <g id="bgPaths">
       <path d="M0,300 C500,100 900,500 1400,280 S1700,160 1920,400"
-            stroke="url(#lg)" stroke-width="2.4" fill="none" stroke-opacity=".45"/>
+            stroke="url(#lg)" stroke-width="2.4" fill="none" stroke-opacity=".75">
+      </path>
       <path d="M0,800 C400,600 700,900 1300,700 S1650,600 1920,820"
-            stroke="var(--neon)" stroke-width="1.8" fill="none" stroke-opacity=".28"/>
+            stroke="var(--neon)" stroke-width="1.8" fill="none" stroke-opacity=".12">
+      </path>
+      <path class="bg-contour-echo" d="M0,323 C500,123 900,523 1400,303 S1700,183 1920,423"
+            stroke="var(--teal)" fill="none" stroke-opacity=".055"/>
+      <path class="bg-contour-echo" d="M0,829 C400,629 700,929 1300,729 S1650,629 1920,849"
+            stroke="var(--violet)" fill="none" stroke-opacity=".065"/>
+    </g>
+    <g class="bg-detail" fill="none" stroke="var(--teal)" stroke-width="1">
+      <circle cx="155" cy="254" r="5"/>
+      <circle cx="155" cy="254" r="12" stroke-opacity=".35"/>
+      <circle cx="1735" cy="709" r="4" stroke="var(--violet)"/>
+      <path d="M1719,709 h-5 M1751,709 h5 M1735,693 v-5 M1735,725 v5"
+            stroke="var(--violet)" stroke-opacity=".5"/>
     </g>
   </svg>
 

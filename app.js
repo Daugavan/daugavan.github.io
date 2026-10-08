@@ -702,16 +702,6 @@
     if (langSwitch) langSwitch.hidden = false;
     initLanguage();
     renderStaticProfile();
-    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const touchScreen = window.matchMedia('(hover: none), (pointer: coarse), (max-width: 640px)');
-    const syncMotion = () => {
-      document.documentElement.classList.toggle('bg-paused',
-        document.hidden || motion.matches || touchScreen.matches);
-    };
-    motion.addEventListener?.('change', syncMotion);
-    touchScreen.addEventListener?.('change', syncMotion);
-    document.addEventListener('visibilitychange', syncMotion);
-    syncMotion();
 
     if (elMainContent) elMainContent.setAttribute('aria-busy', 'true');
 

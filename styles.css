@@ -169,14 +169,20 @@
       position: fixed; inset: 0; z-index: -30;
       pointer-events: none;
     }
+    .bg-svg {
+      width: 100%; height: 100%;
+      overflow: hidden;
+    }
+    /* The contours stay anchored to the viewport, including during scroll. */
+    #bgPaths { animation: none; transform: none; }
     .bg-radial {
+      inset: 0;
       z-index: -32;
       background:
         radial-gradient(1100px 700px at 12% 8%, rgba(93,255,206,.08), transparent 60%),
         radial-gradient(900px 600px at 88% 22%, rgba(157,123,255,.08), transparent 60%),
         radial-gradient(900px 700px at 28% 92%, rgba(255,122,217,.05), transparent 60%),
         var(--bg-0);
-
     }
     .bg-grid {
       position: fixed; inset: 0; z-index: -31;
@@ -197,17 +203,11 @@
       background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
     }
 
-    /* Move the rendered SVG instead of repainting filtered paths every frame. */
-    .bg-svg {
-      width: 100%;
-      height: 100%;
-      animation: bgDrift 20s ease-in-out infinite alternate;
+    .bg-contour-echo { stroke-width: 1; }
+    .bg-detail { opacity: .22; }
+    @media (max-width: 640px) {
+      .bg-contour-echo, .bg-detail { display: none; }
     }
-    @keyframes bgDrift {
-      from { transform: translate3d(0, -12px, 0); }
-      to { transform: translate3d(0, 12px, 0); }
-    }
-    .bg-paused .bg-svg { animation-play-state: paused; }
 
     .identity-crop {
       height: calc(clamp(18rem, 30vw, 24rem) * .85);
@@ -1092,7 +1092,29 @@
     }
 
     .gallery-wrapper .title {
+      position: relative;
       margin: 2.6rem 0 1.3rem;
+      padding-bottom: 1.1rem;
+    }
+    .gallery-wrapper .title::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: calc(50% - 44px);
+      width: 88px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--teal) 28%, transparent), transparent);
+    }
+    .gallery-wrapper .title::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: calc(50% - 2px);
+      width: 4px;
+      height: 4px;
+      border: 1px solid color-mix(in srgb, var(--teal) 45%, transparent);
+      background: var(--bg-0);
+      transform: rotate(45deg);
     }
 
     .gallery-wrapper .gallery-spread {
@@ -1407,13 +1429,13 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--neon); outl
     display: block; background-size: contain; background-position: center;
     filter: none; transform: none; border-radius: var(--r-sm);
   }
-  .bg-svg { animation: none; }
+  #bgPaths { animation: none; }
   .bg-radial { animation: none; }
   .bg-noise { display: none; }
   .card, .identity, .lang-switch, .g-lightbox { backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
 
-@media (prefers-reduced-motion: reduce) { .bg-svg { animation: none; } }
+@media (prefers-reduced-motion: reduce) { #bgPaths { animation: none; } }
 
 .apps-title { margin-top: 2.6rem; }
 @media (max-width: 400px) { .title { letter-spacing: .1em; } }
