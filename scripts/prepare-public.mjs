@@ -1,4 +1,3 @@
-// Build a publication allowlist. Never upload the whole working directory.
 import { copyFileSync, existsSync, lstatSync, mkdirSync, readdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -22,7 +21,6 @@ export const publicFiles = [
 
 export function preparePublic() {
   const output = join(projectRoot, 'site-dist');
-  // Reject symlinks in both source and destination, including parent folders.
   const checkPath = (root, relative) => {
     let path = root;
     for (const part of relative.split('/')) {
@@ -43,7 +41,6 @@ export function preparePublic() {
     }
   };
   inspectOutput(output);
-  // Validate every source before writing any output.
   for (const file of publicFiles) {
     checkPath(projectRoot, file);
     if (!lstatSync(join(projectRoot, file)).isFile()) throw new Error(`Missing public file: ${file}`);

@@ -1,19 +1,6 @@
 (() => {
   'use strict';
 
-  /*
-   * GitHub-backed portfolio runtime
-   * Context: static GitHub Pages / any static host.
-   * Risk: Low — public read-only GitHub API calls; no credentials are used.
-   *
-   * Reliability goals:
-   * - render useful static content even when JavaScript/API is unavailable
-   * - render cached GitHub data immediately, then refresh in the background
-   * - never replace the whole profile with an API error
-   * - avoid the fragile "starred repositories" metric and use owned public repo stars
-   * - paginate repositories and respect cache freshness / API backoff
-   * - retain unknown commit counts; never replace them with zero
-   */
 
   const GITHUB_USER = 'Daugavan';
   const GITHUB_API = 'https://api.github.com';
@@ -33,7 +20,6 @@
   let sourceKey = 'fetchingData';
   let sourceError = false;
 
-  // Only keep the fields used on screen. Never trust API/cache URLs.
   function normalizeRepos(repos) {
     if (!Array.isArray(repos) || repos.length > MAX_REPO_PAGES * 100) throw new Error('Invalid repositories');
     return repos.map((repo) => {
@@ -358,7 +344,6 @@
         }
         throw error;
       }
-      // Keep the timeout active while downloading and parsing the body.
       const reader = response.body?.getReader();
       if (!reader) throw new Error('Missing API response body');
       const decoder = new TextDecoder('utf-8', { fatal: true });
@@ -663,7 +648,6 @@
         let commits = currentCache?.stats?.commits ?? null;
         const commitCacheFresh = !forceCommitRefresh && isCount(commits) &&
           Date.now() - Number(currentCache?.statsT || 0) <= COMMIT_STATS_TTL;
-        // Repository data is useful immediately, even if commit search is slow.
         cachedStatsData = { repos: repos.length, stars: computeStars(repos), commits,
           partial: reposPartial, cached: false, commitCached: commits !== null };
         renderStats(cachedStatsData);
@@ -724,7 +708,6 @@
     const refresh = () => refreshGitHub();
 
     if (currentCache && !currentCache.stale) {
-      // A fresh cache is sufficient; do not spend another API quota on every visit.
       if (cachedStatsData.partial) renderRetryButton();
     } else if ('requestIdleCallback' in window) {
       window.requestIdleCallback(refresh, {
@@ -748,7 +731,6 @@
 })();
 
 
-/* One focus target per photograph. Native dialog isolates keyboard focus. */
 (() => {
   'use strict';
   const groups = [...document.querySelectorAll('.gallery .gallery-spread')];
@@ -805,7 +787,6 @@
     current = (index + images.length) % images.length;
     lastFocus = source;
     dialog = document.createElement('dialog');
-    // Old browsers still open the full image with the back button available.
     if (typeof dialog.showModal !== 'function') {
       dialog = null;
       window.location.assign(encodeURI(images[current].webp));
@@ -874,7 +855,6 @@
   if (next) { next.hidden = false; next.addEventListener('click', () => open(current + 1, next)); }
 })();
 
-/* Both streetlights share one switch, with targets mapped to the cover image. */
 (() => {
   'use strict';
   const header = document.querySelector('.identity');
@@ -939,10 +919,9 @@
     layout();
     new ResizeObserver(layout).observe(header);
     document.addEventListener('languagechange', labels);
-  }).catch(() => { /* Keep the original illuminated header if an asset fails. */ });
+  }).catch(() => {  });
 })();
 
-/* Contact bubble anchored to the portrait painted into the cover image. */
 (() => {
   'use strict';
   const header = document.querySelector('.identity');
@@ -1004,7 +983,6 @@
       bubble.classList.remove('is-open');
       bubble.classList.add('is-closing');
       if (motion.matches || trigger.hidden) return finishClose();
-      // Also finish an interrupted opening whose surface never became visible.
       closeTimer = setTimeout(finishClose, 200);
     }
     function open() {
@@ -1016,7 +994,6 @@
       bubble.removeAttribute('aria-hidden');
       if (wasHidden) {
         bubble.classList.remove('is-closing', 'is-resuming');
-        // Measure the resting layout before starting the first transition.
         positionBubble();
       } else {
         bubble.classList.add('is-resuming');
@@ -1071,7 +1048,6 @@
     document.addEventListener('focusin', event => {
       if (isOpen && !bubble.contains(event.target) && event.target !== trigger) close();
     });
-    // Keep the email next in keyboard navigation after opening the portrait.
     trigger.addEventListener('keydown', event => {
       if (event.key === 'Tab' && !event.shiftKey && isOpen) {
         event.preventDefault();
@@ -1089,6 +1065,6 @@
     window.addEventListener('resize', layout, { passive: true });
     new ResizeObserver(layout).observe(header);
     layout();
-  }).catch(() => { /* Keep the original portrait if the cover cannot load. */ });
+  }).catch(() => {  });
 })();
 

@@ -1,4 +1,3 @@
-// Local preview serves only the prepared public allowlist, never the workspace.
 import { createServer } from 'node:http';
 import { readFileSync } from 'node:fs';
 import { extname, join } from 'node:path';

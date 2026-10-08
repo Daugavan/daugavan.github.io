@@ -1,5 +1,3 @@
-// Render sharp, compact SVG calendars. GitHub levels come from its original HTML;
-// Lovable levels preserve the existing snapshot because its public profile has no calendar.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { projectRoot } from './prepare-public.mjs';
 import { join } from 'node:path';
@@ -13,7 +11,6 @@ function calendar(name, columns, labels, colors, description) {
     '<g font-family="system-ui, sans-serif" font-size="11" fill="#9ca8b8">'
   ];
   for (const [label, column] of labels) content.push(`<text x="${34 + column * step}" y="14">${label}</text>`);
-  // The saved Lovable chart has no weekday labels or dated cells.
   if (name === 'GitHub') for (const [label, row] of [['Mon', 1], ['Wed', 3], ['Fri', 5]]) content.push(`<text x="2" y="${33 + row * 13}">${label}</text>`);
   content.push('</g>');
   columns.forEach((column, x) => column.forEach((level, y) => {

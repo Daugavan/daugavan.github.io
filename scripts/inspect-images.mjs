@@ -1,4 +1,3 @@
-// Read container metadata without executing or changing image files.
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { projectRoot } from './prepare-public.mjs';

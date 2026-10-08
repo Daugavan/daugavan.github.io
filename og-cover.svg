@@ -23,13 +23,13 @@
   <rect width="1200" height="630" fill="url(#glow)"/>
   <rect width="1200" height="630" fill="url(#glow2)"/>
 
-  <!-- Grid -->
+  
   <g opacity=".07" stroke="#ffffff" stroke-width="1">
     <path d="M0 100 H1200 M0 200 H1200 M0 300 H1200 M0 400 H1200 M0 500 H1200"/>
     <path d="M100 0 V630 M200 0 V630 M300 0 V630 M400 0 V630 M500 0 V630 M600 0 V630 M700 0 V630 M800 0 V630 M900 0 V630 M1000 0 V630 M1100 0 V630"/>
   </g>
 
-  <!-- Mark -->
+  
   <g transform="translate(80, 110)">
     <circle cx="56" cy="56" r="46" fill="none" stroke="url(#g)" stroke-width="2" opacity=".55"/>
     <text x="56" y="72"
@@ -38,7 +38,7 @@
           text-anchor="middle">D</text>
   </g>
 
-  <!-- Type -->
+  
   <g transform="translate(220, 160)">
     <text font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace"
           font-size="20" fill="#5dffce" letter-spacing="3">
@@ -65,7 +65,7 @@
     </text>
   </g>
 
-  <!-- Footer band -->
+  
   <g transform="translate(80, 540)">
     <text font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace"
           font-size="18" fill="rgba(244,239,230,.5)" letter-spacing="2">

@@ -1,4 +1,3 @@
-// Uses an existing jsdom installation supplied as an optional package path.
 const fs = require('node:fs');
 const path = require('node:path');
 const assert = require('node:assert/strict');
