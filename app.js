@@ -704,10 +704,9 @@
     renderStaticProfile();
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const touchScreen = window.matchMedia('(hover: none), (pointer: coarse), (max-width: 640px)');
-    const background = document.querySelector('.bg-svg');
     const syncMotion = () => {
-      if (document.hidden || motion.matches || touchScreen.matches) background?.pauseAnimations?.();
-      else background?.unpauseAnimations?.();
+      document.documentElement.dataset.backgroundMotion =
+        document.hidden || motion.matches || touchScreen.matches ? 'paused' : 'running';
     };
     motion.addEventListener?.('change', syncMotion);
     touchScreen.addEventListener?.('change', syncMotion);

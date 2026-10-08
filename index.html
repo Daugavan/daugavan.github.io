@@ -72,7 +72,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20261008-branding" />
+  <link rel="stylesheet" href="styles.css?v=20261008-background" />
 
   
   <link rel="preconnect" href="https://api.github.com" crossorigin />
@@ -91,38 +91,13 @@
         <stop offset="50%" stop-color="var(--teal)"  stop-opacity=".10"/>
         <stop offset="100%" stop-color="var(--violet)" stop-opacity=".06"/>
       </linearGradient>
-      <filter id="glo" x="-20%" y="-20%" width="140%" height="140%">
-        <feGaussianBlur stdDeviation="14" result="b"/>
-        <feMerge>
-          <feMergeNode in="b"/>
-          <feMergeNode in="SourceGraphic"/>
-        </feMerge>
-      </filter>
     </defs>
-    <g filter="url(#glo)" id="bgPaths">
+    <g id="bgPaths">
       <path d="M0,300 C500,100 900,500 1400,280 S1700,160 1920,400"
             stroke="url(#lg)" stroke-width="2.4" fill="none" stroke-opacity=".18">
-        <animate attributeName="stroke-opacity" values=".08;.18;.08"
-                 dur="12s" repeatCount="indefinite"/>
-        <animate attributeName="d"
-                 values="M0,300 C500,100 900,500 1400,280 S1700,160 1920,400;
-                         M0,320 C480,120 920,480 1420,300 S1720,180 1920,420;
-                         M0,300 C500,100 900,500 1400,280 S1700,160 1920,400"
-                 dur="20s" repeatCount="indefinite"
-                 calcMode="spline" keyTimes="0;.5;1"
-                 keySplines=".4 0 .2 1; .4 0 .2 1"/>
       </path>
       <path d="M0,800 C400,600 700,900 1300,700 S1650,600 1920,820"
             stroke="var(--neon)" stroke-width="1.8" fill="none" stroke-opacity=".12">
-        <animate attributeName="stroke-opacity" values=".05;.12;.05"
-                 dur="14s" repeatCount="indefinite"/>
-        <animate attributeName="d"
-                 values="M0,800 C400,600 700,900 1300,700 S1650,600 1920,820;
-                         M0,780 C420,620 680,880 1320,720 S1670,620 1920,800;
-                         M0,800 C400,600 700,900 1300,700 S1650,600 1920,820"
-                 dur="24s" repeatCount="indefinite"
-                 calcMode="spline" keyTimes="0;.5;1"
-                 keySplines=".4 0 .2 1; .4 0 .2 1"/>
       </path>
     </g>
   </svg>
@@ -419,7 +394,7 @@
     </div>
   </div>
 
-  <script src="app.js?v=20261008-branding" defer></script>
+  <script src="app.js?v=20261008-background" defer></script>
 </body>
 </html>
 
