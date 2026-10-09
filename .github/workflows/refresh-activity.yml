@@ -1,0 +1,42 @@
+name: Refresh public activity statistics
+
+on:
+  schedule:
+    - cron: '23 5 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/refresh-activity.yml'
+      - 'scripts/update-activity.mjs'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-public-activity
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install public-page reader
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          npx playwright install --with-deps chromium
+      - name: Fetch and validate official public profiles
+        run: node scripts/update-activity.mjs
+      - name: Save verified statistics
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add activity-snapshot.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Refresh verified public activity statistics'
+          git push origin HEAD:main
