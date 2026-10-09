@@ -1319,9 +1319,64 @@
 .activity-cue:focus-visible { outline: 2px solid var(--neon); outline-offset: 5px; border-radius: var(--r-sm); }
 .activity-section { scroll-margin-top: 2rem; display: grid; gap: 1.25rem; margin-bottom: 2rem; min-width: 0; }
 .activity-heading .title { margin: 0 0 .75rem; }
-.activity-card { min-width: 0; padding: .8rem 1.25rem; border-top: 2px solid #39794d; }
-.activity-card-lovable { border-top-color: #286fbb; }
-.activity-card-codex { border-top-color: #45b4a2; }
+.activity-card {
+  --edge-rgb: 93, 194, 125;
+  --edge-delay: -2s;
+  min-width: 0;
+  padding: .8rem 1.25rem;
+  border-top: 2px solid #39794d;
+  isolation: isolate;
+}
+.activity-card-lovable { --edge-rgb: 91, 169, 255; --edge-delay: -6s; border-top-color: #286fbb; }
+.activity-card-codex { --edge-rgb: 103, 226, 205; --edge-delay: -10s; border-top-color: #45b4a2; }
+/* A fine coloured rim, with light falling away toward the bottom corners. */
+.activity-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(180deg,
+    rgba(var(--edge-rgb), .7),
+    rgba(var(--edge-rgb), .22) 38%,
+    rgba(var(--edge-rgb), .05) 80%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+/* The reflection is confined to the edge; it never washes over the data. */
+.activity-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 42%;
+  height: 2px;
+  border-radius: 50%;
+  background: linear-gradient(90deg,
+    transparent, rgba(var(--edge-rgb), .45) 20%,
+    rgba(var(--edge-rgb), .95) 40%, #ecfff9 50%,
+    rgba(var(--edge-rgb), .95) 60%,
+    rgba(var(--edge-rgb), .45) 80%, transparent);
+  box-shadow: 0 1px 10px 1px rgba(var(--edge-rgb), .28);
+  transform: translateX(70%);
+  opacity: .75;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .activity-card::after {
+    animation: activity-edge-sheen 14s cubic-bezier(.45, 0, .55, 1) infinite;
+    animation-delay: var(--edge-delay);
+  }
+}
+@keyframes activity-edge-sheen {
+  0%, 12% { transform: translateX(-105%); opacity: 0; }
+  23% { opacity: .9; }
+  52% { opacity: .9; }
+  66%, 100% { transform: translateX(245%); opacity: 0; }
+}
 .codex-profile-stats { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .75rem; margin: .75rem 0 1rem; }
 .codex-profile-stats > div { display: flex; flex-direction: column; gap: .3rem; padding: .6rem; text-align: center; border: 1px solid var(--line-1); border-radius: var(--r-sm); }
 .codex-profile-stats dt { color: var(--ink-3); font-size: .75rem; line-height: 1.5; }
