@@ -204,6 +204,32 @@
     }
 
     .bg-contour-echo { stroke-width: 1; }
+    /* Uneven spacing, faint cores, and occasional warm stars give depth.
+       Only brightness changes; no drift, blur filters, or frame loop. */
+    .bg-stars {
+      position: fixed;
+      inset: 0;
+      z-index: -30;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .bg-star { animation: star-shimmer 13s ease-in-out infinite; }
+    .star-phase-0 { animation-duration: 13s; animation-delay: -3s; }
+    .star-phase-1 { animation-duration: 17s; animation-delay: -11s; }
+    .star-phase-2 { animation-duration: 19s; animation-delay: -7s; }
+    .star-phase-3 { animation-duration: 23s; animation-delay: -17s; }
+    .star-phase-4 { animation-duration: 16s; animation-delay: -13s; }
+    .star-phase-5 { animation-duration: 21s; animation-delay: -5s; }
+    @keyframes star-shimmer {
+      0%, 100% { opacity: .48; }
+      50% { opacity: .92; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .bg-star { animation: none; opacity: .7; }
+    }
+    @media print { .bg-stars { display: none; } }
     .bg-detail { opacity: .22; }
     @media (max-width: 640px) {
       .bg-contour-echo, .bg-detail { display: none; }
