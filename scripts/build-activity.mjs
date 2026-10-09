@@ -26,4 +26,4 @@ function calendar(name, columns, labels, colors, description) {
 const github = JSON.parse(readFileSync(join(projectRoot, 'reports/github-activity-data.json'), 'utf8'));
 const lovable = JSON.parse(readFileSync(join(projectRoot, 'reports/lovable-activity-data.json'), 'utf8'));
 calendar('GitHub', github.columns, github.months, ['#161e2b', '#0e4429', '#006d32', '#26a641', '#39d353'], `${github.total} contributions in the last year. Source: ${github.source}. Retrieved ${github.retrieved}.`);
-calendar('Lovable', lovable.columns, [['Jan', 0], ['Feb', 4], ['Mar', 8], ['Apr', 12], ['May', 17], ['Jun', 21], ['Jul', 25], ['Aug', 30], ['Sep', 34], ['Oct', 39]], ['#202630', '#153561', '#124b88', '#0867bd', '#087ced'], '430 edits in the displayed year. Saved activity pattern; the public Lovable profile does not expose edit history.');
+calendar('Lovable', lovable.columns, lovable.months, ['#202630', '#153561', '#124b88', '#0867bd', '#087ced'], `${lovable.total} edits in the last year. Source: ${lovable.source}. Retrieved ${lovable.retrieved}.`);
