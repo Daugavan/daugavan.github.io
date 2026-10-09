@@ -1319,9 +1319,27 @@
 .activity-cue:focus-visible { outline: 2px solid var(--neon); outline-offset: 5px; border-radius: var(--r-sm); }
 .activity-section { scroll-margin-top: 2rem; display: grid; gap: 1.25rem; margin-bottom: 2rem; min-width: 0; }
 .activity-heading .title { margin: 0 0 .75rem; }
+:where(.card, .stat, .repo, .codex-profile-stats > div, .pf-icon-card, .pf-wordmark-card, .pf-product) {
+  --edge-rgb: 107, 206, 185;
+  --edge-delay: -4s;
+  --edge-rim: .38;
+  --edge-strength: .55;
+  isolation: isolate;
+}
+:is(.stat, .codex-profile-stats > div, .pf-product) { position: relative; overflow: hidden; }
+.stats { --edge-delay: -1s; }
+.card[aria-labelledby="reposTitle"] { --edge-delay: -8s; }
+.promptflower-card { --edge-rgb: 228, 206, 150; --edge-delay: -12s; }
+:is(.stat, .repo, .codex-profile-stats > div, .pf-icon-card, .pf-wordmark-card, .pf-product) {
+  --edge-rim: .24;
+  --edge-strength: .38;
+}
+:is(.stat, .repo, .codex-profile-stats > div):nth-child(even) { --edge-delay: -9s; }
 .activity-card {
   --edge-rgb: 93, 194, 125;
   --edge-delay: -2s;
+  --edge-rim: .7;
+  --edge-strength: .9;
   min-width: 0;
   padding: .8rem 1.25rem;
   border-top: 2px solid #39794d;
@@ -1330,14 +1348,14 @@
 .activity-card-lovable { --edge-rgb: 91, 169, 255; --edge-delay: -6s; border-top-color: #286fbb; }
 .activity-card-codex { --edge-rgb: 103, 226, 205; --edge-delay: -10s; border-top-color: #45b4a2; }
 /* A fine coloured rim, with light falling away toward the bottom corners. */
-.activity-card::before {
+:is(.card, .stat, .codex-profile-stats > div, .pf-icon-card, .pf-product)::before {
   content: "";
   position: absolute;
   inset: 0;
   padding: 1px;
   border-radius: inherit;
   background: linear-gradient(180deg,
-    rgba(var(--edge-rgb), .7),
+    rgba(var(--edge-rgb), var(--edge-rim)),
     rgba(var(--edge-rgb), .22) 38%,
     rgba(var(--edge-rgb), .05) 80%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -1347,7 +1365,7 @@
   pointer-events: none;
 }
 /* The reflection is confined to the edge; it never washes over the data. */
-.activity-card::after {
+:is(.card, .stat, .repo, .codex-profile-stats > div, .pf-wordmark-card, .pf-product)::after {
   content: "";
   position: absolute;
   top: 0;
@@ -1362,10 +1380,18 @@
     rgba(var(--edge-rgb), .45) 80%, transparent);
   box-shadow: 0 1px 10px 1px rgba(var(--edge-rgb), .28);
   transform: translateX(70%);
-  opacity: .75;
+  opacity: var(--edge-strength);
   pointer-events: none;
 }
 @media (prefers-reduced-motion: no-preference) {
+  .card::after {
+    animation: activity-edge-sheen 18s cubic-bezier(.45, 0, .55, 1) infinite;
+    animation-delay: var(--edge-delay);
+  }
+  :is(.stat, .repo, .codex-profile-stats > div, .pf-wordmark-card, .pf-product):is(:hover, :focus-within)::after {
+    animation: activity-edge-sheen 18s cubic-bezier(.45, 0, .55, 1) infinite;
+    animation-delay: var(--edge-delay);
+  }
   .activity-card::after {
     animation: activity-edge-sheen 14s cubic-bezier(.45, 0, .55, 1) infinite;
     animation-delay: var(--edge-delay);
@@ -1373,8 +1399,8 @@
 }
 @keyframes activity-edge-sheen {
   0%, 12% { transform: translateX(-105%); opacity: 0; }
-  23% { opacity: .9; }
-  52% { opacity: .9; }
+  23% { opacity: var(--edge-strength); }
+  52% { opacity: var(--edge-strength); }
   66%, 100% { transform: translateX(245%); opacity: 0; }
 }
 .codex-profile-stats { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .75rem; margin: .75rem 0 1rem; }
