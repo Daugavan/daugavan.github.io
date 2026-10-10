@@ -1122,7 +1122,12 @@
       margin: 2.6rem 0 1.3rem;
       padding-bottom: 1.1rem;
     }
-    .gallery-wrapper .title::before {
+    .apps-title {
+      position: relative;
+      padding-bottom: 1.1rem;
+    }
+    .gallery-wrapper .title::before,
+    .apps-title::before {
       content: "";
       position: absolute;
       bottom: 0;
@@ -1131,7 +1136,8 @@
       height: 1px;
       background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--teal) 28%, transparent), transparent);
     }
-    .gallery-wrapper .title::after {
+    .gallery-wrapper .title::after,
+    .apps-title::after {
       content: "";
       position: absolute;
       bottom: -2px;
