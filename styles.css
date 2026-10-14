@@ -845,11 +845,11 @@
     .pf-icon-card::after {
       content: "";
       position: absolute;
-      inset: auto -12% -22% -12%;
-      height: 44%;
+      inset: 5% -10%;
       background: radial-gradient(ellipse at center,
-        color-mix(in oklab, var(--neon) 18%, transparent), transparent 70%);
-      filter: blur(4px);
+        color-mix(in oklab, var(--promptflower-frame) 26%, transparent),
+        color-mix(in oklab, var(--promptflower-frame) 8%, transparent) 42%, transparent 72%);
+      pointer-events: none;
     }
     .pf-icon {
       position: relative;
@@ -857,7 +857,7 @@
       width: min(82%, 240px);
       height: auto;
       filter: drop-shadow(0 18px 22px rgba(0,0,0,.45))
-              drop-shadow(0 0 24px rgba(255, 226, 138, .12));
+              drop-shadow(0 0 24px rgba(237, 201, 44, .2));
     }
 
     .pf-brand {
@@ -1741,7 +1741,88 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--neon); outl
 .contact-bubble.is-open:focus-within .contact-bubble-email {
   transition: none;
 }
+
+/* Local light accents share the existing card palette. */
+.promptflower-card .project-actions > .btn.view {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.promptflower-card .project-actions > .btn.view > span { position: relative; z-index: 1; }
+.promptflower-card .project-actions > .btn.view::after {
+  content: "";
+  position: absolute;
+  inset: -50% auto -50% 0;
+  width: 35%;
+  background: linear-gradient(90deg, transparent,
+    color-mix(in oklab, var(--gold) 38%, transparent), transparent);
+  transform: translateX(-250%) skewX(-22deg);
+  opacity: 0;
+  pointer-events: none;
+}
+.promptflower-card .project-actions > .btn.view:is(:hover, :focus-visible) {
+  border-color: var(--promptflower-frame);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--promptflower-frame) 20%, transparent) inset,
+              0 0 20px color-mix(in oklab, var(--promptflower-frame) 18%, transparent);
+}
+.promptflower-card .project-actions > .btn.view:focus-visible {
+  outline: 2px solid var(--promptflower-frame);
+  outline-offset: 3px;
+}
+.promptflower-card .project-actions > .btn.view .dot {
+  background: var(--promptflower-frame);
+  box-shadow: 0 0 8px var(--promptflower-frame);
+}
+.streetlight-toggle::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--lamp-target) * 3);
+  height: calc(var(--lamp-target) * 3);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 226, 138, .22),
+    rgba(255, 200, 90, .07) 38%, transparent 70%);
+  pointer-events: none;
+  transition: opacity 450ms var(--ease-soft);
+}
+.identity.lamps-off .streetlight-toggle::before { opacity: 0; }
+.gallery .gallery-spread:is(:hover, :focus-visible) .gallery-plane {
+  box-shadow: 0 0 0 1px rgba(255, 226, 138, .7), 0 0 20px rgba(255, 226, 138, .22);
+  filter: grayscale(0);
+}
+.repo-signal {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  flex: 0 0 auto;
+  color: var(--ink-3);
+  font-size: 12px;
+}
+.repo-signal::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--neon);
+  box-shadow: 0 0 8px var(--neon);
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease-soft);
+}
+.repo:is(:hover, :focus-visible) .repo-signal::before { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .promptflower-card .project-actions > .btn.view:is(:hover, :focus-visible)::after {
+    animation: promptflower-button-sheen 850ms var(--ease-soft) 1;
+  }
+}
+@keyframes promptflower-button-sheen {
+  0% { transform: translateX(-250%) skewX(-22deg); opacity: 0; }
+  20%, 70% { opacity: 1; }
+  100% { transform: translateX(350%) skewX(-22deg); opacity: 0; }
+}
 @media (prefers-reduced-motion: reduce) {
+  .streetlight-toggle::before, .repo-signal::before { transition: none; }
   .contact-bubble::before, .contact-bubble .contact-bubble-surface,
   .contact-bubble p, .contact-bubble .contact-bubble-email { transition: none !important; }
 }
