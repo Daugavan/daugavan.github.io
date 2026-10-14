@@ -29,6 +29,7 @@ w.eval(fs.readFileSync(path.join(root, 'app.js'), 'utf8'));
 w.document.dispatchEvent(new w.Event('DOMContentLoaded'));
 setTimeout(() => {
   try {
+    assert.equal(w.document.querySelector('#activityTitle').textContent, 'Statistics');
     assert.equal(w.document.querySelectorAll('.gallery-spread[role=button]').length, 6);
     assert.equal(w.document.querySelectorAll('.repo img, .repo script').length, 0);
     assert.equal(w.document.querySelector('.repo').href, 'https://github.com/Daugavan/safe-repo');
@@ -42,6 +43,7 @@ setTimeout(() => {
     assert.equal(w.document.querySelector('dialog'), null);
     w.document.querySelector('#langSwitch').click();
     assert.equal(w.document.documentElement.lang, 'sv-SE');
+    assert.equal(w.document.querySelector('#activityTitle').textContent, 'Statistik');
     assert.equal(w.document.querySelector('[data-i18n=sitePrivacy]').textContent, 'Sidans integritet');
     console.log('DOM regression passed: injected cache stays text; fixed URLs; gallery; navigation; close; language; privacy link.');
   } catch (error) { console.error(error); process.exitCode = 1; }
