@@ -1335,7 +1335,7 @@
 :is(.stat, .codex-profile-stats > div, .pf-product) { position: relative; overflow: hidden; }
 .stats { --edge-delay: -1s; }
 .card[aria-labelledby="reposTitle"] { --edge-delay: -8s; }
-.promptflower-card { --promptflower-frame: #C4A4DA; --edge-rgb: 196, 164, 218; --edge-delay: -12s; }
+.promptflower-card { --promptflower-frame: #ED96D7; --edge-rgb: 237, 150, 215; --edge-delay: -12s; }
 :is(.stat, .repo, .codex-profile-stats > div, .pf-icon-card, .pf-wordmark-card, .pf-product) {
   --edge-rim: .24;
   --edge-strength: .38;
