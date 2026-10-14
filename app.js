@@ -89,7 +89,6 @@
       codexCalendar: 'Codex activity calendar; scroll horizontally to see all months',
       codexActivityAlt: 'Codex activity calendar showing 239 completed turns across 9 active days in saved local history, through October 9, 2026.',
 
-      activityTitle: 'Stats for nerds',
       activityJump: 'Explore my activity',
       currentActivity: 'Current activity',
       activitySnapshot: 'Saved activity snapshot. Follow the profile link for the latest activity.',
@@ -162,7 +161,6 @@
       codexCalendar: 'Codex aktivitetskalender; skrolla i sidled för att se alla månader',
       codexActivityAlt: 'Codex aktivitetskalender med 239 avslutade svar fördelade på 9 aktiva dagar i sparad lokal historik, till och med 9 oktober 2026.',
 
-      activityTitle: 'Statistik för nördar',
       activityJump: 'Utforska min aktivitet',
       currentActivity: 'Aktuell aktivitet',
       activitySnapshot: 'Sparad ögonblicksbild av aktiviteten. Följ profillänken för den senaste aktiviteten.',
