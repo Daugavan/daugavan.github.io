@@ -97,6 +97,7 @@
       codexActivityAlt: 'Codex activity calendar showing 239 completed turns across 9 active days in saved local history, through October 9, 2026.',
 
       activityJump: 'Explore my activity',
+      activityTitle: 'Statistics',
       currentActivity: 'Current activity',
       activitySnapshot: 'Saved activity snapshot. Follow the profile link for the latest activity.',
       githubCalendar: 'GitHub activity calendar; scroll horizontally to see all months',
@@ -176,6 +177,7 @@
       codexActivityAlt: 'Codex aktivitetskalender med 239 avslutade svar fördelade på 9 aktiva dagar i sparad lokal historik, till och med 9 oktober 2026.',
 
       activityJump: 'Utforska min aktivitet',
+      activityTitle: 'Statistik',
       currentActivity: 'Aktuell aktivitet',
       activitySnapshot: 'Sparad ögonblicksbild av aktiviteten. Följ profillänken för den senaste aktiviteten.',
       githubCalendar: 'GitHubs aktivitetskalender; skrolla i sidled för att se alla månader',
