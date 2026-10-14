@@ -8,7 +8,6 @@
 
   const CACHE_KEY = 'daugavan_gh_v5';
   const CACHE_TTL = 30 * 60 * 1000;
-  const COMMIT_STATS_TTL = 6 * 60 * 60 * 1000;
   const FETCH_TIMEOUT = 8000;
   const MAX_RESPONSE_BYTES = 2 * 1024 * 1024;
   const MAX_REPO_PAGES = 10;
@@ -58,7 +57,6 @@
   const elReposWrap = document.getElementById('repos');
   const elStarsN = document.getElementById('starsN');
   const elReposN = document.getElementById('reposN');
-  const elCommitsN = document.getElementById('commitsN');
   const elRepoCount = document.getElementById('repoCount');
   const elProgress = document.getElementById('progressFill');
   const elStatsSource = document.getElementById('statsSource');
@@ -107,7 +105,6 @@
       pfUrl: "promptflower.app / private prompt studio",
       noScriptStats: "Enable JavaScript for GitHub statistics.",
       retryLater: "GitHub request limit reached · please retry later",
-      sourceCachedCommit: "Repository data loaded · cached commit count",
       skipContent: "Skip to content",
       staticBio: 'Creative technologist with a passion for cybersecurity, AI, coding, and photography.',
       switchLanguage: 'Switch to Swedish',
@@ -116,14 +113,12 @@
       live: "public",
       stars: 'Stars',
       repos: 'Repos',
-      commits: 'Commits',
       fetchingData: 'Fetching live data…',
       repositories: 'Repositories',
       reposTitle: 'Repositories',
       loading: 'Loading…',
       statsCached: "Cached GitHub data",
       statsPartial: "Partial GitHub data · counts may be incomplete",
-      statsUnavailable: 'GitHub data loaded · commit count unavailable',
       statsLoaded: "GitHub data loaded",
       retry: 'Retry',
       statsOffline: 'GitHub is unreachable right now · showing cached data',
@@ -183,7 +178,6 @@
       pfUrl: "promptflower.app / privat promptstudio",
       noScriptStats: "Aktivera JavaScript för GitHub-statistik.",
       retryLater: "GitHubs anropsgräns nådd · försök igen senare",
-      sourceCachedCommit: "Repodata hämtad · cachat antal commits",
       skipContent: "Hoppa till innehåll",
       staticBio: 'Kreativ teknolog med en passion för cybersäkerhet, AI, kodning och fotografi.',
       switchLanguage: 'Byt till engelska',
@@ -192,14 +186,12 @@
       live: "publikt",
       stars: 'Stjärnor',
       repos: 'Repon',
-      commits: 'Commits',
       fetchingData: 'Hämtar livedata…',
       repositories: 'Repon',
       reposTitle: 'Repon',
       loading: 'Laddar…',
       statsCached: "Cachad GitHub-data",
       statsPartial: "Ofullständig GitHub-data · antal kan vara ofullständiga",
-      statsUnavailable: 'GitHub-data laddad · commitantal saknas',
       statsLoaded: "GitHub-data hämtad",
       retry: 'Försök igen',
       statsOffline: 'GitHub kan inte nås just nu · visar cachad data',
@@ -232,8 +224,6 @@
   let currentLang = 'en';
   let cachedRepos = null;
   let cachedStatsData = null;
-  let statsAt = 0;
-  let currentCache = null;
   let refreshPromise = null;
 
   const t = (key) => T[currentLang]?.[key] ?? T.en[key] ?? key;
@@ -251,8 +241,7 @@
 
       if (data.t > Date.now() || Date.now() - data.t > MAX_CACHE_AGE) return null;
       data.repos = normalizeRepos(data.repos);
-      if (!data.stats || (data.stats.commits !== null && !isCount(data.stats.commits))) return null;
-      data.statsT = Number.isFinite(data.statsT) && data.statsT <= Date.now() ? data.statsT : 0;
+      if (!data.stats || typeof data.stats !== 'object' || Array.isArray(data.stats)) return null;
       data.stale = Date.now() - data.t > CACHE_TTL;
       return data;
     } catch (_) {
@@ -266,8 +255,7 @@
         v: 5,
         t: Date.now(),
         repos,
-        stats: stats ?? null,
-        statsT: statsAt
+        stats: stats ?? null
       }));
     } catch (_) {}
   }
@@ -280,8 +268,8 @@
   }
 
   function cachedStats(repos, cache) {
-    return { repos: repos.length, stars: computeStars(repos), commits: cache.stats.commits,
-      partial: cache.stats.partial === true, cached: true, commitCached: true };
+    return { repos: repos.length, stars: computeStars(repos),
+      partial: cache.stats.partial === true, cached: true };
   }
 
   function animateNumber(el, value) {
@@ -404,13 +392,6 @@
     }
   }
 
-  async function getCommitSearchCount() {
-    const q = encodeURIComponent(`author:${GITHUB_USER} is:public`);
-    const { data } = await gh(`${GITHUB_API}/search/commits?q=${q}&per_page=1`, { timeout: 7000 });
-    if (!isCount(data?.total_count) || data.incomplete_results === true) throw new Error('Incomplete commit count');
-    return data.total_count;
-  }
-
   function renderProfileActions() {
     if (!elActions) return;
 
@@ -445,12 +426,10 @@
   function renderStats(stats) {
     animateNumber(elReposN, stats.repos);
     animateNumber(elStarsN, stats.stars);
-    animateNumber(elCommitsN, stats.commits);
 
     const base = Math.max(
       Number(stats.repos) || 0,
       Number(stats.stars) || 0,
-      Number(stats.commits) || 0,
       1
     );
 
@@ -463,8 +442,6 @@
 
     if (stats.partial) setStatsSource('statsPartial', true);
     else if (stats.cached) setStatsSource('statsCached');
-    else if (stats.commits == null) setStatsSource('statsUnavailable', true);
-    else if (stats.commitCached) setStatsSource('sourceCachedCommit');
     else setStatsSource('statsLoaded');
   }
 
@@ -478,7 +455,7 @@
     button.textContent = t('retry');
     button.addEventListener('click', () => {
       button.disabled = true;
-      refreshGitHub({ forceCommitRefresh: true })
+      refreshGitHub()
         .finally(() => { button.disabled = false; });
     });
 
@@ -613,7 +590,6 @@
 
     renderProfileActions();
     if (elBio) elBio.textContent = t('staticBio');
-    elCommitsN?.setAttribute('title', currentLang === 'sv' ? 'Publika commits som GitHubs sökindex tillskriver Daugavan; inte alla privata commits eller alla grenar.' : 'Public commits attributed to Daugavan by GitHub search; not private commits or every branch.');
     const hadRetry = !!document.getElementById('retryGitHub');
     setStatsSource(sourceKey, sourceError);
     if (hadRetry) renderRetryButton();
@@ -661,7 +637,7 @@
     });
   }
 
-  async function refreshGitHub({ forceCommitRefresh = false } = {}) {
+  async function refreshGitHub() {
     if (refreshPromise) return refreshPromise;
     if (Date.now() < cooldownUntil()) {
       renderError('retryLater', { cached: !!cachedStatsData });
@@ -671,25 +647,12 @@
       try {
         const { repos, partial: reposPartial } = await getRepositories();
         renderRepos(repos);
-        let commits = currentCache?.stats?.commits ?? null;
-        const commitCacheFresh = !forceCommitRefresh && isCount(commits) &&
-          Date.now() - Number(currentCache?.statsT || 0) <= COMMIT_STATS_TTL;
-        cachedStatsData = { repos: repos.length, stars: computeStars(repos), commits,
-          partial: reposPartial, cached: false, commitCached: commits !== null };
-        renderStats(cachedStatsData);
-        let commitFailed = false;
-        if (!commitCacheFresh) {
-          try { commits = await getCommitSearchCount(); statsAt = Date.now(); }
-          catch (_) { commitFailed = true; }
-        } else { statsAt = currentCache.statsT; }
-        const nextStats = { repos: repos.length, stars: computeStars(repos), commits,
-          partial: reposPartial || commitFailed, cached: false,
-          commitCached: commitCacheFresh || (commitFailed && commits !== null) };
+        const nextStats = { repos: repos.length, stars: computeStars(repos),
+          partial: reposPartial, cached: false };
         cachedStatsData = nextStats;
-        currentCache = { v: 5, t: Date.now(), repos, stats: nextStats, statsT: statsAt };
         renderStats(nextStats);
         writeCache(repos, nextStats);
-        if (commitFailed) renderRetryButton();
+        if (reposPartial) renderRetryButton();
       } catch (error) {
         renderError(error?.status === 403 || error?.status === 429 ? 'errorRate' : 'errorLoad',
           { cached: !!cachedStatsData });
@@ -705,12 +668,11 @@
 
     if (elMainContent) elMainContent.setAttribute('aria-busy', 'true');
 
-    currentCache = readCache();
+    const currentCache = readCache();
 
     if (currentCache) {
       cachedRepos = currentCache.repos;
       cachedStatsData = cachedStats(currentCache.repos, currentCache);
-      statsAt = Number(currentCache.statsT) || 0;
 
       renderRepos(currentCache.repos, currentCache.repos.length);
       renderStats(cachedStatsData);

@@ -36,7 +36,7 @@ function runtime(fetchImpl = async () => new Response('[]')) {
   };
   const context = vm.createContext({ window, document, localStorage, URL, AbortController,
     TextDecoder, fetch: fetchImpl, console });
-  const instrumented = firstClosure.replace("  if (document.readyState === 'loading')", "  window.audit = { normalizeRepos, readCache, renderRepos, gh, getRepositories, getCommitSearchCount, cooldownUntil };\n  if (document.readyState === 'loading')");
+  const instrumented = firstClosure.replace("  if (document.readyState === 'loading')", "  window.audit = { normalizeRepos, readCache, renderRepos, gh, getRepositories, cooldownUntil };\n  if (document.readyState === 'loading')");
   vm.runInContext(instrumented, context);
   return { api: window.audit, storage, repos, count };
 }
@@ -66,14 +66,14 @@ test('Invalid names, star counts, cache ages and oversized cache are rejected', 
     assert.throws(() => api.normalizeRepos([repo({ stargazers_count: stars })]));
   }
   for (const data of [cache({ t: Date.now() + 60000 }), cache({ t: Date.now() - 8 * 86400000 }),
-    cache({ stats: { commits: 'bad' } }), cache({ repos: [repo({ name: '..' })] }), { v: 1 }]) {
+    cache({ stats: null }), cache({ stats: [] }), cache({ repos: [repo({ name: '..' })] }), { v: 1 }]) {
     storage.set(cacheKey, JSON.stringify(data));
     assert.equal(api.readCache(), null);
   }
   storage.set(cacheKey, 'x'.repeat(1500001));
   assert.equal(api.readCache(), null);
   storage.set(cacheKey, JSON.stringify(cache()));
-  assert.equal(api.readCache().stats.commits, 10);
+  assert.equal(api.readCache().repos.length, 1);
 });
 
 test('Public API calls omit credentials and referrer and refuse redirects', async () => {
@@ -136,7 +136,7 @@ test('Pagination is bounded and Link destinations are never followed', async () 
   assert.ok(calls.every(url => new URL(url).origin === 'https://api.github.com'));
 });
 
-test('Rate limits persist a bounded cooldown and incomplete commits are rejected', async () => {
+test('Rate limits persist a bounded cooldown', async () => {
   const { api, storage } = runtime(async () => new Response('{}', {
     status: 429, headers: { 'retry-after': '999999999' }
   }));
@@ -144,8 +144,6 @@ test('Rate limits persist a bounded cooldown and incomplete commits are rejected
   const until = Number(storage.get('daugavan_gh_cooldown'));
   assert.ok(until > Date.now());
   assert.ok(until <= Date.now() + 3600000);
-  const incomplete = runtime(async () => new Response('{"total_count":10,"incomplete_results":true}'));
-  await assert.rejects(incomplete.api.getCommitSearchCount(), /Incomplete commit count/);
 });
 
 test('CSP hashes match and all HTML pages omit inline handlers and remote fonts', () => {

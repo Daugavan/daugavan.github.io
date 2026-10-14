@@ -349,16 +349,16 @@
     .meta a:hover { color: var(--neon); border-bottom-color: var(--neon); }
     .bio { color: var(--ink-2); max-width: 60ch; }
 
-    .id-actions {
-      grid-column: 2;
-      grid-row: 2;
+    .profile-actions {
       display: flex;
       flex-wrap: wrap;
       gap: .65rem;
-      margin: 0;
-      justify-self: end;
-      transform: none;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line-1);
     }
+    .profile-actions .btn { flex: 1 1 auto; }
+    .profile-actions .copy-status { flex-basis: 100%; color: var(--ink-3); font-size: .8rem; }
 
     .btn {
       --btn-bg: rgba(255,255,255,.04);
@@ -453,7 +453,7 @@
     .stats { display: flex; flex-direction: column; }
     .stats .row {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: .5rem;
       margin: .25rem 0 1rem;
     }
@@ -625,7 +625,7 @@
     }
 
     .project-card { padding: clamp(1.1rem, 2.4vw, 1.6rem); }
-    .project-card.promptflower-card { border-color: color-mix(in oklab, var(--ring-soft) 22%, var(--line-1)); }
+    .project-card.promptflower-card { border-color: color-mix(in oklab, var(--promptflower-frame) 22%, var(--line-1)); }
     .project-kicker {
       display: inline-flex;
       align-items: center;
@@ -1335,7 +1335,7 @@
 :is(.stat, .codex-profile-stats > div, .pf-product) { position: relative; overflow: hidden; }
 .stats { --edge-delay: -1s; }
 .card[aria-labelledby="reposTitle"] { --edge-delay: -8s; }
-.promptflower-card { --edge-rgb: 228, 206, 150; --edge-delay: -12s; }
+.promptflower-card { --promptflower-frame: #C4A4DA; --edge-rgb: 196, 164, 218; --edge-delay: -12s; }
 :is(.stat, .repo, .codex-profile-stats > div, .pf-icon-card, .pf-wordmark-card, .pf-product) {
   --edge-rim: .24;
   --edge-strength: .38;
@@ -1531,12 +1531,11 @@
 body.lightbox-open { overflow: hidden; }
 .stats-retry { min-height: 44px; }
 button:focus-visible, input:focus-visible { outline: 2px solid var(--neon); outline-offset: 3px; }
-.repo-title, .repo-topics, .identity-title, .id-actions { min-width: 0; }
+.repo-title, .repo-topics, .identity-title, .profile-actions { min-width: 0; }
 @media (max-width: 1023px) {
   .identity { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto auto; }
   .identity-title { grid-column: auto; }
   .id-meta { position: static; grid-column: 1; grid-row: 2; transform: none; text-align: center; }
-  .id-actions { grid-column: 1; grid-row: 3; justify-self: center; justify-content: center; }
 }
 
 .grid > *, .repos > *, .pf-stage > * { min-width: 0; }
