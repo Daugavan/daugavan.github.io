@@ -1825,3 +1825,26 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--neon); outl
   .contact-bubble p, .contact-bubble .contact-bubble-email { transition: none !important; }
 }
 
+/* Seedy is contained below the existing footer. */
+.seedy-companion { width: min(100%, 280px); margin: 24px auto 0; }
+.seedy-stage { width: 100%; aspect-ratio: 5 / 4; }
+.seedy-stage > svg { display: block; width: 100%; height: 100%; overflow: hidden; }
+.seedy-stage :is(path, polygon, ellipse, line) {
+  fill: var(--bg-0); stroke: var(--ink-3); stroke-width: 1;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.seedy-stage .sil { stroke: var(--ink-2); }
+.seedy-stage .lo { stroke: var(--ink-3); }
+.seedy-stage .hi { stroke: var(--neon); }
+.seedy-stage .nf { fill: none; }
+.seedy-caption {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  color: var(--ink-3); font-size: 12px;
+}
+.seedy-caption button {
+  display: grid; place-items: center; width: 44px; height: 44px; padding: 0;
+  border: 0; border-radius: 50%; background: transparent; color: var(--ink-2);
+  font: inherit; cursor: pointer;
+}
+.seedy-caption button:focus-visible { outline: 2px solid var(--neon); outline-offset: 2px; }
+
