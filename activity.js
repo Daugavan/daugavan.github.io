@@ -1,5 +1,30 @@
 (() => {
   'use strict';
+  // The rolling calendars end with the latest week at the right edge.
+  document.querySelectorAll('.activity-scroll').forEach(scroller => {
+    const image = scroller.querySelector('img');
+    let followLatest = true;
+    const alignLatest = () => requestAnimationFrame(() => {
+      if (followLatest) scroller.scrollLeft = scroller.scrollWidth - scroller.clientWidth;
+    });
+    const stopFollowing = () => { followLatest = false; };
+    scroller.addEventListener('pointerdown', stopFollowing, { passive: true });
+    scroller.addEventListener('touchstart', stopFollowing, { passive: true });
+    scroller.addEventListener('wheel', stopFollowing, { passive: true });
+    scroller.addEventListener('keydown', event => {
+      if (['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) stopFollowing();
+    });
+    image?.addEventListener('load', alignLatest);
+    if (typeof ResizeObserver !== 'undefined') {
+      const observer = new ResizeObserver(alignLatest);
+      observer.observe(scroller);
+      if (image) observer.observe(image);
+    } else {
+      window.addEventListener('resize', alignLatest, { passive: true });
+    }
+    alignLatest();
+  });
+
   const KEY = 'daugavan_activity_v1';
   const ENDPOINT = 'https://api.github.com/repos/Daugavan/daugavan.github.io/contents/activity-snapshot.json?ref=main';
   const palettes = {

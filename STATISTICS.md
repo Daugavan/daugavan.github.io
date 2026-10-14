@@ -17,6 +17,11 @@ Besökaren får en lokal cache i 30 minuter. Vid API-fel visas den senaste spara
 statistiken, eller de verifierade reservvärdena i HTML. Hämtningens datum finns
 i bildens alt-text och i rubrikens tooltip. Språkbyte behåller uppdaterad data.
 
+Alla tre aktivitetskalendrar startar vid den senaste veckan, till höger, när
+innehållet är bredare än rutan. Läget behålls när bilder laddas och skärmbredden
+ändras. När besökaren börjar skrolla manuellt upphör den automatiska placeringen,
+så att språkbyte och nya statistikbilder inte flyttar tillbaka kalendern.
+
 Inga personliga tokens, inloggningscookies eller extra GitHub-hemligheter behövs.
 Workflowens kortlivade GITHUB_TOKEN har skrivbehörighet till repots innehåll.
 Den sparar enbart den offentliga statistikfilen, inte sidans kod eller utseende.
