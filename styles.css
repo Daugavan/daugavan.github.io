@@ -1253,22 +1253,6 @@
       .g-lightbox { transition: none; }
     }
 
-    .cookies {
-      display: grid;
-      gap: .85rem;
-      margin-block: 1.5rem;
-      scroll-margin-top: 1.5rem;
-    }
-    .cookies p { max-width: 75ch; }
-    .cookies-link {
-      justify-self: start;
-      display: inline-flex;
-      align-items: center;
-      min-height: 44px;
-      text-decoration: underline;
-      text-underline-offset: .2em;
-    }
-
     .foot {
       display: flex;
       flex-wrap: wrap;

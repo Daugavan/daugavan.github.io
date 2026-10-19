@@ -147,7 +147,7 @@ test('Rate limits persist a bounded cooldown', async () => {
 });
 
 test('CSP hashes match and all HTML pages omit inline handlers and remote fonts', () => {
-  for (const page of ['index.html', '404.html', 'privacy.html']) {
+  for (const page of ['index.html', '404.html', 'privacy.html', 'cookies.html']) {
     const text = readFileSync(join(projectRoot, page), 'utf8');
     assert.ok(text.includes("default-src 'none'"));
     assert.ok(text.includes("base-uri 'none'"));
@@ -164,7 +164,7 @@ test('CSP hashes match and all HTML pages omit inline handlers and remote fonts'
 
 test('Publication includes every local HTML/CSS resource and all gallery variants', () => {
   const allowed = new Set(publicFiles);
-  for (const file of ['index.html', '404.html', 'privacy.html', 'styles.css', '404.css']) {
+  for (const file of ['index.html', '404.html', 'privacy.html', 'cookies.html', 'styles.css', '404.css']) {
     const text = readFileSync(join(projectRoot, file), 'utf8');
     const refs = file.endsWith('.css')
       ? [...text.matchAll(/url\((?:"([^"]+)"|'([^']+)'|([^)]*))\)/g)].map(match => match[1] ?? match[2] ?? match[3])
