@@ -9,7 +9,7 @@ node --check app.js
 node scripts/prepare-public.mjs
 ```
 
-Publicera **enbart innehållet i `site-dist`**. Paketet har 42 uttryckligen tillåtna filer.
+Publicera **enbart innehållet i `site-dist`**. Byggskriptet anger uttryckligen vilka filer som ingår.
 Hela arbetsmappen ska inte laddas upp. Bilagor, rapporter, testscripts, oanvända
 bilder och den gamla `assets/app.js` ingår inte. De bevaras lokalt.
 Om destinationen redan innehåller filer måste dess publicerade filbestånd jämföras
@@ -72,4 +72,32 @@ node tests/dom-regression.cjs ..\promptflower\node_modules\jsdom
 Sökvägen är den installation som fanns tillgänglig vid granskningen. På en annan
 dator kan valfri befintlig `jsdom`-installation anges som andra argument.
 Inga beroenden har installerats eller uppdaterats för denna granskning.
+
+## Terminalintroduktion
+
+Startsidan visar en tre sekunder lång terminalboot en gång per fliksession.
+`boot.js` körs direkt efter det dolda terminalöverlägget, före sidinnehållet,
+för att undvika att hemsidan blinkar fram först. Introduktionen väntar inte
+på GitHub-anrop. Hoppa över-knappen och Escape avslutar direkt; en separat
+fyrasekunderstimer frigör sidan om normal avslutning uteblir.
+
+Sessionsmarkören `daugavan_portfolio_boot_v1` lagras när introduktionen börjar.
+Reducerad rörelse, ankarlänkar och historiknavigering går direkt till hemsidan.
+Om lagring blockeras kan introduktionen återkomma vid omladdning. Övriga HTML-sidor
+har ingen introduktion. För att se den igen kan man öppna en ny fristående flik
+och skriva in adressen, eller rensa sessionsmarkören i webbläsarens utvecklarverktyg.
+
+Efter `node scripts/prepare-public.mjs` körs webbläsarverifieringen med en befintlig
+Playwright-installation och Edge. Ingen ny installation krävs:
+
+```powershell
+node --check boot.js
+node tests/boot-browser.cjs ..\promptflower\.task-temp\browser-tools\node_modules\playwright
+```
+
+Testet startar en egen lokal HTTP-server för publiceringspaketet och kontrollerar
+15 scenarier: desktop/mobil, sessionsbeteende, klick/Escape, svensk text,
+reducerad rörelse, avstängt JavaScript, blockerat script/lagring, ankarlänkar,
+historiknavigering och säkerhetstimern. Skärmbilder och webbläsarens temporära
+profil placeras i projektets `reports/` och ingår inte i publiceringspaketet.
 

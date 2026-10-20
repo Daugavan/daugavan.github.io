@@ -1,2 +1,4 @@
 site-dist/
 reports/browser-temp-activity/
+reports/browser-temp-boot/
+reports/browser-cache-boot/

@@ -1,3 +1,82 @@
+/* The independent boot controller opts in; a missing script leaves the page visible. */
+.boot-screen[hidden], .boot-prompt[hidden] { display: none; }
+html.boot-active, .boot-active body { overflow: hidden; }
+.boot-active:not(.boot-exiting) .wrap,
+.boot-active > body > .skip { visibility: hidden; }
+.boot-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100dvh;
+  padding: max(24px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right))
+    max(20px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left));
+  background: #050709;
+  color: #e8edf0;
+  font-family: var(--font-mono);
+  font-size: clamp(12px, .8vw + 5px, 14px);
+  line-height: 1.65;
+  -webkit-font-smoothing: auto;
+  transition: opacity 300ms ease-out;
+}
+.boot-terminal { width: 100%; max-width: 1120px; min-height: 0; overflow: hidden; }
+.boot-title {
+  margin: 0 0 24px;
+  color: #a6b0b8;
+  font: inherit;
+  font-size: 11px;
+  letter-spacing: .08em;
+}
+.boot-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.boot-log { display: grid; gap: 2px; }
+.boot-line { display: grid; grid-template-columns: 11ch minmax(0, 1fr); gap: 1.5ch; }
+.boot-time { color: #8d9aa4; white-space: nowrap; }
+.boot-line > :last-child { overflow-wrap: anywhere; }
+.boot-prompt { margin-top: 20px; overflow-wrap: anywhere; }
+.boot-user { color: var(--neon); }
+.boot-cursor { color: #e8edf0; }
+.boot-skip {
+  align-self: flex-end;
+  flex-shrink: 0;
+  min-height: 44px;
+  margin-top: 16px;
+  padding: 10px 12px;
+  border: 1px solid #46515a;
+  border-radius: 4px;
+  background: #050709;
+  color: #e8edf0;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.boot-skip span { margin-left: 12px; color: #a6b0b8; }
+.boot-skip:hover { border-color: #e8edf0; }
+.boot-skip:focus-visible { outline: 2px solid var(--neon); outline-offset: 4px; }
+.boot-exiting .boot-screen { opacity: 0; }
+@media (max-width: 480px) {
+  .boot-screen { padding-left: 16px; padding-right: 16px; }
+  .boot-line { gap: .5ch; }
+}
+@media (max-height: 580px) {
+  .boot-screen { font-size: 11px; line-height: 1.35; padding-top: 16px; padding-bottom: 12px; }
+  .boot-title { margin-bottom: 12px; }
+  .boot-prompt { margin-top: 10px; }
+  .boot-log { gap: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .boot-screen { transition: none; }
+}
+
     :root {
       color-scheme: dark;
 

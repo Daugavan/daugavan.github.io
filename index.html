@@ -72,12 +72,25 @@
   }
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20261019-cookies-page" />
+  <link rel="stylesheet" href="styles.css?v=20261020-terminal-boot" />
 
   
   <link rel="preconnect" href="https://api.github.com" crossorigin />
 </head>
 <body>
+  <section class="boot-screen" id="portfolioBoot" role="dialog" aria-modal="true" aria-labelledby="bootTitle" aria-describedby="bootStatus" hidden>
+    <div class="boot-terminal">
+      <h2 class="boot-title" id="bootTitle" translate="no">DAUGAVAN / PORTFOLIO BOOT</h2>
+      <p class="boot-status" id="bootStatus" role="status">Starting portfolio…</p>
+      <div class="boot-output" aria-hidden="true" translate="no">
+        <div class="boot-log" id="bootLog"></div>
+        <div class="boot-prompt" id="bootPrompt" hidden><span class="boot-user">daugavan@portfolio:~$</span> <span id="bootCommand"></span><span class="boot-cursor">▌</span></div>
+      </div>
+    </div>
+    <button class="boot-skip" id="bootSkip" type="button">Skip intro <span aria-hidden="true">[Esc]</span></button>
+  </section>
+  <script src="boot.js?v=20261020-terminal-boot"></script>
+
   <a class="skip" data-i18n="skipContent" href="#mainContent">Skip to content</a>
 
   <div class="bg-radial" aria-hidden="true"></div>
