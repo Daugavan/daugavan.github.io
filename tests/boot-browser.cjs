@@ -6,7 +6,7 @@ const report = path.join(root, 'reports');
 process.env.TEMP = process.env.TMP = path.join(report, 'browser-temp-boot');
 process.env.PLAYWRIGHT_BROWSERS_PATH = path.join(report, 'browser-cache-boot');
 fs.mkdirSync(process.env.TEMP, { recursive: true });
-const { chromium } = require(process.argv[2] || '../../promptflower/.task-temp/browser-tools/node_modules/playwright');
+const { chromium } = require(path.resolve(process.argv[2] || path.join(root, '../promptflower/.task-temp/browser-tools/node_modules/playwright')));
 const { createServer } = require('node:http');
 
 (async () => {

@@ -72,6 +72,19 @@
     if (!snapshot) return;
     const swedish = document.documentElement.lang.startsWith('sv');
     const locale = swedish ? 'sv-SE' : 'en-US';
+    const contributions = document.getElementById('contributionsN');
+    const source = document.getElementById('contributionsSource');
+    if (contributions) contributions.textContent = new Intl.NumberFormat(locale).format(snapshot.github.total);
+    if (source) {
+      source.removeAttribute('data-i18n');
+      const date = new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })
+        .format(new Date(snapshot.github.retrieved + 'T00:00:00Z'));
+      source.replaceChildren(document.createTextNode(swedish ? 'Bidrag · hämtade ' : 'Contributions · retrieved '));
+      const time = document.createElement('time');
+      time.dateTime = snapshot.github.retrieved;
+      time.textContent = date;
+      source.append(time);
+    }
     for (const name of ['github','lovable']) {
       const entry = snapshot[name];
       const total = new Intl.NumberFormat(locale).format(entry.total);

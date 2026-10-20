@@ -101,3 +101,24 @@ reducerad rörelse, avstängt JavaScript, blockerat script/lagring, ankarlänkar
 historiknavigering och säkerhetstimern. Skärmbilder och webbläsarens temporära
 profil placeras i projektets `reports/` och ingår inte i publiceringspaketet.
 
+## GitHub-statistik i Aura-kortet
+
+Statistiken ligger i full bredd ovanför repository-listan. Aprikos markerar stjärnor,
+rosa bidrag senaste året och mint publika repos; lavendel används i kortets ljusfält.
+På skärmar under 640 px staplas de tre mätvärdena. Engångsanimationen väntar på
+avslutad boot och på att kortet syns; reducerad rörelse ger direkt visning.
+
+Repos och stjärnor återanvänder `app.js` och dess befintliga cache/återförsök.
+Bidrag och hämtningsdatum hämtas av `activity.js` från samma validerade snapshot
+som kalendern. Saknade bidrag visas som ett streck med status, aldrig som noll.
+Kortet använder inga GitSkins-anrop, nya behörigheter eller nya beroenden.
+
+```powershell
+node scripts/prepare-public.mjs
+node tests/stats-browser.cjs ..\promptflower\.task-temp\browser-tools\node_modules\playwright
+```
+
+Testet kontrollerar responsiv layout, språk, kalenderns gemensamma bidragssiffra
+och datum, cache, äldre/ogiltiga svar, återförsök, blockerad lagring, avstängt
+JavaScript och animation efter boot. Skärmbilder sparas i `reports/aura-stats-*.png`.
+

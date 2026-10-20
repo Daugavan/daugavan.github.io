@@ -72,7 +72,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20261020-terminal-boot" />
+  <link rel="stylesheet" href="styles.css?v=20261020-aura-stats" />
 
   
   <link rel="preconnect" href="https://api.github.com" crossorigin />
@@ -553,26 +553,32 @@
         </div>
 
         
-        <div class="grid">
-          <aside class="card stats" aria-labelledby="statsTitle">
-            <div class="card-head">
+        <div class="github-overview">
+          <section class="card stats stats-aura" aria-labelledby="statsTitle">
+            <div class="stats-heading">
               <h2 id="statsTitle" data-i18n="statsTitle">GitHub Stats</h2>
-              <span class="repo-count" aria-hidden="true" data-i18n="live">public</span>
+              <a class="mini-link" href="https://github.com/Daugavan" target="_blank" rel="noopener noreferrer" translate="no">@Daugavan <span aria-hidden="true">↗</span></a>
             </div>
-            <div class="row" role="list">
-              <div class="stat" role="listitem">
-                <div class="num" id="starsN">—</div>
-                <div class="label" id="stat-label-stars" data-i18n="stars">Stars</div>
+            <dl class="stats-metrics">
+              <div class="stats-metric stats-metric-stars">
+                <dt data-i18n="stars">Stars</dt>
+                <dd id="starsN">—</dd>
               </div>
-              <div class="stat" role="listitem">
-                <div class="num" id="reposN">—</div>
-                <div class="label" id="stat-label-repos" data-i18n="repos">Repos</div>
+              <div class="stats-metric stats-metric-contributions">
+                <dt data-i18n="contributionsYear">Contributions · past year</dt>
+                <dd id="contributionsN" aria-describedby="contributionsSource">—</dd>
               </div>
+              <div class="stats-metric stats-metric-repos">
+                <dt data-i18n="publicRepos">Public repos</dt>
+                <dd id="reposN">—</dd>
+              </div>
+            </dl>
+            <div class="stats-details">
+              <div class="stats-source" id="statsSource" role="status" aria-live="polite">Enable JavaScript for GitHub statistics.</div>
+              <div class="stats-source" id="contributionsSource" role="status" aria-live="polite" data-i18n="contributionsUnavailable">Contribution data unavailable.</div>
             </div>
-            <div class="progress" aria-hidden="true"><div id="progressFill" class="fill"></div></div>
-            <div class="stats-source" id="statsSource" role="status" aria-live="polite">Enable JavaScript for GitHub statistics.</div>
-            <div class="profile-actions" id="actions"><a class="btn view" href="https://github.com/Daugavan" target="_blank" rel="noopener noreferrer" data-i18n="viewProfile">View Profile</a></div>
-          </aside>
+            <div class="profile-actions" id="actions"></div>
+          </section>
 
           <section class="card" aria-labelledby="reposTitle">
             <div class="card-head">
@@ -824,8 +830,8 @@
     </div>
   </div>
 
-  <script src="app.js?v=20261020-codex-statistics" defer></script>
-  <script src="activity.js?v=20261014-latest" defer></script>
+  <script src="app.js?v=20261020-aura-stats" defer></script>
+  <script src="activity.js?v=20261020-aura-stats" defer></script>
   <script src="seedy.js?v=20261014" defer></script>
 </body>
 </html>

@@ -58,7 +58,6 @@
   const elStarsN = document.getElementById('starsN');
   const elReposN = document.getElementById('reposN');
   const elRepoCount = document.getElementById('repoCount');
-  const elProgress = document.getElementById('progressFill');
   const elStatsSource = document.getElementById('statsSource');
   const elMainContent = document.getElementById('mainContent');
   const langSwitch = document.getElementById('langSwitch');
@@ -119,14 +118,17 @@
       statsTitle: 'GitHub Stats',
       live: "public",
       stars: 'Stars',
+      contributionsYear: 'Contributions · past year',
+      contributionsUnavailable: 'Contribution data unavailable.',
+      publicRepos: 'Public repos',
       repos: 'Repos',
-      fetchingData: 'Fetching live data…',
+      fetchingData: 'Fetching repos and stars…',
       repositories: 'Repositories',
       reposTitle: 'Repositories',
       loading: 'Loading…',
-      statsCached: "Cached GitHub data",
-      statsPartial: "Partial GitHub data · counts may be incomplete",
-      statsLoaded: "GitHub data loaded",
+      statsCached: "Repos and stars · cached data",
+      statsPartial: "Repos and stars · counts may be incomplete",
+      statsLoaded: "Repos and stars updated",
       retry: 'Retry',
       statsOffline: 'GitHub is unreachable right now · showing cached data',
       galleryTitle: 'Gallery',
@@ -200,14 +202,17 @@
       statsTitle: 'GitHub-statistik',
       live: "publikt",
       stars: 'Stjärnor',
+      contributionsYear: 'Bidrag · senaste året',
+      contributionsUnavailable: 'Bidragsdata saknas.',
+      publicRepos: 'Publika repos',
       repos: 'Repon',
-      fetchingData: 'Hämtar livedata…',
+      fetchingData: 'Hämtar repos och stjärnor…',
       repositories: 'Repon',
       reposTitle: 'Repon',
       loading: 'Laddar…',
-      statsCached: "Cachad GitHub-data",
-      statsPartial: "Ofullständig GitHub-data · antal kan vara ofullständiga",
-      statsLoaded: "GitHub-data hämtad",
+      statsCached: "Repos och stjärnor · cachad data",
+      statsPartial: "Repos och stjärnor · antal kan vara ofullständiga",
+      statsLoaded: "Repos och stjärnor uppdaterade",
       retry: 'Försök igen',
       statsOffline: 'GitHub kan inte nås just nu · visar cachad data',
       galleryTitle: 'Galleri',
@@ -299,7 +304,7 @@
     }
 
     if (REDUCED_MOTION) {
-      el.textContent = Math.round(n).toLocaleString();
+      el.textContent = Math.round(n).toLocaleString(currentLang === 'sv' ? 'sv-SE' : 'en-US');
       return;
     }
 
@@ -309,7 +314,7 @@
     const frame = (now) => {
       const progress = Math.min((now - start) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.round(eased * n).toLocaleString();
+      el.textContent = Math.round(eased * n).toLocaleString(currentLang === 'sv' ? 'sv-SE' : 'en-US');
       if (progress < 1) numberFrames.set(el, requestAnimationFrame(frame));
     };
 
@@ -413,20 +418,13 @@
 
     elActions.replaceChildren();
 
-    const view = document.createElement('a');
-    view.className = 'btn view';
-    view.textContent = t('viewProfile');
-    view.href = `https://github.com/${GITHUB_USER}`;
-    view.target = '_blank';
-    view.rel = 'noopener noreferrer';
-
     const copyButton = document.createElement('button');
     copyButton.className = 'btn copy';
     copyButton.type = 'button';
     copyButton.textContent = t('copyLink');
-    copyButton.addEventListener('click', () => copy(view.href));
+    copyButton.addEventListener('click', () => copy(`https://github.com/${GITHUB_USER}`));
 
-    elActions.append(view, copyButton);
+    elActions.append(copyButton);
   }
 
   function renderStaticProfile() {
@@ -442,19 +440,6 @@
   function renderStats(stats) {
     animateNumber(elReposN, stats.repos);
     animateNumber(elStarsN, stats.stars);
-
-    const base = Math.max(
-      Number(stats.repos) || 0,
-      Number(stats.stars) || 0,
-      1
-    );
-
-    if (elProgress) {
-      const ratio = Math.min(100, ((Number(stats.repos) || 0) / base) * 100);
-      requestAnimationFrame(() => {
-        elProgress.style.width = `${ratio}%`;
-      });
-    }
 
     if (stats.partial) setStatsSource('statsPartial', true);
     else if (stats.cached) setStatsSource('statsCached');
@@ -610,6 +595,14 @@
     const hadRetry = !!document.getElementById('retryGitHub');
     setStatsSource(sourceKey, sourceError);
     if (hadRetry) renderRetryButton();
+    if (cachedStatsData) {
+      const locale = currentLang === 'sv' ? 'sv-SE' : 'en-US';
+      for (const [element, value] of [[elStarsN, cachedStatsData.stars], [elReposN, cachedStatsData.repos]]) {
+        if (!element) continue;
+        cancelAnimationFrame(numberFrames.get(element));
+        element.textContent = Number(value).toLocaleString(locale);
+      }
+    }
     document.dispatchEvent(new Event('languagechange'));
 
     if (langSwitch) {
@@ -682,6 +675,7 @@
     if (langSwitch) langSwitch.hidden = false;
     initLanguage();
     renderStaticProfile();
+    initStatsReveal();
 
     if (elMainContent) elMainContent.setAttribute('aria-busy', 'true');
 
@@ -715,6 +709,26 @@
     if (elYear) elYear.textContent = String(new Date().getFullYear());
 
     if (elMainContent) elMainContent.setAttribute('aria-busy', 'false');
+  }
+
+  function initStatsReveal() {
+    const card = document.querySelector('.stats-aura');
+    if (!card || REDUCED_MOTION || !('IntersectionObserver' in window)) return;
+    const revealWhenVisible = () => {
+      const observer = new IntersectionObserver(entries => {
+        if (!entries.some(entry => entry.isIntersecting)) return;
+        card.classList.add('stats-reveal');
+        observer.disconnect();
+      });
+      observer.observe(card);
+    };
+    if (!document.documentElement.classList.contains('boot-active')) return revealWhenVisible();
+    const bootObserver = new MutationObserver(() => {
+      if (document.documentElement.classList.contains('boot-active')) return;
+      bootObserver.disconnect();
+      revealWhenVisible();
+    });
+    bootObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
   }
 
   if (document.readyState === 'loading') {

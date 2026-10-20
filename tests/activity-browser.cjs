@@ -24,7 +24,7 @@ const assertLatest = async page => {
   const browser = await chromium.launch({channel:'msedge',headless:true});
   try {
     const open = async data => {
-      const page = await browser.newPage({ viewport: { width: 390, height: 844 }, hasTouch: true });
+      const page = await browser.newPage({ viewport: { width: 390, height: 844 }, hasTouch: true, reducedMotion: 'reduce' });
       await page.route('https://api.github.com/**', r => r.fulfill({body:'[]',contentType:'application/json'}));
       await page.route(endpoint, r => data === null ? r.fulfill({status:503,body:'Unavailable'}) : r.fulfill({body:JSON.stringify(data),contentType:'application/json'}));
       await page.goto(pathToFileURL(path.resolve('site-dist/index.html')).href);

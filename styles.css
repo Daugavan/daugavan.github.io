@@ -228,6 +228,8 @@ html.boot-active, .boot-active body { overflow: hidden; }
 
     .wrap {
       position: relative;
+      /* Keep the gallery's folded 3D planes from widening the viewport. */
+      overflow-x: clip;
       min-height: 100dvh;
       width: 100%;
       display: flex;
@@ -530,6 +532,68 @@ html.boot-active, .boot-active body { overflow: hidden; }
     }
 
     .stats { display: flex; flex-direction: column; }
+    .github-overview { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+    .stats.stats-aura {
+      --stats-apricot: #ffc49b;
+      --stats-rose: #f5a8ca;
+      --stats-mint: #8fe3c2;
+      --stats-lavender: #b9a7eb;
+      --edge-rgb: 185, 167, 235;
+      padding: clamp(1.1rem, 3vw, 2rem);
+      border-color: rgba(185, 167, 235, .25);
+      background:
+        radial-gradient(ellipse at 3% 0%, rgba(255, 196, 155, .16), transparent 55%),
+        radial-gradient(ellipse at 63% 110%, rgba(245, 168, 202, .14), transparent 60%),
+        radial-gradient(ellipse at 100% 10%, rgba(185, 167, 235, .18), transparent 55%),
+        #101522;
+      box-shadow: 0 1px 0 rgba(255,255,255,.05) inset, 0 20px 60px rgba(7,11,20,.25);
+    }
+    .stats.stats-aura::after { display: none; animation: none; }
+    .stats-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .75rem; margin-bottom: 1.3rem; }
+    .stats-heading h2 { font-size: clamp(1.3rem, 2vw, 1.65rem); color: var(--ink-1); }
+    .stats-heading .mini-link { color: var(--stats-lavender); }
+    .stats-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin: 0; }
+    .stats-metric {
+      --metric-accent: var(--stats-apricot);
+      min-width: 0;
+      padding: clamp(1rem, 2vw, 1.4rem);
+      border-radius: var(--r-md);
+      border: 1px solid color-mix(in srgb, var(--metric-accent) 32%, transparent);
+      background: linear-gradient(145deg, color-mix(in srgb, var(--metric-accent) 6%, transparent), rgba(7,11,20,.65));
+    }
+    .stats-metric-contributions { --metric-accent: var(--stats-rose); }
+    .stats-metric-repos { --metric-accent: var(--stats-mint); }
+    .stats-metric dt { color: #d5d3de; font-size: .82rem; line-height: 1.5; }
+    .stats-metric dd {
+      margin: .65rem 0 .85rem;
+      color: var(--metric-accent);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 650;
+      line-height: 1.1;
+      letter-spacing: -.04em;
+      font-variant-numeric: tabular-nums;
+      overflow-wrap: anywhere;
+    }
+    .stats-metric::after { content: ""; display: block; width: 36px; height: 3px; border-radius: 2px; background: var(--metric-accent); opacity: .8; }
+    .stats-details { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 1rem; margin-top: 1rem; }
+    .stats-aura .stats-source { margin: 0; color: #bcb8cb; font-size: .75rem; }
+    .stats-aura .stats-error { color: var(--danger); }
+    .stats-aura .profile-actions { margin: .75rem 0 0; align-self: flex-start; }
+    .stats-aura .profile-actions:empty { display: none; }
+    .stats-aura .profile-actions .copy { min-height: 44px; padding: 0 .8rem; font-size: .75rem; background: transparent; border-color: rgba(185,167,235,.25); }
+    @media (max-width: 639px) {
+      .stats-metrics { grid-template-columns: minmax(0, 1fr); gap: .65rem; }
+      .stats-metric { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: .5rem 1rem; padding: 1rem; }
+      .stats-metric dd { margin: 0; font-size: 2rem; }
+      .stats-metric::after { grid-column: 1 / -1; }
+      .stats-details { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .stats-reveal .stats-metric { animation: stats-arrive 480ms ease-out both; }
+      .stats-reveal .stats-metric:nth-child(2) { animation-delay: 100ms; }
+      .stats-reveal .stats-metric:nth-child(3) { animation-delay: 200ms; }
+    }
+    @keyframes stats-arrive { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
     .stats .row {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
