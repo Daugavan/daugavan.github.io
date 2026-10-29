@@ -550,7 +550,8 @@ html.boot-active, .boot-active body { overflow: hidden; }
     }
     .stats.stats-aura::after { display: none; animation: none; }
     .stats-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .75rem; margin-bottom: 1.3rem; }
-    .stats-heading h2 { font-size: clamp(1.3rem, 2vw, 1.65rem); color: var(--ink-1); }
+    .stats-heading h2 { display: flex; align-items: center; gap: .6rem; font-size: clamp(1.3rem, 2vw, 1.65rem); color: var(--ink-1); }
+    .stats-github-mark { display: block; flex-shrink: 0; width: 1.25em; height: 1.25em; opacity: .9; }
     .stats-heading .mini-link { color: var(--stats-lavender); }
     .stats-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin: 0; }
     .stats-metric {
