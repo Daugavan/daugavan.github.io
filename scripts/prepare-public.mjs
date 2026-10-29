@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 export const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export const publicFiles = [
   '.nojekyll', 'index.html', '404.html', 'privacy.html', 'cookies.html', 'app.js', 'boot.js', 'activity.js', 'seedy.js', 'styles.css',
-  '404.css', 'robots.txt', 'sitemap.xml', 'llms.txt', 'favicon.svg', 'favicon.png',
+  '404.css', 'robots.txt', 'sitemap.xml', 'llms.txt', 'favicon.svg', 'favicon.png', 'favicon.ico',
   'apple-touch-icon.png', 'og-cover.jpg',
   'images/profile-avatar.webp', 'images/lovable-profile-clean.webp',
   'images/identity-cover.webp', 'images/identity-lamps-off.webp',
