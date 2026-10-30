@@ -3,24 +3,15 @@
 
 
   const GITHUB_USER = 'Daugavan';
-  const GITHUB_API = 'https://api.github.com';
   const MAX_REPOS = 6;
-
-  const CACHE_KEY = 'daugavan_gh_v5';
-  const CACHE_TTL = 30 * 60 * 1000;
-  const FETCH_TIMEOUT = 8000;
-  const MAX_RESPONSE_BYTES = 2 * 1024 * 1024;
-  const MAX_REPO_PAGES = 10;
-  const MAX_CACHE_AGE = 7 * 24 * 60 * 60 * 1000;
-  const COOLDOWN_KEY = 'daugavan_gh_cooldown';
-  let requestBlockedUntil = 0;
+  const MAX_SNAPSHOT_REPOS = 1000;
   const numberFrames = new WeakMap();
   const isCount = (n) => Number.isSafeInteger(n) && n >= 0;
-  let sourceKey = 'fetchingData';
+  let sourceKey = 'statsLoaded';
   let sourceError = false;
 
   function normalizeRepos(repos) {
-    if (!Array.isArray(repos) || repos.length > MAX_REPO_PAGES * 100) throw new Error('Invalid repositories');
+    if (!Array.isArray(repos) || repos.length > MAX_SNAPSHOT_REPOS) throw new Error('Invalid repositories');
     return repos.map((repo) => {
       if (!repo || typeof repo.name !== 'string' || !/^[A-Za-z0-9_.-]{1,100}$/.test(repo.name) || repo.name === '.' || repo.name === '..') {
         throw new Error('Invalid repository name');
@@ -37,14 +28,6 @@
       };
     });
   }
-
-  function cooldownUntil() {
-    try {
-      const value = Number(localStorage.getItem(COOLDOWN_KEY));
-      return Math.max(requestBlockedUntil, Number.isFinite(value) ? Math.min(value, Date.now() + 60 * 60 * 1000) : 0);
-    } catch (_) { return requestBlockedUntil; }
-  }
-
 
   const REDUCED_MOTION =
     window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
@@ -109,27 +92,20 @@
       openPF: "Open PromptFlower (opens in new tab)",
       pfSubtitle: "Private prompt studio",
       pfUrl: "promptflower.app / private prompt studio",
-      noScriptStats: "Enable JavaScript for GitHub statistics.",
-      retryLater: "GitHub request limit reached · please retry later",
       skipContent: "Skip to content",
       staticBio: 'Creative technologist with a passion for cybersecurity, AI, coding, and photography.',
       switchLanguage: 'Switch to Swedish',
       currentLanguage: 'English',
       statsTitle: 'GitHub Stats',
-      live: "public",
       stars: 'Stars',
       contributionsYear: 'Contributions · past year',
       contributionsUnavailable: 'Contribution data unavailable.',
       publicRepos: 'Public repos',
       repos: 'Repos',
-      fetchingData: 'Fetching repos and stars…',
       repositories: 'Repositories',
       reposTitle: 'Repositories',
       loading: 'Loading…',
-      statsCached: "Repos and stars · cached data",
-      statsPartial: "Repos and stars · counts may be incomplete",
-      statsLoaded: "Repos and stars updated",
-      retry: 'Retry',
+      statsLoaded: "Repos and stars · verified snapshot",
       statsOffline: 'GitHub is unreachable right now · showing cached data',
       galleryTitle: 'Gallery',
       previous: 'Previous',
@@ -153,7 +129,6 @@
       copied: 'Copied!',
       copyFailed: 'Copy failed.',
       footerTagline: 'Hand-crafted, no framework.',
-      errorRate: 'GitHub API rate limit reached. Showing cached data where possible.',
       errorLoad: 'Could not load GitHub repositories. The rest of the page remains available.'
     },
     sv: {
@@ -193,27 +168,20 @@
       openPF: "Öppna PromptFlower (öppnas i ny flik)",
       pfSubtitle: "Privat promptstudio",
       pfUrl: "promptflower.app / privat promptstudio",
-      noScriptStats: "Aktivera JavaScript för GitHub-statistik.",
-      retryLater: "GitHubs anropsgräns nådd · försök igen senare",
       skipContent: "Hoppa till innehåll",
       staticBio: 'Kreativ teknolog med en passion för cybersäkerhet, AI, kodning och fotografi.',
       switchLanguage: 'Byt till engelska',
       currentLanguage: 'Svenska',
       statsTitle: 'GitHub-statistik',
-      live: "publikt",
       stars: 'Stjärnor',
       contributionsYear: 'Bidrag · senaste året',
       contributionsUnavailable: 'Bidragsdata saknas.',
       publicRepos: 'Publika repos',
       repos: 'Repon',
-      fetchingData: 'Hämtar repos och stjärnor…',
       repositories: 'Repon',
       reposTitle: 'Repon',
       loading: 'Laddar…',
-      statsCached: "Repos och stjärnor · cachad data",
-      statsPartial: "Repos och stjärnor · antal kan vara ofullständiga",
-      statsLoaded: "Repos och stjärnor uppdaterade",
-      retry: 'Försök igen',
+      statsLoaded: "Repos och stjärnor · verifierad statistik",
       statsOffline: 'GitHub kan inte nås just nu · visar cachad data',
       galleryTitle: 'Galleri',
       previous: 'Föregående',
@@ -237,7 +205,6 @@
       copied: 'Kopierat!',
       copyFailed: 'Kopiering misslyckades.',
       footerTagline: 'Handgjord, utan ramverk.',
-      errorRate: 'GitHub API-rate limit nådd. Visar tillgänglig cachad data där det går.',
       errorLoad: 'Kunde inte läsa GitHub-repon. Resten av sidan är fortfarande tillgänglig.'
     }
   };
@@ -249,48 +216,11 @@
 
   const t = (key) => T[currentLang]?.[key] ?? T.en[key] ?? key;
 
-  function readCache() {
-    try {
-      const raw = localStorage.getItem(CACHE_KEY);
-      if (!raw || raw.length > 1500000) return null;
-
-      const data = JSON.parse(raw);
-      if (!data || data.v !== 5 || !Array.isArray(data.repos) || !Number.isFinite(data.t)) {
-        localStorage.removeItem(CACHE_KEY);
-        return null;
-      }
-
-      if (data.t > Date.now() || Date.now() - data.t > MAX_CACHE_AGE) return null;
-      data.repos = normalizeRepos(data.repos);
-      if (!data.stats || typeof data.stats !== 'object' || Array.isArray(data.stats)) return null;
-      data.stale = Date.now() - data.t > CACHE_TTL;
-      return data;
-    } catch (_) {
-      return null;
-    }
-  }
-
-  function writeCache(repos, stats) {
-    try {
-      localStorage.setItem(CACHE_KEY, JSON.stringify({
-        v: 5,
-        t: Date.now(),
-        repos,
-        stats: stats ?? null
-      }));
-    } catch (_) {}
-  }
-
   function computeStars(repos) {
     return repos.reduce((sum, repo) => {
       const stars = Number(repo?.stargazers_count);
       return sum + (Number.isFinite(stars) ? stars : 0);
     }, 0);
-  }
-
-  function cachedStats(repos, cache) {
-    return { repos: repos.length, stars: computeStars(repos),
-      partial: cache.stats.partial === true, cached: true };
   }
 
   function animateNumber(el, value) {
@@ -356,61 +286,14 @@
     }
   }
 
-  async function gh(url, { timeout = FETCH_TIMEOUT } = {}) {
-    const endpoint = new URL(url);
-    if (endpoint.origin !== GITHUB_API) throw new Error('Unexpected API origin');
-    const controller = new AbortController();
-    const timer = window.setTimeout(() => controller.abort(), timeout);
-    try {
-      const response = await fetch(endpoint.href, {
-        method: 'GET', headers: { Accept: 'application/vnd.github+json' },
-        signal: controller.signal, credentials: 'omit', referrerPolicy: 'no-referrer',
-        redirect: 'error'
-      });
-      if (!response.ok) {
-        const error = new Error(`GitHub API ${response.status}`);
-        error.status = response.status;
-        if (response.status === 403 || response.status === 429) {
-          const reset = Number(response.headers.get('x-ratelimit-reset')) * 1000;
-          const retry = Number(response.headers.get('retry-after')) * 1000;
-          const until = Math.min(Date.now() + 3600000, Math.max(Date.now() + 60000, reset || 0, Date.now() + (retry || 0)));
-          requestBlockedUntil = until;
-          try { localStorage.setItem(COOLDOWN_KEY, String(until)); } catch (_) {}
-        }
-        throw error;
-      }
-      const reader = response.body?.getReader();
-      if (!reader) throw new Error('Missing API response body');
-      const decoder = new TextDecoder('utf-8', { fatal: true });
-      let size = 0;
-      let body = '';
-      try {
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          size += value.byteLength;
-          if (size > MAX_RESPONSE_BYTES) {
-            controller.abort();
-            throw new Error('API response too large');
-          }
-          body += decoder.decode(value, { stream: true });
-        }
-        body += decoder.decode();
-      } finally { reader.releaseLock(); }
-      return { data: JSON.parse(body), link: response.headers.get('Link') || '' };
-    } finally { window.clearTimeout(timer); }
-  }
-
   async function getRepositories() {
-    const repos = [];
-    for (let page = 1; page <= MAX_REPO_PAGES; page++) {
-      const { data, link } = await gh(`${GITHUB_API}/users/${GITHUB_USER}/repos?per_page=100&type=owner&sort=full_name&page=${page}`);
-      if (!Array.isArray(data) || data.length > 100) throw new Error('Invalid repository page');
-      repos.push(...normalizeRepos(data));
-      const hasNext = /rel="next"/.test(link);
-      if (!hasNext) return { repos: [...new Map(repos.map(repo => [repo.name, repo])).values()], partial: false };
-      if (page === MAX_REPO_PAGES) return { repos, partial: true };
+    // Published by Actions. Visitors never consume GitHub's API quota.
+    const data = window.portfolioStatistics?.repositories;
+    if (data?.version !== 1 || typeof data.retrieved !== 'string' ||
+        !Number.isFinite(Date.parse(data.retrieved)) || Date.parse(data.retrieved) > Date.now() + 86400000) {
+      throw new Error('Invalid repository snapshot');
     }
+    return { repos: normalizeRepos(data.repos), retrieved: data.retrieved };
   }
 
   function renderProfileActions() {
@@ -441,27 +324,10 @@
     animateNumber(elReposN, stats.repos);
     animateNumber(elStarsN, stats.stars);
 
-    if (stats.partial) setStatsSource('statsPartial', true);
-    else if (stats.cached) setStatsSource('statsCached');
-    else setStatsSource('statsLoaded');
-  }
-
-  function renderRetryButton() {
-    if (!elStatsSource || document.getElementById('retryGitHub')) return;
-
-    const button = document.createElement('button');
-    button.id = 'retryGitHub';
-    button.type = 'button';
-    button.className = 'stats-retry';
-    button.textContent = t('retry');
-    button.addEventListener('click', () => {
-      button.disabled = true;
-      refreshGitHub()
-        .finally(() => { button.disabled = false; });
-    });
-
-    elStatsSource.appendChild(document.createTextNode(' '));
-    elStatsSource.appendChild(button);
+    setStatsSource('statsLoaded');
+    if (elStatsSource && stats.retrieved) {
+      elStatsSource.appendChild(document.createTextNode(' · ' + formatDate(stats.retrieved)));
+    }
   }
 
   function formatDate(iso) {
@@ -549,15 +415,9 @@
     elReposWrap.setAttribute('aria-busy', 'false');
   }
 
-  function renderError(key, { cached = false } = {}) {
+  function renderError(key) {
     setStatsSource(key, true);
 
-    if (cached && cachedStatsData) {
-      renderStats(cachedStatsData);
-      setStatsSource(key, true);
-      renderRetryButton();
-      return;
-    }
 
     if (elReposWrap) {
       const errorBox = document.createElement('div');
@@ -569,7 +429,6 @@
       elReposWrap.setAttribute('aria-busy', 'false');
     }
 
-    renderRetryButton();
   }
 
   function applyTranslations() {
@@ -592,10 +451,9 @@
 
     renderProfileActions();
     if (elBio) elBio.textContent = t('staticBio');
-    const hadRetry = !!document.getElementById('retryGitHub');
     setStatsSource(sourceKey, sourceError);
-    if (hadRetry) renderRetryButton();
     if (cachedStatsData) {
+      renderStats(cachedStatsData);
       const locale = currentLang === 'sv' ? 'sv-SE' : 'en-US';
       for (const [element, value] of [[elStarsN, cachedStatsData.stars], [elReposN, cachedStatsData.repos]]) {
         if (!element) continue;
@@ -649,23 +507,16 @@
 
   async function refreshGitHub() {
     if (refreshPromise) return refreshPromise;
-    if (Date.now() < cooldownUntil()) {
-      renderError('retryLater', { cached: !!cachedStatsData });
-      return;
-    }
     refreshPromise = (async () => {
       try {
-        const { repos, partial: reposPartial } = await getRepositories();
+        const { repos, retrieved } = await getRepositories();
         renderRepos(repos);
         const nextStats = { repos: repos.length, stars: computeStars(repos),
-          partial: reposPartial, cached: false };
+          retrieved };
         cachedStatsData = nextStats;
         renderStats(nextStats);
-        writeCache(repos, nextStats);
-        if (reposPartial) renderRetryButton();
       } catch (error) {
-        renderError(error?.status === 403 || error?.status === 429 ? 'errorRate' : 'errorLoad',
-          { cached: !!cachedStatsData });
+        renderError('errorLoad');
       }
     })();
     try { await refreshPromise; } finally { refreshPromise = null; }
@@ -679,31 +530,7 @@
 
     if (elMainContent) elMainContent.setAttribute('aria-busy', 'true');
 
-    const currentCache = readCache();
-
-    if (currentCache) {
-      cachedRepos = currentCache.repos;
-      cachedStatsData = cachedStats(currentCache.repos, currentCache);
-
-      renderRepos(currentCache.repos, currentCache.repos.length);
-      renderStats(cachedStatsData);
-
-      if (currentCache.stale) {
-        setStatsSource('statsCached');
-      }
-    }
-
-    const refresh = () => refreshGitHub();
-
-    if (currentCache && !currentCache.stale) {
-      if (cachedStatsData.partial) renderRetryButton();
-    } else if ('requestIdleCallback' in window) {
-      window.requestIdleCallback(refresh, {
-        timeout: currentCache ? 1200 : 0
-      });
-    } else {
-      window.setTimeout(refresh, currentCache ? 250 : 0);
-    }
+    await refreshGitHub();
 
     const elYear = document.getElementById('year');
     if (elYear) elYear.textContent = String(new Date().getFullYear());

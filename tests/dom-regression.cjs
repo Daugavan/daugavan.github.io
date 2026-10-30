@@ -20,11 +20,9 @@ w.HTMLDialogElement.prototype.close = function () {
 };
 const attack = '"><img src=x onerror="window.pwned=true"><script>alert(1)</script>';
 w.localStorage.setItem('lang', 'en');
-w.localStorage.setItem('daugavan_gh_v5', JSON.stringify({
-  v: 5, t: Date.now(), statsT: Date.now(), stats: { commits: 10 },
+w.portfolioStatistics = { repositories: { version: 1, retrieved: new Date().toISOString(),
   repos: [{ name: 'safe-repo', stargazers_count: 3, description: attack,
-    language: attack, topics: [attack], updated_at: attack, html_url: 'javascript:alert(1)' }]
-}));
+    language: attack, topics: [attack], updated_at: attack }] } };
 w.eval(fs.readFileSync(path.join(root, 'app.js'), 'utf8'));
 w.document.dispatchEvent(new w.Event('DOMContentLoaded'));
 setTimeout(() => {

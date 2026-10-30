@@ -50,7 +50,7 @@ Aktivitetsdelen ovanför sidfoten visar användarens sparade skärmbilder:
 De är märkta som ögonblicksbilder och uppdateras genom att ersätta bildfilerna
 och vid behov justera deras alt-texter i `index.html` och `app.js`.
 Länkarna går till respektive profil för aktuell aktivitet. GitHub-statistiken
-högre upp på sidan hämtas fortfarande live. På smala skärmar kan kalendrarna
+högre upp på sidan levereras från den publicerade statistikfilen; se STATISTICS.md. På smala skärmar kan kalendrarna
 skrollas i sidled med touch eller tangentbord.
 
 1. Kontrollera att hemsidan, integritetssidan, alla sex bilder och 404-sidan fungerar.
@@ -108,10 +108,10 @@ rosa bidrag senaste året och mint publika repos; lavendel används i kortets lj
 På skärmar under 640 px staplas de tre mätvärdena. Engångsanimationen väntar på
 avslutad boot och på att kortet syns; reducerad rörelse ger direkt visning.
 
-Repos och stjärnor återanvänder `app.js` och dess befintliga cache/återförsök.
-Bidrag och hämtningsdatum hämtas av `activity.js` från samma validerade snapshot
-som kalendern. Saknade bidrag visas som ett streck med status, aldrig som noll.
-Kortet använder inga GitSkins-anrop, nya behörigheter eller nya beroenden.
+Repos, stjärnor, bidrag och kalendrar läses från `statistics-data.js`, som
+publiceras av schemalagda Actions. Besökaren gör inga GitHub API-anrop.
+Saknade bidrag visas som ett streck med status, aldrig som noll. Bakgrundskörningen
+använder en kortlivad GITHUB_TOKEN och begär en Pages-build efter uppdatering.
 
 ```powershell
 node scripts/prepare-public.mjs
@@ -119,6 +119,6 @@ node tests/stats-browser.cjs ..\promptflower\.task-temp\browser-tools\node_modul
 ```
 
 Testet kontrollerar responsiv layout, språk, kalenderns gemensamma bidragssiffra
-och datum, cache, äldre/ogiltiga svar, återförsök, blockerad lagring, avstängt
-JavaScript och animation efter boot. Skärmbilder sparas i `reports/aura-stats-*.png`.
+och datum, ogiltiga data, upprepade omladdningar, blockerad lagring, avstängt
+JavaScript, animation efter boot och att besökaren gör noll GitHub API-anrop. Skärmbilder sparas i `reports/aura-stats-*.png`.
 

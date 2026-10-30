@@ -10,12 +10,26 @@ totaler. Båda måste valideras innan `activity-snapshot.json` ersätts och spar
 i main. Om någon källa ändrar struktur eller inte går att nå misslyckas körningen
 och föregående verifierade data finns kvar.
 
-Hemsidans `activity.js` läser JSON-filen via GitHubs offentliga Contents API,
-uppdaterar de två befintliga boxarna och bygger kalenderbilder av validerade
-siffror. Detta fungerar även när en bot-commit inte startar en Pages-publicering.
-Besökaren får en lokal cache i 30 minuter. Vid API-fel visas den senaste sparade
-statistiken, eller de verifierade reservvärdena i HTML. Hämtningens datum finns
-i bildens alt-text och i rubrikens tooltip. Språkbyte behåller uppdaterad data.
+Besökarens webbläsare gör inga GitHub API-anrop. `statistics-data.js` innehåller
+verifierad publik repo- och aktivitetsstatistik och levereras som en vanlig statisk
+fil från GitHub Pages. `app.js` och `activity.js` läser samma publicerade data.
+Omladdningar och delade IP-adresser förbrukar därför ingen GitHub API-kvot.
+Datumet visar när uppgifterna faktiskt hämtades; språkbyte bevarar uppgifterna.
+
+`Refresh public repository statistics` körs ungefär en gång i timmen (minut 43).
+`scripts/update-repositories.mjs` hämtar bara publika repos med workflowens
+kortlivade GITHUB_TOKEN, högst tio sidor per körning, utan automatiska återförsök.
+Det validerar hela svaret innan `repositories-snapshot.json` och
+`statistics-data.js` skrivs. Kalenderhämtningen körs fortsatt dagligen.
+Båda workflowen bygger samma statistikfil och delar en concurrency-grupp så att
+de inte skriver över varandras commits. De begär uttryckligen en Pages-build
+efter push, eftersom en GITHUB_TOKEN-commit inte själv startar publiceringen.
+
+Om en hämtning, validering eller publicering misslyckas ligger föregående
+publicerade statistik kvar. Sidbesök eller upprepade omladdningar startar aldrig
+nya bakgrundshämtningar. Statistik kan ligga efter det planerade schemat om
+GitHub fördröjer en körning; dess verkliga hämtningsdatum flyttas aldrig fram.
+Ingen besöksbegränsning, personlig token i sidan eller ny server behövs.
 
 Alla tre aktivitetskalendrar startar vid den senaste veckan, till höger, när
 innehållet är bredare än rutan. Läget behålls när bilder laddas och skärmbredden

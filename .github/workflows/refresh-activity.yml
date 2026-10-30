@@ -12,9 +12,10 @@ on:
 
 permissions:
   contents: write
+  pages: write
 
 concurrency:
-  group: refresh-public-activity
+  group: publish-public-statistics
   cancel-in-progress: false
 
 jobs:
@@ -31,12 +32,21 @@ jobs:
           npm install --no-save --package-lock=false playwright@1.62.1
           npx playwright install --with-deps chromium
       - name: Fetch and validate official public profiles
-        run: node scripts/update-activity.mjs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          node scripts/update-activity.mjs
+          node scripts/update-repositories.mjs
+          node scripts/prepare-public.mjs
       - name: Save verified statistics
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add activity-snapshot.json
+          git add activity-snapshot.json repositories-snapshot.json statistics-data.js
           if git diff --cached --quiet; then exit 0; fi
           git commit -m 'Refresh verified public activity statistics'
           git push origin HEAD:main
+      - name: Publish updated statistics on GitHub Pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds"

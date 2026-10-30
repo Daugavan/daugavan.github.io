@@ -25,8 +25,6 @@
     alignLatest();
   });
 
-  const KEY = 'daugavan_activity_v1';
-  const ENDPOINT = 'https://api.github.com/repos/Daugavan/daugavan.github.io/contents/activity-snapshot.json?ref=main';
   const palettes = {
     github: ['#161e2b', '#0e4429', '#006d32', '#26a641', '#39d353'],
     lovable: ['#202630', '#153561', '#124b88', '#0867bd', '#087ced']
@@ -103,25 +101,8 @@
     }
   }
   document.addEventListener('languagechange', render);
-  let cached;
-  try {
-    cached = JSON.parse(localStorage.getItem(KEY));
-    if (valid(cached?.data)) { snapshot = cached.data; render(); }
-  } catch (_) { /* Use the verified values in the HTML. */ }
-  if (cached && valid(cached.data) && Number.isFinite(cached.saved) && cached.saved <= Date.now() && Date.now() - cached.saved < 30 * 60 * 1000) return;
-  (async () => {
-    try {
-      const response = await fetch(ENDPOINT, { headers: { Accept: 'application/vnd.github.raw+json' }, credentials: 'omit', referrerPolicy: 'no-referrer', redirect: 'error', signal: AbortSignal.timeout(10000) });
-      if (!response.ok) throw new Error('Activity snapshot unavailable');
-      const text = await response.text();
-      if (text.length > 100000) throw new Error('Oversized activity snapshot');
-      const data = JSON.parse(text);
-      if (!valid(data)) throw new Error('Invalid activity snapshot');
-      // Never replace a newer verified snapshot with an older API/cache response.
-      if (snapshot && ['github','lovable'].some(name => data[name].retrieved < snapshot[name].retrieved)) return;
-      snapshot = data;
-      render();
-      try { localStorage.setItem(KEY, JSON.stringify({ data, saved: Date.now() })); } catch (_) {}
-    } catch (_) { /* Keep the last verified statistics and their actual date. */ }
-  })();
+  // The scheduled publisher supplies the same verified data to every visitor.
+  // No browser API requests, per-IP rate limits or storage requirements.
+  const published = window.portfolioStatistics?.activity;
+  if (valid(published)) { snapshot = published; render(); }
 })();

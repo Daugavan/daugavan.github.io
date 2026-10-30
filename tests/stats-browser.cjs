@@ -24,31 +24,34 @@ const { chromium } = require(path.resolve(process.argv[2] || path.join(root, '..
   const repo = { name: 'example', stargazers_count: 1407, description: 'Public project', language: 'JavaScript', topics: [], updated_at: '2026-10-20T00:00:00Z' };
   let browser;
   const errors = [];
-  async function open({ data = snapshot, apiError = false, cache = null, storageBlocked = false, reducedMotion = 'reduce', javaScriptEnabled = true } = {}) {
+  async function open({ data = snapshot, repositories = { version: 1, retrieved: new Date().toISOString(), repos: [repo, { ...repo, name: 'second', stargazers_count: 0 }] }, storageBlocked = false, reducedMotion = 'reduce', javaScriptEnabled = true } = {}) {
     const context = await browser.newContext({ viewport: { width: 1440, height: 1000 }, reducedMotion, javaScriptEnabled });
     const page = await context.newPage();
     page.on('pageerror', error => errors.push(error.message));
-    await page.addInitScript(({ cache, storageBlocked }) => {
+    const apiCalls = [];
+    await page.addInitScript(({ storageBlocked }) => {
       window.violations = [];
       document.addEventListener('securitypolicyviolation', event => window.violations.push(event.violatedDirective));
       if (storageBlocked) {
         Object.defineProperty(window, 'localStorage', { get() { throw new DOMException('Blocked', 'SecurityError'); } });
       } else {
         localStorage.setItem('lang', 'en');
-        if (cache) localStorage.setItem('daugavan_activity_v1', JSON.stringify({ data: cache, saved: Date.now() - 3600000 }));
+        // Legacy rate-limit state must have no effect on published statistics.
+        localStorage.setItem('daugavan_gh_cooldown', String(Date.now() + 3600000));
       }
-    }, { cache, storageBlocked });
+    }, { storageBlocked });
     await page.route('https://api.github.com/**', route => {
-      const activity = route.request().url().includes('activity-snapshot.json');
-      if ((activity && data === null) || (!activity && apiError)) return route.fulfill({ status: 503, body: '{}' });
-      return route.fulfill({ contentType: 'application/json', body: JSON.stringify(activity ? data : [repo, { ...repo, name: 'second', stargazers_count: 0 }]) });
+      apiCalls.push(route.request().url());
+      return route.fulfill({ status: 429, body: '{}' });
     });
+    await page.route('**/statistics-data.js', route => route.fulfill({ contentType: 'text/javascript',
+      body: 'window.portfolioStatistics = ' + JSON.stringify({ repositories, activity: data }) + ';' }));
     await page.goto(url, { waitUntil: 'networkidle' });
-    return { context, page };
+    return { context, page, apiCalls };
   }
   try {
-    browser = await chromium.launch({ channel: 'msedge', headless: true });
-    const { context, page } = await open();
+    browser = await chromium.launch({ ...(process.env.PLAYWRIGHT_EXECUTABLE ? { executablePath: process.env.PLAYWRIGHT_EXECUTABLE } : { channel: 'msedge' }), headless: true });
+    const { context, page, apiCalls } = await open();
     await page.waitForFunction(() => document.getElementById('starsN').textContent !== '—', null, { timeout: 5000 })
       .catch(async error => { console.error({ errors, state: await page.locator('#statsSource').textContent() }); throw error; });
     assert.equal(await page.locator('#starsN').textContent(), '1,407');
@@ -78,23 +81,26 @@ const { chromium } = require(path.resolve(process.argv[2] || path.join(root, '..
     assert.match(await page.locator('#statsTitle').textContent(), /GitHub-statistik/);
     assert.equal(await page.locator('.stats-metric').first().evaluate(el => getComputedStyle(el).animationName), 'none');
     assert.deepEqual(await page.evaluate(() => window.violations), []);
+    assert.deepEqual(apiCalls, []);
     await context.close();
 
     for (const data of [null, { version: 1 }, { ...snapshot, github: { ...snapshot.github, total: '<script>' } }]) {
-      const { context, page } = await open({ data, apiError: true });
+      const { context, page, apiCalls } = await open({ data });
       assert.equal(await page.locator('#contributionsN').textContent(), '—');
       assert.match(await page.locator('#contributionsSource').textContent(), /unavailable/);
-      assert.equal(await page.locator('#starsN').textContent(), '—');
-      assert.equal(await page.locator('#retryGitHub').isVisible(), true);
-      await page.route('**/users/Daugavan/repos?*', route => route.fulfill({ contentType: 'application/json', body: JSON.stringify([repo]) }));
-      await page.locator('#retryGitHub').click();
-      await page.waitForFunction(() => document.getElementById('starsN').textContent === '1,407');
+      assert.equal(await page.locator('#starsN').textContent(), '1,407');
+      assert.deepEqual(apiCalls, []);
       await context.close();
     }
-    for (const options of [{ cache: snapshot, data: null }, { cache: snapshot, data: { ...snapshot, github: { ...snapshot.github, retrieved: '2026-10-01', total: 123 } } }, { storageBlocked: true }]) {
-      const { context, page } = await open(options);
-      assert.match((await page.locator('#contributionsN').textContent()).replace(/\D/g, ''), /^9876$/);
-      assert.equal(await page.locator('#contributionsSource time').getAttribute('datetime'), snapshot.github.retrieved);
+    {
+      const { context, page, apiCalls } = await open({ storageBlocked: true });
+      for (let reload = 0; reload < 5; reload++) {
+        await page.reload({ waitUntil: 'networkidle' });
+        assert.equal(await page.locator('#starsN').textContent(), '1,407');
+        assert.equal(await page.locator('#contributionsN').textContent(), '9,876');
+      }
+      assert.deepEqual(apiCalls, []);
+      assert.equal(await page.locator('#retryGitHub').count(), 0);
       await context.close();
     }
     {
@@ -112,7 +118,7 @@ const { chromium } = require(path.resolve(process.argv[2] || path.join(root, '..
       await context.close();
     }
     assert.deepEqual(errors, []);
-    console.log('Aura stats passed: responsive layout, both languages, matching calendar/date, unavailable/malformed data, retry, offline cache, older snapshot rejection, blocked storage, no JS, reduced motion and reveal after boot.');
+    console.log('Statistics passed: responsive layout, both languages, matching calendar/date, malformed data, repeated reloads, blocked storage, legacy cooldown, zero visitor API calls, no JS, reduced motion and reveal after boot.');
   } finally {
     await browser?.close();
     await new Promise(resolve => server.close(resolve));
