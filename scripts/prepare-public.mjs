@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 export const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export const publicFiles = [
-  '.nojekyll', 'index.html', '404.html', 'privacy.html', 'cookies.html', 'app.js', 'boot.js', 'activity.js', 'statistics-data.js', 'seedy.js', 'styles.css',
+  '.nojekyll', 'index.html', '404.html', 'privacy.html', 'cookies.html', 'app.js', 'glass.js', 'boot.js', 'activity.js', 'statistics-data.js', 'seedy.js', 'styles.css',
   '404.css', 'robots.txt', 'sitemap.xml', 'llms.txt', 'favicon.svg', 'favicon.png', 'favicon.ico',
   'apple-touch-icon.png', 'og-cover.jpg',
   'images/profile-avatar.webp', 'images/lovable-profile-clean.webp',
@@ -57,4 +57,5 @@ export function preparePublic() {
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) preparePublic();
+
 

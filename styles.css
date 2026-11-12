@@ -1992,3 +1992,154 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--neon); outl
 }
 .seedy-caption button:focus-visible { outline: 2px solid var(--neon); outline-offset: 2px; }
 
+/* Small functional glass surfaces; photography stays unfiltered. */
+.lang-switch, .project-actions .btn.view, .profile-actions .btn,
+.g-lightbox .g-lightbox-btn {
+  background: #182a31;
+  border: 1px solid rgba(225, 255, 250, .3);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.24), inset 0 -1px 0 rgba(0,0,0,.2), 0 8px 24px rgba(0,0,0,.3);
+  color: var(--ink-1);
+}
+@supports (backdrop-filter: blur(8px)) or (-webkit-backdrop-filter: blur(8px)) {
+  .lang-switch, .project-actions .btn.view, .profile-actions .btn,
+  .g-lightbox .g-lightbox-btn {
+    background: linear-gradient(150deg, rgba(205,255,242,.14), rgba(10,24,32,.68));
+    backdrop-filter: blur(10px) saturate(125%);
+    -webkit-backdrop-filter: blur(10px) saturate(125%);
+  }
+}
+.lang-switch {
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 18px;
+  min-width: 48px;
+  min-height: 48px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.lang-switch .flag { position: relative; z-index: 1; flex-shrink: 0; }
+.glass-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: url("images/identity-cover.webp") no-repeat;
+  box-shadow: inset 0 0 10px rgba(225,255,250,.3), inset 0 0 0 1px rgba(255,255,255,.2);
+  border-radius: inherit;
+}
+.lang-switch::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(140deg, rgba(255,255,255,.22), transparent 42%, rgba(7,11,20,.42));
+}
+.project-actions .btn.view { border-radius: 999px; animation: none; }
+.project-actions .btn.view::before, .project-actions .btn.view::after { display: none; }
+.profile-actions { gap: .6rem; }
+.profile-actions .btn { border-radius: 999px; }
+.g-lightbox .g-photo-stage {
+  position: relative;
+  align-self: center;
+  max-width: 100%;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: var(--r-md);
+}
+.g-lightbox .g-lightbox-pic { max-height: max(120px, calc(100dvh - 15rem)); }
+.g-lightbox .g-lightbox-close { top: 12px; right: 12px; z-index: 3; }
+.g-lightbox .g-lightbox-nav {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100% - 16px);
+  justify-content: center;
+  gap: 8px;
+  z-index: 3;
+}
+.g-lightbox .g-lightbox-btn {
+  border-radius: 999px;
+  mix-blend-mode: normal;
+  text-shadow: 0 1px 3px #000;
+  flex-shrink: 0;
+}
+.g-lightbox .g-lightbox-prev, .g-lightbox .g-lightbox-next {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  font: 32px/1 var(--font-sans);
+}
+.g-lightbox .g-detail-toggle { font: 500 13px/1.2 var(--font-sans); padding-inline: 16px; }
+.g-lightbox .g-detail-toggle[aria-pressed="true"] { border-color: var(--neon); color: var(--neon); }
+.g-lightbox .g-lightbox-btn:focus-visible, .glass-preference:focus-visible {
+  outline: 2px solid var(--neon);
+  outline-offset: -5px;
+  box-shadow: inset 0 0 0 2px var(--bg-0);
+}
+.g-lightbox .g-detail-hint { max-width: 60ch; font-size: 12px; text-align: center; }
+.g-detail-lens {
+  position: absolute;
+  width: clamp(104px, 13vw, 156px);
+  aspect-ratio: 1;
+  border-radius: 48% 52% 50% 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-color: var(--bg-0);
+  border: 1px solid rgba(255,255,255,.65);
+  box-shadow: inset 2px 3px 6px rgba(255,255,255,.42), inset -3px -4px 8px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.4);
+}
+.g-detail-lens::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(140deg, rgba(255,255,255,.18), transparent 35%, transparent 75%, rgba(180,255,237,.12));
+}
+.g-detail-lens[hidden], .g-detail-hint[hidden] { display: none; }
+.detail-active .g-lightbox-pic { touch-action: none; cursor: crosshair; }
+.g-lightbox-pic:focus-visible { outline: 2px solid var(--neon); outline-offset: -4px; }
+.glass-preference {
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  background: var(--bg-2);
+  color: var(--ink-2);
+  min-height: 44px;
+  padding: 8px 14px;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.glass-preference:disabled { cursor: default; }
+.solid-surfaces :is(.card, .identity, .lang-switch, .g-lightbox, .project-actions .btn.view, .profile-actions .btn, .g-lightbox .g-lightbox-btn) {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.solid-surfaces :is(.card, .lang-switch, .project-actions .btn.view, .profile-actions .btn, .g-lightbox .g-lightbox-btn) { background: var(--bg-2); }
+.solid-surfaces .g-lightbox { background: var(--bg-0); }
+.solid-surfaces .glass-backdrop, .solid-surfaces .lang-switch::after { display: none; }
+.solid-surfaces .g-detail-lens { border-radius: 50%; border: 2px solid var(--ink-1); box-shadow: none; }
+.solid-surfaces .g-detail-lens::after { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .lang-switch, .g-lightbox .g-lightbox-btn, .profile-actions .btn, .project-actions .btn.view { transition: none; }
+  .g-lightbox .g-lightbox-btn:hover { transform: none; }
+}
+@media (forced-colors: active) {
+  .g-lightbox .g-lightbox-btn, .glass-preference { background: Canvas; color: ButtonText; border: 1px solid ButtonText; }
+  .g-lightbox .g-lightbox-btn:focus-visible { outline-color: Highlight; }
+}
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .lang-switch, .project-actions .btn.view, .profile-actions .btn, .g-lightbox .g-lightbox-btn {
+    background: var(--bg-2);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .glass-backdrop, .lang-switch::after { display: none; }
+  .g-lightbox { background: var(--bg-0); backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+

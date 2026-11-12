@@ -576,13 +576,52 @@
     width: 1600, height: [1, 3, 5].includes(i + 1) ? 1067 : 900
   }));
   const words = () => document.documentElement.lang.startsWith('sv')
-    ? { open: 'Öppna portfoliobild', close: 'Stäng', prev: 'Föregående bild', next: 'Nästa bild', title: 'Förstorad galleribild', error: 'Bilden kunde inte laddas.', photo: 'Portfoliobild' }
-    : { open: 'Open portfolio image', close: 'Close', prev: 'Previous image', next: 'Next image', title: 'Enlarged gallery image', error: 'The image could not be loaded.', photo: 'Portfolio image' };
+    ? { open: 'Öppna portfoliobild', close: 'Stäng', prev: 'Föregående bild', next: 'Nästa bild', title: 'Förstorad galleribild', error: 'Bilden kunde inte laddas.', photo: 'Portfoliobild', detail: 'Detaljläge', hint: 'Flytta pekaren eller dra över bilden. Med tangentbord: fokusera bilden och använd piltangenterna. Escape stänger.' }
+    : { open: 'Open portfolio image', close: 'Close', prev: 'Previous image', next: 'Next image', title: 'Enlarged gallery image', error: 'The image could not be loaded.', photo: 'Portfolio image', detail: 'Detail mode', hint: 'Move the pointer or drag across the image. With a keyboard: focus the image and use the arrow keys. Escape closes.' };
   let current = 0;
   let lastFocus = null;
   let dialog = null;
   let touchStart = null;
   let renderVersion = 0;
+  let detail = false;
+  let lensX = .5;
+  let lensY = .5;
+  let lensFrame = 0;
+
+  function paintLens() {
+    lensFrame = 0;
+    if (!dialog || !detail) return;
+    const pic = dialog.querySelector('.g-lightbox-pic');
+    const lens = dialog.querySelector('.g-detail-lens');
+    if (!pic.naturalWidth || !pic.complete) { lens.hidden = true; return; }
+    const box = pic.getBoundingClientRect();
+    const stage = dialog.querySelector('.g-photo-stage').getBoundingClientRect();
+    lens.hidden = false;
+    const radius = lens.offsetWidth / 2;
+    const zoom = 1.8;
+    lens.style.left = `${box.left - stage.left + lensX * box.width}px`;
+    lens.style.top = `${box.top - stage.top + lensY * box.height}px`;
+    const source = (pic.currentSrc || pic.src).replace(/\(/g, '%28').replace(/\)/g, '%29');
+    lens.style.backgroundImage = `url("${source}")`;
+    lens.style.backgroundSize = `${box.width * zoom}px ${box.height * zoom}px`;
+    lens.style.backgroundPosition = `${radius - lensX * box.width * zoom}px ${radius - lensY * box.height * zoom}px`;
+  }
+
+  function scheduleLens() { if (!lensFrame) lensFrame = requestAnimationFrame(paintLens); }
+
+  function setDetail(enabled) {
+    detail = enabled;
+    if (!dialog) return;
+    dialog.classList.toggle('detail-active', enabled);
+    dialog.querySelector('.g-detail-toggle').setAttribute('aria-pressed', String(enabled));
+    const pic = dialog.querySelector('.g-lightbox-pic');
+    pic.tabIndex = enabled ? 0 : -1;
+    if (enabled) pic.setAttribute('aria-describedby', 'galleryDetailHint');
+    else pic.removeAttribute('aria-describedby');
+    dialog.querySelector('.g-detail-hint').hidden = !enabled;
+    dialog.querySelector('.g-detail-lens').hidden = !enabled;
+    if (enabled) scheduleLens();
+  }
 
   function render() {
     const version = ++renderVersion;
@@ -594,6 +633,10 @@
     dialog.querySelector('.g-lightbox-close').setAttribute('aria-label', text.close);
     dialog.querySelector('.g-lightbox-prev').setAttribute('aria-label', text.prev);
     dialog.querySelector('.g-lightbox-next').setAttribute('aria-label', text.next);
+    dialog.querySelector('.g-detail-toggle').textContent = text.detail;
+    dialog.querySelector('.g-detail-hint').textContent = text.hint;
+    dialog.querySelector('.g-detail-lens').hidden = true;
+    lensX = lensY = .5;
     pic.alt = `${text.photo} ${current + 1}`;
     pic.width = item.width;
     pic.height = item.height;
@@ -604,6 +647,7 @@
       if (!fallback) { fallback = true; pic.src = encodeURI(item.jpg); }
       else { caption.textContent = text.error; pic.onerror = null; }
     };
+    pic.onload = scheduleLens;
     pic.src = encodeURI(item.webp);
   }
 
@@ -629,24 +673,59 @@
     }
     dialog.className = 'g-lightbox is-open';
     dialog.innerHTML = `
-      <button class="g-lightbox-btn g-lightbox-close" type="button" autofocus>✕</button>
-      <figure><img class="g-lightbox-pic" alt="" decoding="async"><figcaption aria-live="polite"></figcaption></figure>
-      <div class="g-lightbox-nav">
-        <button class="g-lightbox-btn g-lightbox-prev" type="button"><span class="gallery-arrow gallery-arrow-prev" aria-hidden="true"></span></button>
-        <button class="g-lightbox-btn g-lightbox-next" type="button"><span class="gallery-arrow gallery-arrow-next" aria-hidden="true"></span></button>
-      </div>`;
+      <figure>
+        <div class="g-photo-stage">
+          <img class="g-lightbox-pic" alt="" decoding="async">
+          <span class="g-detail-lens" aria-hidden="true" hidden></span>
+          <button class="g-lightbox-btn g-lightbox-close" type="button" autofocus>✕</button>
+          <div class="g-lightbox-nav">
+            <button class="g-lightbox-btn g-lightbox-prev" type="button"><span aria-hidden="true">‹</span></button>
+            <button class="g-lightbox-btn g-detail-toggle" type="button" aria-pressed="false"></button>
+            <button class="g-lightbox-btn g-lightbox-next" type="button"><span aria-hidden="true">›</span></button>
+          </div>
+        </div>
+        <figcaption aria-live="polite"></figcaption>
+        <p class="g-detail-hint" id="galleryDetailHint" hidden></p>
+      </figure>`;
+    detail = false;
+    const pic = dialog.querySelector('.g-lightbox-pic');
+    const stage = dialog.querySelector('.g-photo-stage');
+    dialog.querySelector('.g-detail-toggle').addEventListener('click', () => setDetail(!detail));
+    const positionLens = event => {
+      if (!detail || (event.pointerType !== 'mouse' && !event.buttons)) return;
+      const box = pic.getBoundingClientRect();
+      lensX = Math.max(0, Math.min(1, (event.clientX - box.left) / box.width));
+      lensY = Math.max(0, Math.min(1, (event.clientY - box.top) / box.height));
+      scheduleLens();
+    };
+    stage.addEventListener('pointermove', positionLens);
+    pic.addEventListener('pointerdown', event => {
+      if (!detail) return;
+      pic.setPointerCapture(event.pointerId);
+      positionLens(event);
+    });
+    pic.addEventListener('dragstart', event => { if (detail) event.preventDefault(); });
+    const resizeLens = () => scheduleLens();
+    window.addEventListener('resize', resizeLens);
     dialog.querySelector('.g-lightbox-close').addEventListener('click', close);
     dialog.querySelector('.g-lightbox-prev').addEventListener('click', () => move(-1));
     dialog.querySelector('.g-lightbox-next').addEventListener('click', () => move(1));
     dialog.addEventListener('click', event => { if (event.target === dialog) close(); });
     dialog.addEventListener('keydown', event => {
+      if (detail && event.target === pic && ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
+        event.preventDefault();
+        lensX = Math.max(0, Math.min(1, lensX + (event.key === 'ArrowRight' ? .05 : event.key === 'ArrowLeft' ? -.05 : 0)));
+        lensY = Math.max(0, Math.min(1, lensY + (event.key === 'ArrowDown' ? .05 : event.key === 'ArrowUp' ? -.05 : 0)));
+        scheduleLens();
+        return;
+      }
       if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
         event.preventDefault();
         move(event.key === 'ArrowRight' ? 1 : -1);
       }
     });
     dialog.addEventListener('touchstart', event => {
-      touchStart = event.touches.length === 1 ? { x: event.touches[0].clientX, y: event.touches[0].clientY } : null;
+      touchStart = !detail && event.touches.length === 1 ? { x: event.touches[0].clientX, y: event.touches[0].clientY } : null;
     }, { passive: true });
     dialog.addEventListener('touchend', event => {
       if (!touchStart || !event.changedTouches.length) return;
@@ -658,6 +737,9 @@
     dialog.addEventListener('touchcancel', () => { touchStart = null; }, { passive: true });
     dialog.addEventListener('close', () => {
       renderVersion++;
+      if (lensFrame) cancelAnimationFrame(lensFrame);
+      lensFrame = 0;
+      window.removeEventListener('resize', resizeLens);
       dialog.remove();
       dialog = null;
       document.body.classList.remove('lightbox-open');
@@ -902,4 +984,5 @@
     layout();
   }).catch(() => {  });
 })();
+
 
