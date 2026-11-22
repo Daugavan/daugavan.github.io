@@ -12,7 +12,7 @@ on:
 
 permissions:
   contents: write
-  pages: write
+  actions: write
 
 # Both publishers edit statistics-data.js; serialize their commits.
 concurrency:
@@ -46,8 +46,8 @@ jobs:
           if git diff --cached --quiet; then exit 0; fi
           git commit -m 'Refresh verified public repository statistics'
           git push origin HEAD:main
-      # GITHUB_TOKEN commits do not automatically start a Pages build.
-      - name: Publish updated statistics on GitHub Pages
+      # GITHUB_TOKEN commits do not start push workflows; dispatch explicitly.
+      - name: Request verified website publication
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds"
+        run: gh api --method POST "repos/$GITHUB_REPOSITORY/actions/workflows/deploy-pages.yml/dispatches" -f ref=main

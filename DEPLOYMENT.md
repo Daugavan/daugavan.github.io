@@ -1,5 +1,13 @@
 # Säker publicering
 
+## Portfolio med klientförhandsvisningar
+
+Det gemensamma Actions-flödet `deploy-pages.yml` publicerar endast det verifierade
+`site-dist/`, inklusive olänkade klientwebbplatser. Se [CLIENTS.md](CLIENTS.md) för
+Secrets, Pages-inställning, lokal verifiering och återställning. Vid klientpublicering
+krävs `node scripts/prepare-public.mjs --clients`; kommandot utan flagga bygger
+enbart portfolion. Publicera inte ett paket utan klienter ovanpå den gemensamma sajten.
+
 Projektet är en statisk webbplats utan installations- eller kompileringskrav.
 Kör med en befintlig Node.js-installation:
 

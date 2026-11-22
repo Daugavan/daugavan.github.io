@@ -1,6 +1,7 @@
-import { copyFileSync, existsSync, lstatSync, mkdirSync, readdirSync } from 'node:fs';
+import { existsSync, lstatSync, mkdirSync, readdirSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { clientPublication, readConfinedFile } from './clients.mjs';
 
 export const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export const publicFiles = [
@@ -20,8 +21,20 @@ export const publicFiles = [
   ]).flat()
 ];
 
-export function preparePublic() {
-  const output = join(projectRoot, 'site-dist');
+export function preparePublic({ includeClients = false, sourceRoot, output = join(projectRoot, 'site-dist') } = {}) {
+  // Read and validate the entire package before changing any output files.
+  const publication = new Map(publicFiles.map(file => [file, readConfinedFile(projectRoot, file)]));
+  if (includeClients) {
+    for (const [file, bytes] of clientPublication(sourceRoot)) publication.set(file, bytes);
+  }
+  const directories = new Set();
+  for (const file of publication.keys()) {
+    let directory = dirname(file).replaceAll('\\', '/');
+    while (directory !== '.') {
+      directories.add(directory);
+      directory = dirname(directory).replaceAll('\\', '/');
+    }
+  }
   const checkPath = (root, relative) => {
     let path = root;
     for (const part of relative.split('/')) {
@@ -36,26 +49,26 @@ export function preparePublic() {
       const relative = prefix + entry.name;
       if (entry.isSymbolicLink()) throw new Error(`Symlink in publication directory: ${relative}`);
       if (entry.isDirectory()) {
-        if (relative !== 'images') throw new Error(`Unexpected publication directory: ${relative}`);
+        if (!directories.has(relative)) throw new Error(`Unexpected publication directory: ${relative}`);
         inspectOutput(join(path, entry.name), relative + '/');
-      } else if (!publicFiles.includes(relative)) throw new Error(`Unexpected publication file: ${relative}`);
+      } else if (!publication.has(relative)) throw new Error(`Unexpected publication file: ${relative}`);
     }
   };
   inspectOutput(output);
-  for (const file of publicFiles) {
-    checkPath(projectRoot, file);
-    if (!lstatSync(join(projectRoot, file)).isFile()) throw new Error(`Missing public file: ${file}`);
-  }
   mkdirSync(output, { recursive: true });
-  for (const file of publicFiles) {
+  for (const [file, bytes] of publication) {
     checkPath(output, file);
     mkdirSync(dirname(join(output, file)), { recursive: true });
-    copyFileSync(join(projectRoot, file), join(output, file));
+    writeFileSync(join(output, file), bytes);
   }
-  console.log(`Prepared ${publicFiles.length} public files in ${output}`);
+  console.log(`Prepared ${publication.size} public files in ${output}`);
   return output;
 }
 
-if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) preparePublic();
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const args = process.argv.slice(2);
+  if (args.some(arg => arg !== '--clients')) throw new Error('Usage: node scripts/prepare-public.mjs [--clients]');
+  preparePublic({ includeClients: args.includes('--clients') });
+}
 
 
