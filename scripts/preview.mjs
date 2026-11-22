@@ -8,7 +8,7 @@ const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=
   '.js': 'text/javascript; charset=utf-8', '.svg': 'image/svg+xml', '.png': 'image/png',
   '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.ico': 'image/x-icon',
   '.woff': 'font/woff', '.woff2': 'font/woff2', '.txt': 'text/plain; charset=utf-8', '.xml': 'application/xml' };
-export function createPreviewServer(root, { includeClients = false } = {}) {
+export function createPreviewServer(root, { includeClients = true } = {}) {
   const files = new Set(publicFiles);
   if (includeClients) {
     for (const client of loadClients()) {
@@ -47,7 +47,7 @@ export function createPreviewServer(root, { includeClients = false } = {}) {
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const args = process.argv.slice(2);
   if (args.some(arg => arg !== '--clients')) throw new Error('Usage: node scripts/preview.mjs [--clients]');
-  const includeClients = args.includes('--clients');
+  const includeClients = true;
   const root = preparePublic({ includeClients });
   createPreviewServer(root, { includeClients }).listen(4173, '127.0.0.1', () => console.log('Preview: http://127.0.0.1:4173'));
 }

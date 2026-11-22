@@ -1,0 +1,122 @@
+{
+  "browser": "156.0.8078.79",
+  "viewport": "1440x1000",
+  "notes": "90 frames/run; 3 measured runs after warm-up; background image animation disabled in every variant; traced main-thread union, not GPU/battery.",
+  "pointer": [
+    {
+      "run": 1,
+      "variant": "magnify",
+      "p95MainThreadMs": 6.409,
+      "totalMainThreadMs": 301.36000000000007,
+      "frames": 90
+    },
+    {
+      "run": 1,
+      "variant": "refraction",
+      "p95MainThreadMs": 5.93,
+      "totalMainThreadMs": 296.951,
+      "frames": 90
+    },
+    {
+      "run": 2,
+      "variant": "refraction",
+      "p95MainThreadMs": 5.261,
+      "totalMainThreadMs": 273.88,
+      "frames": 90
+    },
+    {
+      "run": 2,
+      "variant": "magnify",
+      "p95MainThreadMs": 4.666,
+      "totalMainThreadMs": 273.76300000000003,
+      "frames": 90
+    },
+    {
+      "run": 3,
+      "variant": "magnify",
+      "p95MainThreadMs": 3.223,
+      "totalMainThreadMs": 185.83800000000005,
+      "frames": 90
+    },
+    {
+      "run": 3,
+      "variant": "refraction",
+      "p95MainThreadMs": 3.01,
+      "totalMainThreadMs": 231.69599999999997,
+      "frames": 90
+    }
+  ],
+  "scroll": [
+    {
+      "run": 1,
+      "variant": "solid",
+      "p95MainThreadMs": 1.476,
+      "totalMainThreadMs": 94.61299999999999,
+      "frames": 90
+    },
+    {
+      "run": 1,
+      "variant": "glass",
+      "p95MainThreadMs": 1.434,
+      "totalMainThreadMs": 65.03999999999999,
+      "frames": 90
+    },
+    {
+      "run": 2,
+      "variant": "solid",
+      "p95MainThreadMs": 1.573,
+      "totalMainThreadMs": 89.37800000000003,
+      "frames": 90
+    },
+    {
+      "run": 2,
+      "variant": "glass",
+      "p95MainThreadMs": 1.088,
+      "totalMainThreadMs": 63.714,
+      "frames": 90
+    },
+    {
+      "run": 3,
+      "variant": "solid",
+      "p95MainThreadMs": 2.083,
+      "totalMainThreadMs": 102.62099999999997,
+      "frames": 90
+    },
+    {
+      "run": 3,
+      "variant": "glass",
+      "p95MainThreadMs": 5.515,
+      "totalMainThreadMs": 120.17700000000004,
+      "frames": 90
+    }
+  ],
+  "intentionalFramesDuring500msIdle": 0,
+  "refractionAddedP95Ms": 0.5949999999999998,
+  "refractionBudgetMs": 2,
+  "refractionGatePass": true,
+  "beforeScroll": [
+    {
+      "run": 1,
+      "p95MainThreadMs": 1.529,
+      "totalMainThreadMs": 72.68199999999999,
+      "frames": 90
+    },
+    {
+      "run": 2,
+      "p95MainThreadMs": 1.132,
+      "totalMainThreadMs": 62.102000000000004,
+      "frames": 90
+    },
+    {
+      "run": 3,
+      "p95MainThreadMs": 1.202,
+      "totalMainThreadMs": 79.89699999999998,
+      "frames": 90
+    }
+  ],
+  "refractionPairedAddedP95Ms": [
+    -0.4790000000000001,
+    0.5949999999999998,
+    -0.21300000000000008
+  ]
+}

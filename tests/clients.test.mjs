@@ -1,11 +1,9 @@
 import assert from 'node:assert/strict';
-import { createHash } from 'node:crypto';
 import { once } from 'node:events';
 import { mkdirSync, mkdtempSync, readFileSync, writeFileSync, symlinkSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import test from 'node:test';
 import { clientPublication, loadClients, previewHtml, projectRoot, renderClientDirectory } from '../scripts/clients.mjs';
-import { fetchClientSources } from '../scripts/fetch-client-sources.mjs';
 import { preparePublic, publicFiles } from '../scripts/prepare-public.mjs';
 import { createPreviewServer } from '../scripts/preview.mjs';
 
@@ -36,16 +34,16 @@ test('registry permits explicit website files and rejects invalid paths, duplica
   assert.throws(() => read([{ ...client, files: ['index.html', 'index.html'] }]));
 });
 
-test('deployment replaces indexing instructions while preserving source, body and asset bytes', () => {
+test('checked-in preview pages and assets are copied without rewriting the source', () => {
   const root = fixture();
-  save(root, 'demo/index.html', page);
+  save(root, 'demo/index.html', previewHtml(page));
   save(root, 'demo/styles.css', 'body { color: red; }');
   const output = clientPublication(root, [client]);
   const html = output.get('klienter/demo/index.html').toString();
   assert.equal((html.match(/name="robots"/g) ?? []).length, 1);
   assert.match(html, /content="noindex, nofollow"/);
   assert.equal(html.split('<body>')[1], page.split('<body>')[1]);
-  assert.equal(readFileSync(join(root, 'demo/index.html'), 'utf8'), page);
+  assert.equal(readFileSync(join(root, 'demo/index.html'), 'utf8'), previewHtml(page));
   assert.equal(output.get('klienter/demo/styles.css').toString(), 'body { color: red; }');
   assert.doesNotMatch(previewHtml('<head><meta content="index" name=\'googlebot\'></head>'), /googlebot/);
 });
@@ -135,59 +133,15 @@ test('preview serves the client directory and pages, redirects missing slash, ha
   }
 });
 
-function remoteFixture({ badHash = false, symlink = false } = {}) {
-  const bytes = Buffer.from('<html><head></head><body>Private</body></html>');
-  const sha = createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
-  const commit = 'a'.repeat(40);
-  const calls = [];
-  return { commit, calls, bytes, fetchImpl: async (url, options) => {
-    calls.push(url);
-    assert.ok(url.startsWith('https://api.github.com/repos/Daugavan/demo/'));
-    assert.equal(options.headers.Authorization, 'Bearer test-token');
-    assert.equal(options.redirect, 'error');
-    if (url.includes('/commits/')) return Response.json({ sha: commit });
-    if (url.includes('/git/trees/')) return Response.json({ truncated: false, tree: [
-      { path: 'index.html', type: 'blob', mode: symlink ? '120000' : '100644', sha, size: bytes.length }
-    ] });
-    if (url.includes('/git/blobs/')) return new Response(badHash ? 'changed' : bytes);
-    throw new Error('Unexpected source request');
-  } };
-}
 
-test('private fetch uses a pinned commit, verifies bytes and supports explicit SHA rollback', async () => {
-  const root = fixture();
-  const remote = remoteFixture();
-  const options = { token: 'test-token', clients: [{ ...client, files: ['index.html'] }], destinationRoot: root, fetchImpl: remote.fetchImpl };
-  const revisions = await fetchClientSources(options);
-  assert.equal(revisions.demo, remote.commit);
-  assert.deepEqual(readFileSync(join(root, 'demo/index.html')), remote.bytes);
-  assert.ok(remote.calls.some(url => url.includes(`/git/trees/${remote.commit}?`)));
-  remote.calls.length = 0;
-  await fetchClientSources({ ...options, overrides: { demo: remote.commit } });
-  assert.ok(remote.calls[0].endsWith('/commits/' + remote.commit));
-  await assert.rejects(fetchClientSources({ ...options, overrides: { demo: 'other-branch' } }), /full commit SHA/);
-});
-
-test('failed authentication, symlinks and corrupted downloads cannot replace cached sources', async () => {
-  const root = fixture();
-  save(root, 'demo/index.html', 'previous');
-  const options = { token: 'test-token', clients: [{ ...client, files: ['index.html'] }], destinationRoot: root };
-  await assert.rejects(fetchClientSources({ ...options, token: '' }), /required/);
-  await assert.rejects(fetchClientSources({ ...options, fetchImpl: async () => new Response('', { status: 403 }) }), /HTTP 403/);
-  for (const variant of [{ symlink: true }, { badHash: true }]) {
-    await assert.rejects(fetchClientSources({ ...options, fetchImpl: remoteFixture(variant).fetchImpl }));
-    assert.equal(readFileSync(join(root, 'demo/index.html'), 'utf8'), 'previous');
-  }
-});
-
-test('rollback excludes cached assets absent from the selected revision and still rejects missing referenced assets', async () => {
-  const root = fixture();
-  const oldClient = { ...client, files: ['index.html', 'new.jpg'] };
-  save(root, 'demo/new.jpg', 'cached from a newer revision');
-  await fetchClientSources({ token: 'test-token', clients: [oldClient], destinationRoot: root, fetchImpl: remoteFixture().fetchImpl });
-  const output = clientPublication(root, [oldClient]);
-  assert.ok(output.has('klienter/demo/index.html'));
-  assert.ok(!output.has('klienter/demo/new.jpg'));
-  save(root, 'demo/index.html', '<html><head></head><body><img src="new.jpg"></body></html>');
-  assert.throws(() => clientPublication(root, [oldClient]), /excluded resource/);
+test('the complete checked-in client works in the default build without credentials or nested Git metadata', () => {
+  const client = loadClients()[0];
+  assert.match(client.sourceCommit, /^[a-f0-9]{40}$/);
+  const directory = join(projectRoot, 'klienter', client.slug);
+  assert.ok(!existsSync(join(directory, '.git')));
+  for (const file of ['README.md', '.htaccess', 'tests/glass-review.cjs']) assert.ok(existsSync(join(directory, file)));
+  const output = join(fixture(), 'default-output');
+  preparePublic({ output });
+  assert.ok(existsSync(join(output, 'klienter/cocothai/menu-01-po-peak-thud.jpg')));
+  assert.match(readFileSync(join(output, 'klienter/cocothai/index.html'), 'utf8'), /content="noindex, nofollow"/);
 });

@@ -1,0 +1,192 @@
+{
+  "name": "Coco Thai - Dark Cool Design System",
+  "version": "4.4.0",
+  "description": "Dark Coco Thai palette, Playfair Display and Outfit typography, and shared adaptive Liquid Glass-inspired web controls. Glass values are project choices, not Apple renderer parameters.",
+  "colors": {
+    "background": {
+      "primary": "#0E1016",
+      "secondary": "#16181F",
+      "tertiary": "#1E212A",
+      "card": "#1A1C24",
+      "elevated": "#262932"
+    },
+    "accents": {
+      "sage": "#8B9E7C",
+      "sageDark": "#6B7C5E",
+      "sageLight": "#A8B89C",
+      "emerald": "#5BA87A",
+      "emeraldDark": "#478C64",
+      "emeraldLight": "#7AC094",
+      "gold": "#D4B87A",
+      "cream": "#F5EDE0"
+    },
+    "text": {
+      "primary": "#F5EDE0",
+      "secondary": "#C4BBA8",
+      "tertiary": "#8A8F99",
+      "muted": "#94999E",
+      "inverse": "#0E1016"
+    },
+    "primary": "#5BA87A",
+    "secondary": "#8B9E7C",
+    "accent": "#D4B87A",
+    "border": {
+      "DEFAULT": "rgba(245, 237, 224, 0.08)",
+      "light": "rgba(245, 237, 224, 0.05)",
+      "dark": "rgba(245, 237, 224, 0.15)"
+    },
+    "semantic": {
+      "success": "#5BA87A",
+      "warning": "#D4B87A",
+      "error": "#D4685A",
+      "info": "#5BA87A"
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "display": [
+        "Playfair Display",
+        "Cormorant Garamond",
+        "Georgia",
+        "serif"
+      ],
+      "serif": [
+        "Lora",
+        "Georgia",
+        "serif"
+      ],
+      "sans": [
+        "Outfit",
+        "system-ui",
+        "-apple-system",
+        "sans-serif"
+      ]
+    },
+    "fontSize": {
+      "xs": "0.75rem",
+      "sm": "0.875rem",
+      "base": "1rem",
+      "lg": "1.125rem",
+      "xl": "1.25rem",
+      "2xl": "1.5rem",
+      "3xl": "1.875rem",
+      "4xl": "2.25rem",
+      "5xl": "3rem",
+      "6xl": "3.75rem",
+      "7xl": "4.5rem",
+      "8xl": "6rem"
+    },
+    "fontWeight": {
+      "light": "300",
+      "normal": "400",
+      "medium": "500",
+      "semibold": "600",
+      "bold": "700"
+    },
+    "lineHeight": {
+      "none": "1",
+      "tight": "1.15",
+      "snug": "1.35",
+      "normal": "1.65",
+      "relaxed": "1.8",
+      "loose": "2"
+    },
+    "letterSpacing": {
+      "tighter": "-0.02em",
+      "tight": "-0.01em",
+      "normal": "0",
+      "wide": "0.02em",
+      "wider": "0.05em",
+      "widest": "0.1em"
+    }
+  },
+  "spacing": {
+    "0": "0",
+    "1": "0.25rem",
+    "2": "0.5rem",
+    "3": "0.75rem",
+    "4": "1rem",
+    "5": "1.25rem",
+    "6": "1.5rem",
+    "8": "2rem",
+    "10": "2.5rem",
+    "12": "3rem",
+    "16": "4rem",
+    "20": "5rem",
+    "24": "6rem",
+    "32": "8rem",
+    "40": "10rem"
+  },
+  "borderRadius": {
+    "none": "0",
+    "sm": "2px",
+    "DEFAULT": "4px",
+    "md": "8px",
+    "lg": "12px",
+    "xl": "20px",
+    "full": "9999px"
+  },
+  "shadows": {
+    "sm": "0 2px 8px rgba(0, 0, 0, 0.3)",
+    "DEFAULT": "0 4px 16px rgba(0, 0, 0, 0.4)",
+    "md": "0 8px 24px rgba(0, 0, 0, 0.5)",
+    "lg": "0 16px 40px rgba(0, 0, 0, 0.6)",
+    "xl": "0 24px 60px rgba(0, 0, 0, 0.7)"
+  },
+  "breakpoints": {
+    "sm": "640px",
+    "md": "768px",
+    "lg": "1024px",
+    "xl": "1280px",
+    "2xl": "1440px"
+  },
+  "transitions": {
+    "duration": {
+      "fast": "200ms",
+      "base": "400ms",
+      "slow": "600ms"
+    },
+    "timing": {
+      "out": "cubic-bezier(0.33, 1, 0.68, 1)",
+      "inOut": "cubic-bezier(0.65, 0, 0.35, 1)"
+    }
+  },
+  "components": {
+    "button": {
+      "borderRadius": "2px",
+      "padding": {
+        "sm": "0.75rem 1.5rem",
+        "md": "1rem 2rem",
+        "lg": "1.25rem 2.5rem"
+      }
+    },
+    "card": {
+      "borderRadius": "12px",
+      "padding": "2rem"
+    },
+    "input": {
+      "borderRadius": "4px",
+      "padding": "1rem"
+    },
+    "glass": {
+      "surface": "rgba(17, 30, 26, 0.82)",
+      "scrolled": "rgba(14, 24, 22, 0.94)",
+      "solid": "#121c19",
+      "selectedSolid": "#29493a",
+      "edge": "rgba(245, 237, 224, 0.18)",
+      "highlight": "rgba(245, 237, 224, 0.32)",
+      "radius": "9999px",
+      "blur": "14px",
+      "feedback": "140ms",
+      "motion": "220ms",
+      "easing": "cubic-bezier(0.33, 1, 0.68, 1)",
+      "lens": {
+        "mobileDiameter": "40px",
+        "desktopDiameter": "88px",
+        "magnification": 1.45,
+        "mobileMaxDisplacement": "3px",
+        "desktopMaxDisplacement": "6px"
+      }
+    }
+  }
+}

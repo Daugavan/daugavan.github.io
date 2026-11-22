@@ -22,7 +22,7 @@ export const publicFiles = [
   ]).flat()
 ];
 
-export function preparePublic({ includeClients = false, sourceRoot, output = join(projectRoot, 'site-dist') } = {}) {
+export function preparePublic({ includeClients = true, sourceRoot, output = join(projectRoot, 'site-dist') } = {}) {
   // Read and validate the entire package before changing any output files.
   const publication = new Map(publicFiles.map(file => [file, readConfinedFile(projectRoot, file)]));
   publication.set('klienter/index.html', Buffer.from(renderClientDirectory(publication.get('klienter/index.html').toString('utf8'))));
@@ -70,7 +70,7 @@ export function preparePublic({ includeClients = false, sourceRoot, output = joi
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const args = process.argv.slice(2);
   if (args.some(arg => arg !== '--clients')) throw new Error('Usage: node scripts/prepare-public.mjs [--clients]');
-  preparePublic({ includeClients: args.includes('--clients') });
+  preparePublic();
 }
 
 

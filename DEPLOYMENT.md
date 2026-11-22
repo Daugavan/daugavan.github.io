@@ -2,11 +2,11 @@
 
 ## Portfolio med klientförhandsvisningar
 
-Det gemensamma Actions-flödet `deploy-pages.yml` publicerar endast det verifierade
-`site-dist/`, inklusive klientförhandsvisningar via robotens ögon. Se [CLIENTS.md](CLIENTS.md) för
-Secrets, Pages-inställning, lokal verifiering och återställning. Vid klientpublicering
-krävs `node scripts/prepare-public.mjs --clients`; kommandot utan flagga bygger
-enbart portfolion. Publicera inte ett paket utan klienter ovanpå den gemensamma sajten.
+Klientwebbplatsen är incheckad direkt i `klienter/cocothai/` och fungerar med
+hemsidans befintliga GitHub Pages-publicering. Robotens ögon leder till klientlistan
+på `/klienter/`. Inga egna tokens, Secrets eller flöden mellan repos behövs.
+`node scripts/prepare-public.mjs` inkluderar klienterna som standard i `site-dist/`.
+Se [CLIENTS.md](CLIENTS.md) för källversion, lokal verifiering och uppdatering av kopian.
 
 Projektet är en statisk webbplats utan installations- eller kompileringskrav.
 Kör med en befintlig Node.js-installation:

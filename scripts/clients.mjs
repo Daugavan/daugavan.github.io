@@ -1,11 +1,10 @@
-import { existsSync, readFileSync, lstatSync } from 'node:fs';
+import { readFileSync, lstatSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 export const projectRoot = fileURLToPath(new URL('../', import.meta.url));
-export const isClientAsset = file => /\.(?:jpg|jpeg|png|webp|svg|ico|woff2?)$/i.test(file);
 const safePath = value => typeof value === 'string' && value.length > 0 &&
-  value.split('/').every(part => /^[a-zA-Z0-9.][a-zA-Z0-9._ ()-]*$/.test(part)) &&
+  value.split('/').every(part => /^[a-zA-Z0-9._][a-zA-Z0-9._ ()-]*$/.test(part)) &&
   !value.includes('..');
 
 export function loadClients(path = join(projectRoot, 'clients.json')) {
@@ -100,24 +99,14 @@ export function validateClientReferences(client, files) {
   }
 }
 
-export function clientPublication(sourceRoot = join(projectRoot, '.client-sources'), clients = loadClients()) {
+export function clientPublication(sourceRoot = join(projectRoot, 'klienter'), clients = loadClients()) {
   const result = new Map();
   for (const client of clients) {
     const root = join(sourceRoot, client.slug);
-    let selected = client.files;
-    if (existsSync(join(root, '.publication.json'))) {
-      const metadata = JSON.parse(readConfinedFile(root, '.publication.json').toString('utf8'));
-      if (metadata.version !== 1 || !/^[a-f0-9]{40}$/.test(metadata.revision) || !Array.isArray(metadata.files) ||
-          new Set(metadata.files).size !== metadata.files.length || metadata.files.some(file => !client.files.includes(file)) ||
-          client.files.some(file => !isClientAsset(file) && !metadata.files.includes(file))) {
-        throw new Error(`Invalid source publication record for ${client.slug}`);
-      }
-      selected = metadata.files;
-    }
-    const files = new Map(selected.map(file => [file, readConfinedFile(root, file)]));
+    const files = new Map(client.files.map(file => [file, readConfinedFile(root, file)]));
     validateClientReferences(client, files);
     for (const [file, bytes] of files) {
-      result.set(`klienter/${client.slug}/${file}`, file.endsWith('.html') ? Buffer.from(previewHtml(bytes.toString('utf8'))) : bytes);
+      result.set(`klienter/${client.slug}/${file}`, bytes);
     }
   }
   return result;
