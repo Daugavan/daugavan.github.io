@@ -3,7 +3,7 @@ import { existsSync, lstatSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, isAbsolute, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
-import { loadClients, projectRoot } from './clients.mjs';
+import { isClientAsset, loadClients, projectRoot } from './clients.mjs';
 
 function checkedDirectory(path) {
   const parent = dirname(path);
@@ -45,6 +45,8 @@ export async function fetchClientSources({ token, clients = loadClients(), overr
     let total = 0;
     for (const file of client.files) {
       const entry = entries.get(file);
+      // Old revisions may predate newly allowlisted images or fonts.
+      if (!entry && isClientAsset(file)) continue;
       if (!entry || entry.type !== 'blob' || !['100644', '100755'].includes(entry.mode) ||
           !/^[a-f0-9]{40}$/.test(entry.sha) || !Number.isSafeInteger(entry.size) || entry.size < 0 || entry.size > 10 * 1024 * 1024) {
         throw new Error(`${client.slug}: missing, oversized or unsafe publication file: ${file}`);
@@ -56,6 +58,12 @@ export async function fetchClientSources({ token, clients = loadClients(), overr
       if (bytes.length !== entry.size || hash !== entry.sha) throw new Error('Client source integrity check failed');
       files.push([file, bytes]);
     }
+    // Record the revision's actual files so stale cache assets cannot leak into a rollback.
+    const metadataPath = join(destination, client.slug, '.publication.json');
+    checkedDirectory(dirname(metadataPath));
+    if (existsSync(metadataPath) && (lstatSync(metadataPath).isSymbolicLink() || !lstatSync(metadataPath).isFile())) {
+      throw new Error('Unsafe source publication record');
+    }
     // Download and verify the complete client before writing its local source cache.
     for (const [file, bytes] of files) {
       const target = join(destination, client.slug, file);
@@ -63,6 +71,7 @@ export async function fetchClientSources({ token, clients = loadClients(), overr
       if (existsSync(target) && (lstatSync(target).isSymbolicLink() || !lstatSync(target).isFile())) throw new Error('Unsafe source file');
       writeFileSync(target, bytes);
     }
+    writeFileSync(metadataPath, JSON.stringify({ version: 1, revision: commit.sha, files: files.map(([file]) => file) }));
     revisions[client.slug] = commit.sha;
     console.log(`Fetched ${client.slug} at ${commit.sha}`);
   }

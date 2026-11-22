@@ -1,17 +1,21 @@
 import { createServer } from 'node:http';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { extname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { preparePublic, publicFiles } from './prepare-public.mjs';
 import { loadClients } from './clients.mjs';
 const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8', '.svg': 'image/svg+xml', '.png': 'image/png',
-  '.jpg': 'image/jpeg', '.webp': 'image/webp', '.txt': 'text/plain; charset=utf-8', '.xml': 'application/xml' };
+  '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.ico': 'image/x-icon',
+  '.woff': 'font/woff', '.woff2': 'font/woff2', '.txt': 'text/plain; charset=utf-8', '.xml': 'application/xml' };
 export function createPreviewServer(root, { includeClients = false } = {}) {
   const files = new Set(publicFiles);
   if (includeClients) {
     for (const client of loadClients()) {
-      for (const file of client.files) files.add(`klienter/${client.slug}/${file}`);
+      for (const file of client.files) {
+        const relative = `klienter/${client.slug}/${file}`;
+        if (existsSync(join(root, relative))) files.add(relative);
+      }
     }
   }
   return createServer((request, response) => {

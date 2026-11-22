@@ -162,3 +162,15 @@ test('failed authentication, symlinks and corrupted downloads cannot replace cac
     assert.equal(readFileSync(join(root, 'demo/index.html'), 'utf8'), 'previous');
   }
 });
+
+test('rollback excludes cached assets absent from the selected revision and still rejects missing referenced assets', async () => {
+  const root = fixture();
+  const oldClient = { ...client, files: ['index.html', 'new.jpg'] };
+  save(root, 'demo/new.jpg', 'cached from a newer revision');
+  await fetchClientSources({ token: 'test-token', clients: [oldClient], destinationRoot: root, fetchImpl: remoteFixture().fetchImpl });
+  const output = clientPublication(root, [oldClient]);
+  assert.ok(output.has('klienter/demo/index.html'));
+  assert.ok(!output.has('klienter/demo/new.jpg'));
+  save(root, 'demo/index.html', '<html><head></head><body><img src="new.jpg"></body></html>');
+  assert.throws(() => clientPublication(root, [oldClient]), /excluded resource/);
+});

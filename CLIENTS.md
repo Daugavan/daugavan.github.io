@@ -36,14 +36,15 @@ eller privata filinnehåll.
    **Actions: Read and write**. Spara den som **PORTFOLIO_DISPATCH_TOKEN**
    i klientrepots Actions Secrets. Välj ett utgångsdatum och förnya innan dess.
    Tokens ska anges direkt i GitHubs Secrets-UI, aldrig i chatt, Git eller filer.
-3. Installera `config/client-notify.yml` som
-   `.github/workflows/notify-portfolio.yml` i klientrepot.
-4. I portfoliorepot, välj **Settings → Pages → Build and deployment → Source:
+3. I portfoliorepot, välj **Settings → Pages → Build and deployment → Source:
    GitHub Actions**. Kontrollera att miljön `github-pages` tillåter `main` och
    att befintliga miljökrav inte blockerar automatisk publicering.
-5. Kör **Publish portfolio and client previews** manuellt på `main` första gången.
+4. För in portfolions implementation på `main` och kontrollera dess första
+   automatiska körning. Vid behov kör **Publish portfolio and client previews** manuellt.
    Kontrollera både portfolions startsida och alla fem sidor under
    `/klienter/cocothai/` innan migreringen bedöms klar.
+5. Installera därefter `config/client-notify.yml` som
+   `.github/workflows/notify-portfolio.yml` i klientrepots `main`.
 6. Starta klientrepots notifieringsworkflow manuellt för att verifiera kopplingen.
    Därefter startar push till klientens `main` publiceringen automatiskt.
 
@@ -84,6 +85,8 @@ och en uttrycklig lista över alla HTML-, CSS-, JavaScript-, bild- och typsnitts
 som behövs. Indexfilen måste heta `index.html`. Inkludera inga interna dokument,
 tester, miljöfiler eller backendfiler. Kontrollera att lokala länkar fungerar under
 undermappen och att klienten kan serveras statiskt; backend kräver separat drift.
+När nya resurser tillkommer måste tillåtelselistan uppdateras. En referens till en
+olistad eller saknad fil stoppar publiceringen i stället för att ge en trasig sida.
 
 Ge lästoken åtkomst till det nya privata repot och installera notifieringsworkflow
 med dess egen dispatch-secret där. Kör publiceringstesterna och verifiera resultatet.
@@ -96,6 +99,9 @@ från varandra. Lägg därför endast betrodd klientkod på denna adress.
 Kör portfolions **Publish portfolio and client previews** manuellt på `main`, med
 `client: cocothai` och `ref` satt till önskad fullständig 40-teckens commit-SHA.
 Övriga klienter och portfolion byggs från aktuell main. Revisionerna visas i byggloggen.
+En privat `.publication.json` i källcachen anger revisionens faktiska filbestånd;
+nyare cachade bilder följer inte med när en äldre revision återpubliceras. Bilder
+och typsnitt som ännu inte fanns i den valda revisionen utelämnas om de inte refereras.
 En sådan återställning gäller denna publicering; nästa automatiska körning använder
 main igen. För en bestående återställning, återställ ändringen i klientens main.
 Ändra inga skyddade säkerhetskopior. Vid tokenfel eller testfel: rätta orsaken och
