@@ -3,6 +3,7 @@
   "clients": [
     {
       "slug": "cocothai",
+      "label": "Coco Thai",
       "repository": "Daugavan/cocothaiflower",
       "branch": "main",
       "files": [

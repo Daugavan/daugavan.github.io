@@ -17,6 +17,9 @@ export function loadClients(path = join(projectRoot, 'clients.json')) {
       throw new Error('Invalid or duplicate client slug');
     }
     slugs.add(client.slug);
+    if (client.label !== undefined && (typeof client.label !== 'string' || !client.label.trim() || client.label.length > 100)) {
+      throw new Error(`Invalid client label for ${client.slug}`);
+    }
     if (!/^[\w-]+\/[\w.-]+$/.test(client.repository) || client.branch !== 'main') {
       throw new Error(`Invalid source for ${client.slug}`);
     }
@@ -56,6 +59,14 @@ export function previewHtml(html) {
   return html.replace(/<meta\b[^>]*>/gi, tag =>
     /\bname\s*=\s*(["'])(?:robots|googlebot|bingbot)\1/i.test(tag) ? '' : tag
   ).replace(/<\/head\s*>/i, '  <meta name="robots" content="noindex, nofollow">\n</head>');
+}
+
+export function renderClientDirectory(template, clients = loadClients()) {
+  const escape = value => value.replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
+  const marker = /<!-- client-links:start -->[\s\S]*?<!-- client-links:end -->/;
+  if (!marker.test(template)) throw new Error('Missing client directory marker');
+  const links = clients.map(client => `        <li><a href="/klienter/${client.slug}/">${escape(client.label ?? client.slug)}</a></li>`).join('\n');
+  return template.replace(marker, () => `<!-- client-links:start -->\n${links}\n        <!-- client-links:end -->`);
 }
 
 export function validateClientReferences(client, files) {

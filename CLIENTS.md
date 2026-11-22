@@ -1,9 +1,11 @@
-# Olänkade klientförhandsvisningar
+# Klientförhandsvisningar via Seedy
 
 Klienternas webbplatser visas direkt under `https://daugavan.github.io/klienter/<slug>/`.
 Första klienten är `cocothai`, från det privata repot `Daugavan/cocothaiflower`.
-Sidorna är offentliga och kan delas. Avsaknad av länkar och `noindex, nofollow` är
-ingen åtkomstspärr. HTML, JavaScript, CSS och bilder är alltid läsbara för besökare.
+Robotens båda ögon i sidfoten leder till `/klienter/`, en enkel lista över klienter.
+Ögonlänkarna fungerar även med tangentbord och listan fungerar utan JavaScript.
+Listan och klientsidorna har `noindex, nofollow`. De är offentliga och kan delas;
+detta är ingen åtkomstspärr. HTML, JavaScript, CSS och bilder är läsbara för besökare.
 
 ## Publiceringsflöde
 
@@ -18,7 +20,8 @@ Interna länkar och resurser kontrolleras mot klientens fillista. Relativa URL:e
 för lokala resurser; absoluta externa länkar fungerar som i originalet.
 Portfolions befintliga filer kopieras utan innehållsändringar. Rotens robots.txt
 tillåter läsning så sökmotorer kan upptäcka sidornas noindex-instruktion.
-Klienterna läggs inte till i portfolions navigation, sitemap eller llms.txt.
+Listans länkar genereras från registret vid varje bygge, med `label` som visningsnamn
+eller `slug` om namnet saknas. De läggs inte till i huvudmenyn, sitemap eller llms.txt.
 
 Workflow `deploy-pages.yml` bygger och testar hela webbplatsen före en gemensam
 Pages-publicering. Ett fel lämnar föregående driftsatta version kvar. Klientkoden

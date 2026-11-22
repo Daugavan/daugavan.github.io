@@ -4,7 +4,7 @@ import { once } from 'node:events';
 import { mkdirSync, mkdtempSync, readFileSync, writeFileSync, symlinkSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import test from 'node:test';
-import { clientPublication, loadClients, previewHtml, projectRoot } from '../scripts/clients.mjs';
+import { clientPublication, loadClients, previewHtml, projectRoot, renderClientDirectory } from '../scripts/clients.mjs';
 import { fetchClientSources } from '../scripts/fetch-client-sources.mjs';
 import { preparePublic, publicFiles } from '../scripts/prepare-public.mjs';
 import { createPreviewServer } from '../scripts/preview.mjs';
@@ -50,6 +50,17 @@ test('deployment replaces indexing instructions while preserving source, body an
   assert.doesNotMatch(previewHtml('<head><meta content="index" name=\'googlebot\'></head>'), /googlebot/);
 });
 
+test('client directory follows the registry, escapes labels and prevents indexing', () => {
+  const template = readFileSync(join(projectRoot, 'klienter/index.html'), 'utf8');
+  const html = renderClientDirectory(template, [{ ...client, label: 'Demo & <script>unsafe</script>' }, { ...client, slug: 'second' }]);
+  assert.match(html, /href="\/klienter\/demo\/"/);
+  assert.match(html, /Demo &amp; &lt;script&gt;unsafe&lt;\/script&gt;/);
+  assert.match(html, /href="\/klienter\/second\/">second</);
+  assert.doesNotMatch(html, /href="\/klienter\/cocothai\/"/);
+  assert.match(html, /content="noindex, nofollow"/);
+  assert.throws(() => renderClientDirectory('<html></html>'), /Missing client directory marker/);
+});
+
 test('missing resources and links escaping the client directory block publication', () => {
   const root = fixture();
   save(root, 'demo/styles.css', '');
@@ -81,7 +92,11 @@ test('full package preserves every portfolio byte, includes only client allowlis
   }
   const output = join(root, 'output');
   preparePublic({ includeClients: true, sourceRoot: sources, output });
-  for (const file of publicFiles) assert.deepEqual(readFileSync(join(output, file)), readFileSync(join(projectRoot, file)));
+  for (const file of publicFiles) {
+    const original = readFileSync(join(projectRoot, file));
+    const expected = file === 'klienter/index.html' ? Buffer.from(renderClientDirectory(original.toString('utf8'))) : original;
+    assert.deepEqual(readFileSync(join(output, file)), expected);
+  }
   assert.ok(existsSync(join(output, 'klienter/cocothai/index.html')));
   assert.ok(!existsSync(join(output, 'klienter/cocothai/README.md')));
   save(output, 'unexpected.txt', 'preserved');
@@ -91,9 +106,10 @@ test('full package preserves every portfolio byte, includes only client allowlis
   assert.deepEqual(readFileSync(join(output, 'index.html')), previous);
 });
 
-test('preview serves directory URLs, redirects missing slash, handles HEAD and returns 404 without a client listing', async () => {
+test('preview serves the client directory and pages, redirects missing slash, handles HEAD and unknown URLs', async () => {
   const root = fixture();
   save(root, '404.html', 'Not found');
+  save(root, 'klienter/index.html', 'Client list');
   save(root, 'klienter/cocothai/index.html', page);
   save(root, 'klienter/cocothai/meny.html', 'Menu');
   const server = createPreviewServer(root, { includeClients: true }).listen(0, '127.0.0.1');
@@ -108,7 +124,8 @@ test('preview serves directory URLs, redirects missing slash, handles HEAD and r
     const head = await fetch(origin + '/klienter/cocothai/', { method: 'HEAD' });
     assert.equal(head.status, 200);
     assert.equal(await head.text(), '');
-    for (const path of ['/klienter/', '/klienter/unknown/', '/klienter/cocothai/README.md', '/klienter/cocothai/%2e%2e%2fsecret']) {
+    assert.equal(await (await fetch(origin + '/klienter')).text(), 'Client list');
+    for (const path of ['/klienter/unknown/', '/klienter/cocothai/README.md', '/klienter/cocothai/%2e%2e%2fsecret']) {
       assert.equal((await fetch(origin + path)).status, 404);
     }
     assert.equal((await fetch(origin + '/%ZZ')).status, 400);

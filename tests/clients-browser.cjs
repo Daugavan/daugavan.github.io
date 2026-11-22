@@ -74,19 +74,40 @@ const { chromium } = require(path.resolve(process.argv[2]));
       }
       assert.deepEqual(errors, []);
       assert.deepEqual(failures, []);
+      for (const eyeIndex of [0, 1]) {
+        await page.goto(origin, { waitUntil: 'networkidle' });
+        const eye = page.locator('.seedy-eye-link').nth(eyeIndex);
+        assert.equal(await page.locator('.seedy-eye-link').count(), 2);
+        await eye.scrollIntoViewIfNeeded();
+        const hit = await eye.locator('.seedy-eye-hit').boundingBox();
+        assert.ok(hit.width >= 44 && hit.height >= 44, `Eye target too small: ${JSON.stringify(hit)}`);
+        if (eyeIndex === 0) await eye.click();
+        else { await eye.focus(); await page.keyboard.press('Enter'); }
+        await page.waitForURL(origin + '/klienter/');
+        await page.getByRole('heading', { name: 'Klientprojekt' }).waitFor();
+        if (eyeIndex === 0) await page.screenshot({ path: path.join(evidence, `directory-${width}.png`) });
+        await page.getByRole('link', { name: 'Coco Thai', exact: true }).click();
+        await page.waitForURL(origin + '/klienter/cocothai/');
+      }
       await context.close();
     }
-    // Hidden means no discovery links or catalogue page, not authentication.
+    // The discreet robot entrance is the only portfolio link to the directory.
     const page = await browser.newPage();
     await page.goto(origin, { waitUntil: 'networkidle' });
-    assert.equal(await page.locator('a[href*="/klienter/"]').count(), 0);
-    for (const location of ['/klienter/', '/klienter/unknown/', '/klienter/cocothai/README.md']) {
+    assert.equal(await page.locator('a[href*="/klienter/"]').count(), 2);
+    for (const location of ['/klienter/unknown/', '/klienter/cocothai/README.md']) {
       assert.equal((await page.goto(origin + location)).status(), 404);
     }
     await page.goto(origin + '/klienter/cocothai');
     assert.equal(new URL(page.url()).pathname, '/klienter/cocothai/');
+    const noJs = await browser.newContext({ javaScriptEnabled: false });
+    const plain = await noJs.newPage();
+    await plain.goto(origin + '/klienter/');
+    await plain.getByRole('link', { name: 'Coco Thai', exact: true }).click();
+    await plain.waitForURL(origin + '/klienter/cocothai/');
+    await noJs.close();
     fs.writeFileSync(path.join(evidence, 'browser-results.json'), JSON.stringify(results, null, 2));
-    console.log(`Verified ${results.length} client page/viewport combinations, mobile navigation, glass persistence, forms, map, redirects and 404s.`);
+    console.log(`Verified ${results.length} client page/viewport combinations, both robot eyes, keyboard navigation, directory without JavaScript, forms, map, redirects and 404s.`);
   } finally {
     if (browser) await browser.close();
     server.closeAllConnections();

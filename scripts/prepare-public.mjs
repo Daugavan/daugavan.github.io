@@ -1,13 +1,14 @@
 import { existsSync, lstatSync, mkdirSync, readdirSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { clientPublication, readConfinedFile } from './clients.mjs';
+import { clientPublication, readConfinedFile, renderClientDirectory } from './clients.mjs';
 
 export const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export const publicFiles = [
   '.nojekyll', 'index.html', '404.html', 'privacy.html', 'cookies.html', 'app.js', 'glass.js', 'boot.js', 'activity.js', 'statistics-data.js', 'seedy.js', 'styles.css',
   '404.css', 'robots.txt', 'sitemap.xml', 'llms.txt', 'favicon.svg', 'favicon.png', 'favicon.ico',
   'apple-touch-icon.png', 'og-cover.jpg',
+  'klienter/index.html', 'klienter/styles.css',
   'images/profile-avatar.webp', 'images/lovable-profile-clean.webp',
   'images/identity-cover.webp', 'images/identity-lamps-off.webp',
   'images/promptflower-icon.webp', 'images/promptflower-wordmark.webp',
@@ -24,6 +25,7 @@ export const publicFiles = [
 export function preparePublic({ includeClients = false, sourceRoot, output = join(projectRoot, 'site-dist') } = {}) {
   // Read and validate the entire package before changing any output files.
   const publication = new Map(publicFiles.map(file => [file, readConfinedFile(projectRoot, file)]));
+  publication.set('klienter/index.html', Buffer.from(renderClientDirectory(publication.get('klienter/index.html').toString('utf8'))));
   if (includeClients) {
     for (const [file, bytes] of clientPublication(sourceRoot)) publication.set(file, bytes);
   }

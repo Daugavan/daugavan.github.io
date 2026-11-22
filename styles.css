@@ -1973,6 +1973,10 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--neon); outl
 .seedy-companion { width: min(100%, 280px); margin: 24px auto 0; }
 .seedy-stage { width: 100%; aspect-ratio: 5 / 4; }
 .seedy-stage > svg { display: block; width: 100%; height: 100%; overflow: hidden; }
+.seedy-stage .seedy-eye-link { cursor: pointer; }
+.seedy-stage .seedy-eye-hit { fill: transparent; stroke: none; pointer-events: all; }
+.seedy-stage .seedy-eye-link:focus-visible { outline: none; }
+.seedy-stage .seedy-eye-link:focus-visible .seedy-eye-hit { stroke: var(--neon); stroke-width: 2; }
 .seedy-stage :is(path, polygon, ellipse, line) {
   fill: var(--bg-0); stroke: var(--ink-3); stroke-width: 1;
   stroke-linecap: round; stroke-linejoin: round;

@@ -740,7 +740,7 @@ var HL = (() => {
 function hairline(figure) {
   const stage = document.getElementById('seedy-stage');
   if (!stage) return;
-  const svg = HL.mk('svg', { viewBox: '0 0 400 320', 'aria-hidden': 'true' }, stage);
+  const svg = HL.mk('svg', { viewBox: '0 0 400 320', role: 'group', 'aria-label': 'Seedy' }, stage);
   const read = { textContent: 'rest' };
   const handle = figure.mount({ stage, svg, read }, figure.range[1]);
   const button = document.getElementById('seedy-pause');
@@ -775,7 +775,12 @@ function mount({ stage, svg, read }, value) {
   const body = solid(g), seed = solid(g), stem = mk("path", { class: "nf sil" }, g);
   const leafL = solid(g), leafR = solid(g), head = solid(g);
   const face = mk("path", { class: "nf lo" }, g);
-  const eyes = [-1, 1].map(() => mk("path", { class: "nf" }, g));
+  const eyes = [-1, 1].map(() => {
+    const link = mk("a", { href: "/klienter/", class: "seedy-eye-link", tabindex: "0", "aria-label": "Client projects" }, g);
+    const hit = mk("path", { class: "seedy-eye-hit" }, link);
+    const shape = mk("path", { class: "nf" }, link);
+    return { shape, hit };
+  });
 
   function draw() {
     const breath = strength > 0 && !reducedMotion() ? Math.sin(phase * 1.5) * 0.85 : 0;
@@ -818,7 +823,10 @@ function mount({ stage, svg, read }, value) {
     box(head, -53, 57, 53, 119, 15, 22, 0);
     face.setAttribute("d", poly(rrect(-44, 65, 44, 110, 11, 12).map(q => Q(q.u, q.v, 23))));
     eyes.forEach((eye, i) => {
-      eye.setAttribute("d", poly(rrect(-2.6, -3.8, 2.6, 3.8, 1.9, 6)
+      const center = (i ? 24 : -24) + gaze.x * 2.5;
+      eye.hit.setAttribute("d", poly(rrect(-18, -22, 18, 22, 5, 6)
+        .map(q => Q(center + q.u, 83 + q.v, 24))));
+      eye.shape.setAttribute("d", poly(rrect(-2.6, -3.8, 2.6, 3.8, 1.9, 6)
         .map(q => Q((i ? 24 : -24) + gaze.x * 2.5 + q.u, 83 + q.v, 24))));
     });
   }

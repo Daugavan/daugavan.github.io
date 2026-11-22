@@ -1,7 +1,7 @@
 function hairline(figure) {
   const stage = document.getElementById('seedy-stage');
   if (!stage) return;
-  const svg = HL.mk('svg', { viewBox: '0 0 400 320', 'aria-hidden': 'true' }, stage);
+  const svg = HL.mk('svg', { viewBox: '0 0 400 320', role: 'group', 'aria-label': 'Seedy' }, stage);
   const read = { textContent: 'rest' };
   const handle = figure.mount({ stage, svg, read }, figure.range[1]);
   const button = document.getElementById('seedy-pause');
