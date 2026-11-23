@@ -1919,11 +1919,11 @@ body { overflow-wrap: anywhere; }
 
 /* Liquid Glass-inspired web materials; all numeric values are project choices. */
 :root {
-  --glass-surface: rgba(17, 30, 26, 0.82);
-  --glass-scrolled: rgba(14, 24, 22, 0.94);
+  --glass-surface: rgba(14, 16, 22, 0.82);
+  --glass-scrolled: rgba(14, 16, 22, 0.94);
   --glass-edge: rgba(245, 237, 224, 0.18);
   --glass-highlight: rgba(245, 237, 224, 0.32);
-  --glass-solid: #121c19;
+  --glass-solid: #0E1016;
   --glass-selected-solid: #29493a;
   --glass-radius: 9999px;
   --glass-blur: 14px;
