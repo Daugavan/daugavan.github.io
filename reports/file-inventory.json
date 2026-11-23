@@ -1,0 +1,438 @@
+{
+  "date": "2026-10-07",
+  "target": "C:\\Users\\unknownuser\\Documents\\RobotHaven\\projects\\flowerprojects\\daugavan.github.io-main",
+  "originalFiles": 61,
+  "scope": "Local current files; image container metadata rather than visual/forensic review",
+  "excluded": [
+    "site-dist duplicates",
+    "inventory itself (self digest)"
+  ],
+  "files": [
+    {
+      "file": ".codex-remote-attachments/01a0f6c1-7e00-7080-91e4-087ab735b489/b4cf166c-4175-4afe-ad70-db3dec684e98/1-1000086218.jpg",
+      "bytes": 73198,
+      "sha256": "6af5c9a7210d85a002b036c4f002941aad69a792d1ac7a5f2ff6d81f89cc6c12",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": ".codex-remote-attachments/01a0f6c1-7e00-7080-91e4-087ab735b489/b4cf166c-4175-4afe-ad70-db3dec684e98/2-1000086215.jpg",
+      "bytes": 72003,
+      "sha256": "3de3039b3959873220387e459fab17fca6f803ff34501c93b0d57860172c2cb8",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": ".codex-remote-attachments/gallery-mobile-check.png",
+      "bytes": 25096,
+      "sha256": "d2a1f90cc942a058022e209be257ddcf056488228e9998d4ec2fa2cc59cf4d10",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": ".gitignore",
+      "bytes": 11,
+      "sha256": "7b649d0bbbcd8449b1fd1bc77c87675b7a5313d67a94b4f72e65234fe6a6e857",
+      "review": "source or document review"
+    },
+    {
+      "file": ".nojekyll",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "review": "source or document review"
+    },
+    {
+      "file": "404.css",
+      "bytes": 3830,
+      "sha256": "ad19ba2569dc01a0609c67107eeaefc20ff4963af326973916f02270edfef482",
+      "review": "source or document review"
+    },
+    {
+      "file": "404.html",
+      "bytes": 1756,
+      "sha256": "34dc152d8f94ad8b04a4cb773f0bffa5370fa7327b771025e54ab8faa51be6f3",
+      "review": "source or document review"
+    },
+    {
+      "file": "app.js",
+      "bytes": 42211,
+      "sha256": "7e3819c392262374b089d332827e1ec712a9093c9afae0af8a741701e1c4041e",
+      "review": "source or document review"
+    },
+    {
+      "file": "apple-touch-icon.png",
+      "bytes": 4905,
+      "sha256": "e0af932701df0238b2262a3cc9f18161469b2de22681f94e33271e4170e3fd62",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "assets/app.js",
+      "bytes": 156,
+      "sha256": "b9c6b431241eeb0d262a99955773ea93ed82ed4a2737452b7701036896e51f33",
+      "review": "source or document review"
+    },
+    {
+      "file": "DEPLOYMENT.md",
+      "bytes": 3249,
+      "sha256": "568570641964cd4fac9c0cd79f118b4c5925fda5904d01f843cb32a740aed801",
+      "review": "source or document review"
+    },
+    {
+      "file": "favicon.png",
+      "bytes": 75627,
+      "sha256": "4dce04c542660fd731c052c5bf864f8a4aa3402c47da306aaae34fc0068d22c1",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "favicon.svg",
+      "bytes": 887,
+      "sha256": "855059d65ed2857240ade01a6f21db7ec54b2289f2254ef69403000f749d7dd3",
+      "review": "source or document review"
+    },
+    {
+      "file": "images/gallery-arrow-left.jpg",
+      "bytes": 47743,
+      "sha256": "ebe8a79476967755b582aaa63988aa8b88363d7c97ed5002dd764a9672c60013",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/gallery-arrow-right.jpg",
+      "bytes": 51655,
+      "sha256": "6ffe1aac2d0ea1f74bb87dad6153376493b02f1a1acb5a44573b69392c9f0328",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/identity-cover.png",
+      "bytes": 2488031,
+      "sha256": "4591fb9213464c3d1155617378fb5f8584d552e6928fdc9e1553acf380908aaf",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/identity-cover.webp",
+      "bytes": 180428,
+      "sha256": "d6b531d8128f9ed1ba590dbc4416d290a34bab7939e0b6f542077f001e455b3d",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/identity-lamps-off.webp",
+      "bytes": 185508,
+      "sha256": "6af4e4d85701c291616ae0620da24dc4133762f192d4c1ebca60f5cfd8ca6c5e",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/lovable-heart-clean.png",
+      "bytes": 32576,
+      "sha256": "0773c527085df30f473061bc9ffaab812bce6314a56b12e871ad59207697e923",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/lovable-profile-clean.png",
+      "bytes": 2831947,
+      "sha256": "052b85e3fe18b145886bd08e5ebbce5516065f303897b36ed0011a05709175cd",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/lovable-profile-clean.webp",
+      "bytes": 1349240,
+      "sha256": "cb7561a4b57164eaea823eb39b60dff92d0aa17f1be466dfc5ab1dc792198055",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/lovable-profile.webp",
+      "bytes": 82272,
+      "sha256": "2d570b8b5236145af029a37ed6345ed9fc1b7b87814bd1859e7632d87dc0a9ac",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/lovable_heart_text.png",
+      "bytes": 33958,
+      "sha256": "5947d5909e12406e66b525ed946e94a86b6474fc68f83b501d88a130af8b8b26",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/loveable_heart.jpg",
+      "bytes": 4103,
+      "sha256": "642d070c909ceb94c5c0fbf558475c66e7eefec189dfd71545944c1a3cdb1e18",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (1)-sm.jpg",
+      "bytes": 29153,
+      "sha256": "5179065f74a7ce7f30842be26503989ac62317337842ba119540c5471dad95ee",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (1)-sm.webp",
+      "bytes": 29444,
+      "sha256": "b9861f699768b64a505b5d9c2d3978fcf288f1a1d95dcc2a88d76944c09ee2f7",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (1).jpg",
+      "bytes": 6210444,
+      "sha256": "226e2fee1fa38b7295894ccca6e296b3e3e82a87bd0f63723f5c6d953baa5cac",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (1).webp",
+      "bytes": 71316,
+      "sha256": "0a65d090748f199cca0f6345868d7645537f038e37ad2d2895ebec01fb545875",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (10).jpg",
+      "bytes": 6634698,
+      "sha256": "8459cd00f989628420fb550737251170210267e23411e0e64a5f1e1ede553875",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (2)-sm.jpg",
+      "bytes": 26897,
+      "sha256": "813fe9ca7fe960887529f6441e182298070f7f5dc6edfa19659991fc6fa5689f",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (2)-sm.webp",
+      "bytes": 30798,
+      "sha256": "dd49ebcb5406489d51341c402bc4bd07ce0e66e0c6e1c4e5e437d41aff318411",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (2).jpg",
+      "bytes": 9118436,
+      "sha256": "3c7bc309e5eca77724a855de22d1fd54c9c01aa9b26ddf3e3b8fdda3b8d2b73e",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (2).webp",
+      "bytes": 87200,
+      "sha256": "6be39d1c9c67efac72cc08c824b58ac0600d6237b0e0cae5c13f988220636994",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (3)-sm.jpg",
+      "bytes": 33683,
+      "sha256": "2136852d8aac61e764cff4b9d08563f7017a6528546f329a9f2d2b7d42e8720b",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (3)-sm.webp",
+      "bytes": 40820,
+      "sha256": "b62359e9da287bc09f99d4a88e82ceeafb4f1271e981b314fe68e483ef1f8d0e",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (3).jpg",
+      "bytes": 6154459,
+      "sha256": "fb35dfc2e451d7c48b17cd849908332df8ce7ad45c0cbe857a817034e2be5bcf",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (3).webp",
+      "bytes": 137630,
+      "sha256": "bb1944715ffd9739fb1ac4a1ae3076c30a32e2ec8d074abfbf534817960d2977",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (4)-sm.jpg",
+      "bytes": 34298,
+      "sha256": "2b72f9a2fb598413807f667730c804536d508d9bd832af05c193b8a3b4a767d3",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (4)-sm.webp",
+      "bytes": 44280,
+      "sha256": "af7195bd0df1bfbd0bd78a19a59e5efead18ec35f052e4c2fca097a62d1f6b50",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (4).jpg",
+      "bytes": 8145507,
+      "sha256": "dc51547738640f5903eb99426fc715164c5633fbce650e4bfa7e7953d49a4ea2",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (4).webp",
+      "bytes": 155686,
+      "sha256": "309c8853ffaae47d535f723d9c5e12d4993606477d297416b5920530857da182",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (5)-sm.jpg",
+      "bytes": 18664,
+      "sha256": "71d44348344e1adfbe1ca113650a6242d1aa1a930018ab4a4cf725dc22c235ed",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (5)-sm.webp",
+      "bytes": 14294,
+      "sha256": "2f9b6d11cb899c0c1f2cf9405d2f94c8ee3b16bacc04ede7852347d4b97f3194",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (5).jpg",
+      "bytes": 5237164,
+      "sha256": "235e4a7254cc43f2b7d9bc1194f91287ad6fb15f14a7d29611c9d9c4fbff5141",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (5).webp",
+      "bytes": 42922,
+      "sha256": "f19e407752ad118892db350cffa7839255586d96906e87c6fb7bdbf1e99a4444",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (6)-sm.jpg",
+      "bytes": 17803,
+      "sha256": "b82d9246a1baf8063438f67af2b4aae9cf346df69503792f690bc0694fe34130",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (6)-sm.webp",
+      "bytes": 18382,
+      "sha256": "eba8185ebf9104d126d9cc5b8225f355b27fe84a9f13fabb1571582dfa7ffcc4",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (6).jpg",
+      "bytes": 1249807,
+      "sha256": "17d4b23486504b62c0ffd4d29140a80bce15186e6549ab4e405a3b9cb6ad20ac",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (6).webp",
+      "bytes": 54590,
+      "sha256": "7359c459fb63982de59aaea398e6fcfe76f297b7b57259f9191521981fafed93",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (7).jpg",
+      "bytes": 1858701,
+      "sha256": "fcb650fb36b244cc5b5b822396982847e8ecf130963bc8f6f7ba72e7992d95e6",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (8).jpg",
+      "bytes": 1667872,
+      "sha256": "f5e81607d4aeb240ee7674fe2bed2b8a0fa613b4caf7a95ada98ec96c1690ba0",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/Portfolio (9).jpg",
+      "bytes": 7322377,
+      "sha256": "34634ea60397c56a30e4520951ad337c0e8abe93de9cf6221d3e3dc87ae8eaca",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/profile-avatar.webp",
+      "bytes": 103102,
+      "sha256": "a2aacf31c45f1e5e37d4c35fee5b58102b1e6332992238446a228ccbaca816f1",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/promptflower-icon.webp",
+      "bytes": 116992,
+      "sha256": "d98601a0c71a3c9ad3dad4dba69e8fc0702e58bc5b088d34a12a369af2f9c788",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/promptflower-mark.webp",
+      "bytes": 63994,
+      "sha256": "addaddd1eda320a5a697a24dd7df77855a72f46c6371f161543709fede1a6e66",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "images/promptflower-wordmark.webp",
+      "bytes": 49316,
+      "sha256": "49c6bf9af277095bccea5eebe84120d64ad28566d98f818d6f9633db4ad2a6e9",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "index.html",
+      "bytes": 18844,
+      "sha256": "48e47e423655ca0b49bd1032c4455b0de20176a450bc9904ec1070b3be4a3350",
+      "review": "source or document review"
+    },
+    {
+      "file": "llms.txt",
+      "bytes": 1425,
+      "sha256": "dfdc8f6911dc25f4db941c886502ac747ad1edb11574b726715780f14c6cbf5c",
+      "review": "source or document review"
+    },
+    {
+      "file": "og-cover.jpg",
+      "bytes": 86364,
+      "sha256": "acd2ec16dd49182e860d044dba9a5812b7bb0e39980f8af4839c69564e2eb5e3",
+      "review": "image container metadata inspection"
+    },
+    {
+      "file": "og-cover.svg",
+      "bytes": 3141,
+      "sha256": "62a808dc865e48a06c7b7a31b94d656f5456a6738401cada029d37ea1afe652a",
+      "review": "source or document review"
+    },
+    {
+      "file": "privacy.html",
+      "bytes": 2563,
+      "sha256": "ca5c20a4088d257f8763d592d7ad433f607bb570abfe4f7ec0aea6fca2a52ef9",
+      "review": "source or document review"
+    },
+    {
+      "file": "reports/image-metadata.json",
+      "bytes": 4648,
+      "sha256": "1048071b104ad35967962cb66e4accd75b782eb99c07ca87459f56756695ad5d",
+      "review": "source or document review"
+    },
+    {
+      "file": "reports/security-review-2026-10-07.md",
+      "bytes": 17912,
+      "sha256": "7b8b46cf447203e88b310cef52c5afbf5408b9e1d0cb193a08a025da35e4765e",
+      "review": "source or document review"
+    },
+    {
+      "file": "robots.txt",
+      "bytes": 479,
+      "sha256": "1b067d2cf09c6860e2f5d828ca0877971c03f3e35764df25d60bae2c726c2031",
+      "review": "source or document review"
+    },
+    {
+      "file": "scripts/inspect-images.mjs",
+      "bytes": 3760,
+      "sha256": "d412817b58a8b4f94e7c6c74785bb3b958feaf3fab327ee67f1e8b61baae1837",
+      "review": "source or document review"
+    },
+    {
+      "file": "scripts/prepare-public.mjs",
+      "bytes": 2870,
+      "sha256": "13d20a1e759beeb87e11a0cdfa3b6c26d66c42f69851b709629aa5e5a36629f8",
+      "review": "source or document review"
+    },
+    {
+      "file": "scripts/preview.mjs",
+      "bytes": 1356,
+      "sha256": "b32a777bae63beb407fa804982e05935470c4a2a651686a45fc560dcf026ab04",
+      "review": "source or document review"
+    },
+    {
+      "file": "sitemap.xml",
+      "bytes": 204,
+      "sha256": "4256263aa0107fb00b3891a3598832de27c70bdb2c01c8de84aa8486c0b731ff",
+      "review": "source or document review"
+    },
+    {
+      "file": "styles.css",
+      "bytes": 61360,
+      "sha256": "1227e829a2cb2efa44ec1182d87e9cc07126546792cd4764c1bbd8c5adb4b00c",
+      "review": "source or document review"
+    },
+    {
+      "file": "tests/dom-regression.cjs",
+      "bytes": 2866,
+      "sha256": "cb3585580e965a9c3694d98389e7afcfa24e50d6be36f1d3bdcc77fc70fdf164",
+      "review": "source or document review"
+    },
+    {
+      "file": "tests/security.test.mjs",
+      "bytes": 8832,
+      "sha256": "3a15f2805408117d20cf8361536ddc51e4f2c5a546043b062c4e3618852ba1d7",
+      "review": "source or document review"
+    }
+  ]
+}

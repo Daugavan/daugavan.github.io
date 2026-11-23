@@ -1,0 +1,19 @@
+# =====================================================
+# Coco Thai - Säkerhetsheaders (Netlify / Cloudflare Pages)
+# Deploy: filen läggs i publiceringsroten.
+# OBS! CSP speglar meta-taggen i HTML:en men är striktare:
+# frame-ancestors + upgrade-insecure-requests fungerar bara
+# via HTTP-header, inte via <meta>.
+# Kräver HTTPS - ta bort "upgrade-insecure-requests" tills
+# certifikat är på plats.
+# =====================================================
+
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-src https://www.openstreetmap.org; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; frame-ancestors 'none'; upgrade-insecure-requests
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(self), payment=(), interest-cohort=()
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin

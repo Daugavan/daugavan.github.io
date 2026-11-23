@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'; frame-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; upgrade-insecure-requests">
+  <meta name="theme-color" content="#0b1016">
+  <title>Lösenord · Klientprojekt</title>
+  <link rel="canonical" href="https://daugavan.github.io/klienter/access.html">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="/klienter/access.js" defer></script>
+</head>
+<body>
+  <main class="client-directory client-access-panel">
+    <h1 id="client-access-title">Skyddat klientområde</h1>
+    <p>Ange lösenordet för att öppna klientprojekten.</p>
+    <form id="client-access-form" method="post" action="/klienter/access.html" autocomplete="off" aria-labelledby="client-access-title">
+      <label class="client-access-label" for="client-access-password">Lösenord</label>
+      <input class="client-access-input" id="client-access-password" name="password" type="password" autocomplete="off" required autofocus>
+      <button class="client-access-button" id="client-access-submit" type="submit">Öppna klientprojekt</button>
+      <p class="client-access-error" id="client-access-message" role="status" aria-live="polite"></p>
+    </form>
+    <a class="home-link" href="/">Tillbaka till startsidan</a>
+  </main>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "method": "Trusted pointerdown to second requestAnimationFrame; upper-bound visual feedback proxy, not physical-device input latency. Button bounds before/after each toggle.",
+  "samples": [
+    {
+      "feedbackUpperBoundMs": 28.09999999962747,
+      "buttonWidthShiftPx": 0,
+      "buttonHeightShiftPx": 0
+    },
+    {
+      "feedbackUpperBoundMs": 7.700000001117587,
+      "buttonWidthShiftPx": 0,
+      "buttonHeightShiftPx": 0
+    },
+    {
+      "feedbackUpperBoundMs": 40.90000000037253,
+      "buttonWidthShiftPx": 0,
+      "buttonHeightShiftPx": 0
+    }
+  ]
+}

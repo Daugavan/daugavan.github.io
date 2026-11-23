@@ -1,0 +1,75 @@
+{
+  "engine": "156.0.8078.79",
+  "viewport": "1440x1000",
+  "method": "Minimum foreground contrast across the text rectangle after hiding text; sampled capsule edge against its adjacent composited background. Existing photo and menu backdrops; targeted controls only.",
+  "results": [
+    {
+      "selector": ".header .nav-link[aria-current]",
+      "state": "normal",
+      "minimumTextContrast": 14.22
+    },
+    {
+      "selector": ".header .nav-link[aria-current]",
+      "state": "hover",
+      "minimumTextContrast": 14.22
+    },
+    {
+      "selector": ".header-cta",
+      "state": "normal",
+      "minimumTextContrast": 6.58
+    },
+    {
+      "selector": ".header-cta",
+      "state": "hover",
+      "minimumTextContrast": 4.71
+    },
+    {
+      "selector": ".hero-cta .btn-primary",
+      "state": "normal",
+      "minimumTextContrast": 6.57
+    },
+    {
+      "selector": ".hero-cta .btn-primary",
+      "state": "hover",
+      "minimumTextContrast": 4.66
+    },
+    {
+      "selector": ".hero-cta .btn-outline-light",
+      "state": "normal",
+      "minimumTextContrast": 13.7
+    },
+    {
+      "selector": ".hero-cta .btn-outline-light",
+      "state": "hover",
+      "minimumTextContrast": 10.14
+    },
+    {
+      "selector": ".glass-toggle > span:first-child",
+      "state": "normal",
+      "minimumTextContrast": 14.81
+    },
+    {
+      "selector": ".glass-toggle-state",
+      "state": "normal",
+      "minimumTextContrast": 14.81
+    },
+    {
+      "selector": ".menu-nav-link.active",
+      "state": "normal",
+      "minimumTextContrast": 8.55
+    },
+    {
+      "selector": ".menu-nav-link:not(.active)",
+      "state": "normal",
+      "minimumTextContrast": 14.23
+    },
+    {
+      "selector": ".menu-nav-marker",
+      "sampledBoundaryContrast": 3.24
+    }
+  ],
+  "focus": {
+    "color": "rgb(91, 168, 122)",
+    "width": "2px"
+  }
+}

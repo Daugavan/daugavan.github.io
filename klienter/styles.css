@@ -1,0 +1,22 @@
+:root { color-scheme: dark; font-family: system-ui, sans-serif; background: #0b1016; color: #eef4f2; }
+* { box-sizing: border-box; }
+html.client-access-pending body { visibility: hidden !important; }
+body { margin: 0; min-height: 100svh; display: grid; align-items: center; padding: 24px; }
+.client-directory { width: min(100%, 36rem); margin: 48px auto; }
+h1 { margin: 0 0 12px; font-size: clamp(2rem, 6vw, 2.75rem); font-weight: 600; letter-spacing: -.035em; }
+p { color: #b5c2bd; line-height: 1.6; margin: 0 0 32px; }
+.client-list { display: grid; gap: 12px; padding: 0; margin: 0 0 24px; list-style: none; }
+a { color: inherit; text-decoration: none; }
+.client-list a { display: flex; align-items: center; min-height: 64px; padding: 18px 22px; border: 1px solid #35453f; border-radius: 14px; background: #141e1c; font-size: 1.125rem; }
+.client-list a:hover { border-color: #80d8b1; background: #1a2b24; }
+a:focus-visible { outline: 2px solid #80d8b1; outline-offset: 5px; }
+.home-link { display: inline-flex; align-items: center; min-height: 44px; color: #b5c2bd; }
+.home-link:hover { color: #eef4f2; text-decoration: underline; }
+.client-access-panel { max-width: 28rem; }
+.client-access-label { display: block; margin-bottom: 8px; color: #dce7e2; font-weight: 500; }
+.client-access-input { width: 100%; min-height: 48px; padding: 12px 14px; border: 1px solid #52645e; border-radius: 10px; background: #101817; color: #eef4f2; font: inherit; }
+.client-access-input:focus-visible, .client-access-button:focus-visible { outline: 2px solid #80d8b1; outline-offset: 3px; }
+.client-access-button { min-height: 48px; margin-top: 14px; padding: 0 18px; border: 1px solid #80d8b1; border-radius: 10px; background: #1a2b24; color: #eef4f2; font: inherit; cursor: pointer; }
+.client-access-button:hover { background: #233a30; }
+.client-access-error { min-height: 1.6em; margin: 12px 0 0; color: #ffb6a8; }
+@media (forced-colors: active) { .client-list a { border-color: ButtonText; } a:focus-visible { outline-color: Highlight; } }
