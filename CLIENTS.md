@@ -7,7 +7,7 @@ tryck och tangentbord, och klientlistan fungerar utan JavaScript.
 ## Vanlig mapp i hemsidans repo
 
 `klienter/cocothai/` innehåller en kopia av samtliga 110 versionshanterade filer
-från `Daugavan/cocothaiflower`, commit `6681258a3610852cbd4e0d82e7e6fa84f6bdd1a4`.
+från `Daugavan/cocothaiflower`, commit `9bbc3fd61d0a264ad20eaafa3507dfd9be01d0ce`.
 Git-metadata följer inte med: mappen är varken submodul, iframe eller separat Git-repo.
 HTML, CSS, JavaScript, JPG, WebP, dokumentation och befintliga klienttester finns med.
 De fem HTML-sidorna har fått `noindex, nofollow` för denna förhandsvisning; klientens
