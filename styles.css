@@ -1330,7 +1330,8 @@ html.boot-active, .boot-active body { overflow: hidden; }
     .g-lightbox.is-open { opacity: 1; }
     .g-lightbox figure {
       margin: 0;
-      max-width: min(1100px, 100%);
+      width: min(1100px, 86vw);
+      max-width: 100%;
       min-width: 0;
       min-height: 0;
       flex: 0 1 auto;
@@ -1339,7 +1340,7 @@ html.boot-active, .boot-active body { overflow: hidden; }
       gap: .75rem;
     }
     .g-lightbox img {
-      width: auto;
+      width: 100%;
       height: auto;
       display: block;
       align-self: center;
@@ -2047,6 +2048,7 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--neon); outl
 .g-lightbox .g-photo-stage {
   position: relative;
   align-self: center;
+  width: 100%;
   max-width: 100%;
   min-height: 0;
   overflow: hidden;
