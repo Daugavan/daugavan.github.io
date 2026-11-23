@@ -12,18 +12,33 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <main class="client-directory">
-    <h1>Klientprojekt</h1>
-    <p>Välj en webbplats eller ett projekt.</p>
-    <nav aria-label="Klientprojekt">
-      <ul class="client-list">
-        <!-- client-links:start -->
-        <li><a href="/klienter/cocothai/">Coco Thai</a></li>
-        <!-- client-links:end -->
-      </ul>
-    </nav>
-    <a class="home-link" href="/">Tillbaka till startsidan</a>
-  </main>
+<body class="client-directory-page">
+  <div class="client-page-shell">
+    <header class="client-page-header" aria-label="Daugavan portfolio">
+      <a class="client-wordmark" href="/" aria-label="Daugavan, startsida">
+        <span class="client-wordmark-mark" aria-hidden="true">D</span>
+        <span>DAUGAVAN</span>
+      </a>
+      <a class="client-header-link" href="/">Till portfolion <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main class="client-directory client-directory-content">
+      <p class="client-eyebrow"><span aria-hidden="true"></span> Portfolio <span class="client-eyebrow-divider">/</span> Klienter</p>
+      <h1>Klientprojekt<span class="client-heading-period">.</span></h1>
+      <p class="client-intro">Utvalda samarbeten, samlade på ett ställe.</p>
+      <nav aria-label="Klientprojekt">
+        <ul class="client-list">
+          <!-- client-links:start -->
+          <li><a href="/klienter/cocothai/">Coco Thai</a></li>
+          <!-- client-links:end -->
+        </ul>
+      </nav>
+    </main>
+
+    <footer class="client-page-footer">
+      <a class="home-link" href="/">Tillbaka till startsidan <span aria-hidden="true">↗</span></a>
+      <span class="client-footer-note">Utvalda samarbeten <span aria-hidden="true">·</span> Daugavan</span>
+    </footer>
+  </div>
 </body>
 </html>

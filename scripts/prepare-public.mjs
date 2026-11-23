@@ -8,7 +8,7 @@ export const publicFiles = [
   '.nojekyll', 'index.html', '404.html', 'privacy.html', 'cookies.html', 'app.js', 'glass.js', 'boot.js', 'activity.js', 'statistics-data.js', 'seedy.js', 'styles.css',
   '404.css', 'robots.txt', 'sitemap.xml', 'llms.txt', 'favicon.svg', 'favicon.png', 'favicon.ico',
   'apple-touch-icon.png', 'og-cover.jpg',
-  'klienter/index.html', 'klienter/styles.css', 'klienter/access.html',
+  'klienter/index.html', 'klienter/styles.css', 'klienter/bergebo_pixelated.png', 'klienter/access.html',
   'klienter/access.js', 'klienter/access-lock.css',
   'images/profile-avatar.webp', 'images/lovable-profile-clean.webp',
   'images/identity-cover.webp', 'images/identity-lamps-off.webp',
