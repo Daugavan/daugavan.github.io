@@ -3,7 +3,7 @@
 
   const ACCESS_PATH = '/klienter/access.html';
   const ACCESS_KEY = 'daugavanClientAccessV1';
-  const PASSWORD_SHA256 = '4733a1e42f8047692b70f4887dd8e3e2d355afd2a34676ba38efc926299eb4d4';
+  const PASSWORD_SHA256 = '5e5b76c8ae35d7ecf95f0ae3d9ea40b7a9d05c537aafbfd536556bfbafdcb8d5';
   const GATE_PATH = `${location.pathname}${location.search}${location.hash}`;
 
   const safeReturnPath = value => {
